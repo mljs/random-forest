@@ -1,0 +1,39 @@
+{
+  "name": "ml-random-forest",
+  "version": "0.0.1",
+  "description": "Random forest for classification and regression",
+  "main": "./src/index.js",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "eslint": "eslint src test",
+    "eslint-fix": "npm run eslint -- --fix",
+    "test": "npm run test-mocha && npm run eslint",
+    "test-mocha": "mocha --require should --reporter mocha-better-spec-reporter"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mljs/random forest.git"
+  },
+  "keywords": [
+    "machine",
+    "learning",
+    "data",
+    "mining",
+    "datamining"
+  ],
+  "author": "Jefferson Hernandez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mljs/random-forest/issues"
+  },
+  "homepage": "https://github.com/mljs/random-forest#readme",
+  "devDependencies": {
+    "eslint": "^3.1.0",
+    "eslint-config-cheminfo": "^1.0.0",
+    "mocha": "^2.5.3",
+    "mocha-better-spec-reporter": "^3.0.2",
+    "should": "^10.0.0"
+  }
+}
