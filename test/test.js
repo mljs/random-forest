@@ -26,9 +26,15 @@ describe('Utils', function () {
         data.X.should.be.instanceOf(Matrix);
     });
 
-    it('Feature bagging', function () {
+    it('Feature bagging with replacement', function () {
         var data = Utils.featureBagging(testX, cols - 5, true, 7);
         new Set(data.usedIndex).size.should.be.lessThan(data.usedIndex.length);
+        data.X.columns.should.be.equal(20);
+    });
+
+    it('Feature bagging without replacement', function () {
+        var data = Utils.featureBagging(testX, cols - 5, false, 7);
+        new Set(data.usedIndex).size.should.be.equal(cols - 5);
         data.X.columns.should.be.equal(20);
     });
 });

@@ -65,6 +65,7 @@ function featureBagging(X, n, replacement, seed) {
                 index = distribution(engine);
             }
             toRet.setColumn(i, X.getColumn(index));
+            usedIndex.add(index);
         }
         usedIndex = Array.from(usedIndex);
     }
