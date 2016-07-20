@@ -10,7 +10,26 @@ var functions = {
     'log2': Math.log2
 };
 
+/**
+ * @class RandomForestBase
+ */
 class RandomForestBase {
+
+    /**
+     * Create a new base random forest for a classifier or regression model.
+     * @constructor
+     * @param {Object} options
+     * @param {Number|String} [options.maxFeatures] - the number of features used on each estimator.
+     *        * if is a String it support two methods to get the max features, "sqrt" or "log2" over all
+     *          sample features.
+     *        * if is an integer it selects maxFeatures elements over the sample features.
+     *        * if is a float between (0, 1), it takes the percentage of features.
+     * @param {Boolean} [options.replacement] - use replacement over the sample features.
+     * @param {Number} [options.seed] - seed for feature and samples selection, must be a 32-bit integer.
+     * @param {Number} [options.nEstimators] - number of estimator to use.
+     * @param {Object} [options.treeOptions] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
+     * @param {Boolean} [options.classifier] - boolean to check if is a classifier or regression model (used by subclasses).
+     */
     constructor(options, model) {
         if (options === true) {
             this.options = model.options;
@@ -34,6 +53,11 @@ class RandomForestBase {
         }
     }
 
+    /**
+     * Train the decision tree with the given training set and labels.
+     * @param {Matrix} trainingSet
+     * @param {Array} trainingValues
+     */
     train(trainingSet, trainingValues) {
         if (!Matrix.isMatrix(trainingSet)) {
             trainingSet = new Matrix(trainingSet);
@@ -77,10 +101,20 @@ class RandomForestBase {
         }
     }
 
+    /**
+     * selection method over the predictions of all estimators.
+     * @abstract
+     * @return {Number} prediction.
+     */
     selection() {
         throw new Error('Abstract method \'selection\' not implemented!');
     }
 
+    /**
+     * Predicts the output given the matrix to predict.
+     * @param {Matrix} toPredict
+     * @returns {Array} predictions
+     */
     predict(toPredict) {
         var predictionValues = new Array(this.options.nEstimators);
         for (var i = 0; i < this.options.nEstimators; ++i) {
@@ -97,6 +131,10 @@ class RandomForestBase {
         return predictions;
     }
 
+    /**
+     * Export the current model to JSON.
+     * @returns {Object} - Current model.
+     */
     export() {
         return {
             indexes: this.indexes,
@@ -106,6 +144,11 @@ class RandomForestBase {
         };
     }
 
+    /**
+     * Load a Decision tree classifier with the given model.
+     * @param {Object} model
+     * @returns {RandomForestBase}
+     */
     static load(model) {
         return new RandomForestBase(true, model);
     }
