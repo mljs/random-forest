@@ -88,3 +88,5 @@ class RandomForestBase {
         return predictions;
     }
 }
+
+module.exports = RandomForestBase;
