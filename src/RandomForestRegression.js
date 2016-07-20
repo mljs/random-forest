@@ -8,20 +8,40 @@ var selectionMethods = {
 };
 
 class RandomForestRegression extends RandomForestBase {
-    constructor(options) {
-        if(options === undefined) options = {};
-        if(options.selectionMethod === undefined) options.selectionMethod = 'mean';
+    constructor(options, model) {
+        if(options === true) {
+            super(true, model.baseModel);
+        } else {
+            if(options === undefined) options = {};
+            if(options.selectionMethod === undefined) options.selectionMethod = 'mean';
 
-        if(!['mean', 'median'].includes(options.selectionMethod)) {
-            throw new RangeError("Unsupported selection method " + options.selectionMethod);
+            if(!['mean', 'median'].includes(options.selectionMethod)) {
+                throw new RangeError("Unsupported selection method " + options.selectionMethod);
+            }
+
+            options.classifier = false;
+            super(options);
         }
-
-        options.classifier = false;
-        super(options);
     }
 
     selection(values) {
         return selectionMethods[this.options.selectionMethod](values);
+    }
+
+    export() {
+        var baseModel = super.export();
+        return {
+            baseModel: baseModel,
+            name: 'RFRegression'
+        };
+    }
+
+    static load(model) {
+        if (model.name !== 'RFRegression') {
+            throw new RangeError('Invalid model: ' + model.name);
+        }
+
+        return new RandomForestRegression(true, model);
     }
 }
 

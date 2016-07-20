@@ -11,18 +11,27 @@ var functions = {
 };
 
 class RandomForestBase {
-    constructor(options) {
-        if(options === undefined) options = {};
-        if(options.classifier === undefined) options.classifier = true;
-        if(options.nEstimators === undefined) options.nEstimators = 10;
-        if(options.replacement === undefined) options.replacement = true;
-        if(options.maxFeatures === undefined) options.maxFeatures = "sqrt";
+    constructor(options, model) {
+        if(options === true) {
+            this.options = model.options;
+            this.n = model.n;
+            this.indexes = model.indexes;
 
-        if(Utils.isString(options.maxFeatures) && functions[options.maxFeatures] === undefined) {
-            throw new RangeError("Not supported operation: " + options.maxFeatures);
+            var Estimator = this.options.classifier ? DTClassfier : DTRegression;
+            this.estimators = model.estimators.map(est => Estimator.load(est));
+        } else {
+            if(options === undefined) options = {};
+            if(options.classifier === undefined) options.classifier = true;
+            if(options.nEstimators === undefined) options.nEstimators = 10;
+            if(options.replacement === undefined) options.replacement = true;
+            if(options.maxFeatures === undefined) options.maxFeatures = "sqrt";
+
+            if(Utils.isString(options.maxFeatures) && functions[options.maxFeatures] === undefined) {
+                throw new RangeError("Not supported operation: " + options.maxFeatures);
+            }
+
+            this.options = options;
         }
-
-        this.options = options;
     }
 
     train(trainingSet, trainingValues) {
@@ -86,6 +95,19 @@ class RandomForestBase {
         }
 
         return predictions;
+    }
+
+    export() {
+        return {
+            indexes: this.indexes,
+            n: this.n,
+            options: this.options,
+            estimators: this.estimators.map(est => est.export())
+        };
+    }
+
+    static load(model) {
+        return new RandomForestBase(true, model);
     }
 }
 

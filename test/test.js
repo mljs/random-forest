@@ -31,7 +31,18 @@ describe('Basic functionality', function () {
 
             var score = correct / result.length;
             score.should.be.aboveOrEqual(0.7);
-        })
+        });
+
+        it("Export and import for random forest classifier", function () {
+            var model = JSON.parse(JSON.stringify(classifier.export()));
+
+            var newClassifier = RFClassifier.load(model);
+            var newResult = newClassifier.predict(trainingSet);
+
+            for(var i = 0; i < result.length; ++i) {
+                newResult[i].should.be.equal(result[i]);
+            }
+        });
     });
 
     describe('Random Forest Regression', function () {
@@ -89,7 +100,18 @@ describe('Basic functionality', function () {
 
             var score = correct / result.length;
             score.should.be.aboveOrEqual(0.7);
-        })
+        });
+
+        it("Export and import for random forest regression", function () {
+            var model = JSON.parse(JSON.stringify(regression.export()));
+
+            var newClassifier = RFRegression.load(model);
+            var newResult = newClassifier.predict(trainingSet);
+
+            for(var i = 0; i < result.length; ++i) {
+                newResult[i].should.be.approximately(result[i], 0.01);
+            }
+        });
     });
 });
 
