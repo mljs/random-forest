@@ -85,8 +85,19 @@ function retrieveFeatures(X, indexes) {
     return toRet;
 }
 
+function isString(s) {
+    return typeof s === "string" || s instanceof String;
+}
+
+function checkFloat(n) {
+    return n > 0.0 && n < 1.0;
+}
+
 module.exports = {
     examplesBaggingWithReplacement: examplesBaggingWithReplacement,
     featureBagging: featureBagging,
-    retrieveFeatures: retrieveFeatures
+    retrieveFeatures: retrieveFeatures,
+    isInt: isInt,
+    isString: isString,
+    checkFloat: checkFloat
 };
