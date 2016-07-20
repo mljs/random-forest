@@ -4,10 +4,10 @@ var RandomForestBase = require('./RandomForestBase');
 
 class RandomForestClassifier extends RandomForestBase {
     constructor(options, model) {
-        if(options === true) {
+        if (options === true) {
             super(true, model.baseModel);
         } else {
-            if(options === undefined) options = {};
+            if (options === undefined) options = {};
             options.classifier = true;
             super(options);
         }
@@ -34,10 +34,10 @@ class RandomForestClassifier extends RandomForestBase {
     }
 }
 
-function mode(arr){
-    return arr.sort((a,b) =>
-        arr.filter(v => v===a).length
-        - arr.filter(v => v===b).length
+function mode(arr) {
+    return arr.sort((a, b) =>
+        arr.filter(v => v === a).length
+        - arr.filter(v => v === b).length
     ).pop();
 }
 

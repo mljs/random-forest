@@ -9,14 +9,14 @@ var selectionMethods = {
 
 class RandomForestRegression extends RandomForestBase {
     constructor(options, model) {
-        if(options === true) {
+        if (options === true) {
             super(true, model.baseModel);
         } else {
-            if(options === undefined) options = {};
-            if(options.selectionMethod === undefined) options.selectionMethod = 'mean';
+            if (options === undefined) options = {};
+            if (options.selectionMethod === undefined) options.selectionMethod = 'mean';
 
-            if(!['mean', 'median'].includes(options.selectionMethod)) {
-                throw new RangeError("Unsupported selection method " + options.selectionMethod);
+            if (!['mean', 'median'].includes(options.selectionMethod)) {
+                throw new RangeError('Unsupported selection method ' + options.selectionMethod);
             }
 
             options.classifier = false;
@@ -47,7 +47,7 @@ class RandomForestRegression extends RandomForestBase {
 
 function mean(values) {
     var sum = 0;
-    for(var i = 0; i < values.length; ++i) {
+    for (var i = 0; i < values.length; ++i) {
         sum += values[i];
     }
 
@@ -55,12 +55,14 @@ function mean(values) {
 }
 
 function median(values) {
-    values.sort( function(a,b) {return a - b;} );
-    var half = Math.floor(values.length/2);
-    if(values.length % 2)
+    values.sort(function (a, b) {
+        return a - b;
+    });
+    var half = Math.floor(values.length / 2);
+    if (values.length % 2)
         return values[half];
     else
-        return (values[half-1] + values[half]) / 2.0;
+        return (values[half - 1] + values[half]) / 2.0;
 }
 
 module.exports = RandomForestRegression;
