@@ -35,7 +35,7 @@ class RandomForestRegression extends RandomForestBase {
             if (options === undefined) options = {};
             if (options.selectionMethod === undefined) options.selectionMethod = 'mean';
 
-            if (!['mean', 'median'].includes(options.selectionMethod)) {
+            if (!(options.selectionMethod === 'mean' || options.selectionMethod === 'median')) {
                 throw new RangeError('Unsupported selection method ' + options.selectionMethod);
             }
 
