@@ -30,18 +30,18 @@ class RandomForestBase {
             trainingSet = new Matrix(trainingSet);
         }
 
-        if(Utils.isString(options.maxFeatures)) {
-            this.n = Math.floor(functions[options.maxFeatures](trainingSet.columns))
-        } else if(Utils.isInt(options.maxFeatures)) {
-            if(options.maxFeatures > trainingSet.columns) {
+        if(Utils.isString(this.options.maxFeatures)) {
+            this.n = Math.floor(functions[this.options.maxFeatures](trainingSet.columns))
+        } else if(Utils.isInt(this.options.maxFeatures)) {
+            if(this.options.maxFeatures > trainingSet.columns) {
                 throw new RangeError('The maxFeatures parameter should be lesser than ' + trainingSet.columns);
             } else {
-                this.n = options.maxFeatures;
+                this.n = this.options.maxFeatures;
             }
-        } else if(Utils.checkFloat(options.maxFeatures)){
-            this.n = Math.floor(trainingSet.columns * options.maxFeatures);
+        } else if(Utils.checkFloat(this.options.maxFeatures)){
+            this.n = Math.floor(trainingSet.columns * this.options.maxFeatures);
         } else {
-            throw new RangeError("Cannot process the maxFeatures parameter " + options.maxFeatures);
+            throw new RangeError("Cannot process the maxFeatures parameter " + this.options.maxFeatures);
         }
 
 
@@ -75,8 +75,8 @@ class RandomForestBase {
     predict(toPredict) {
         var predictionValues = new Array(this.options.nEstimators);
         for(var i = 0; i < this.options.nEstimators; ++i) {
-            var X = Utils.retrieveFeatures(toPredict, this.indexes[i]);
-            predictionValues[i] = this.estimators.predict(X);
+            var X = Utils.retrieveFeatures(new Matrix(toPredict), this.indexes[i]);
+            predictionValues[i] = this.estimators[i].predict(X);
         }
 
         predictionValues = new Matrix(predictionValues).transpose();

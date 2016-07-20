@@ -2,6 +2,40 @@
 
 var Utils = require("../src/Utils");
 var Matrix = require("ml-matrix");
+var irisDataset = require('ml-dataset-iris');
+var RFClassifier = require('..').RandomForestClassifier;
+var RFRegression = require('..').RandomForestRegression;
+
+describe('Basic functionality', function () {
+    describe('Random Forest Classifier', function () {
+        var trainingSet = irisDataset.getNumbers();
+        var predictions = irisDataset.getClasses().map(elem => irisDataset.getDistinctClasses().indexOf(elem));
+
+        var options = {
+            seed: 3,
+            maxFeatures: 4,
+            replacement: false,
+            nEstimators: 50,
+            treeOptions: undefined // default options for the decision tree
+        };
+
+        var classifier = new RFClassifier(options);
+        classifier.train(trainingSet, predictions);
+        var result = classifier.predict(trainingSet);
+
+        it('Random Forest Classifier with iris dataset', function () {
+            var correct = 0;
+            for(var i = 0 ; i < result.length; ++i) {
+                if(result[i] == predictions[i]) correct++;
+            }
+
+            var score = correct / result.length;
+            console.log(score);
+            score.should.be.aboveOrEqual(0.7);
+        })
+
+    });
+});
 
 describe('Utils', function () {
     it('Retrieve features', function () {
