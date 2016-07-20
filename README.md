@@ -10,7 +10,7 @@ Random forest for classification and regression
 ## Installation
 
 ```
-$ npm install ml-random forest
+$ npm install ml-random-forest
 ```
 
 ## License
