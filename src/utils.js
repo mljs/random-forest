@@ -4,14 +4,6 @@ var Random = require('random-js');
 var Matrix = require('ml-matrix');
 
 
-function isInt(n) {
-    return Number(n) === n && n % 1 === 0;
-}
-
-function isString(s) {
-    return typeof s === 'string' || s instanceof String;
-}
-
 function checkFloat(n) {
     return n > 0.0 && n < 1.0;
 }
@@ -21,15 +13,15 @@ function checkFloat(n) {
  * @ignore
  * @param {Matrix} trainingSet
  * @param {Array} trainingValue
- * @param {Number} seed - seed for the random selection, must be a 32-bit integer.
- * @return {{X: Matrix, y: Array}}
+ * @param {number} seed - seed for the random selection, must be a 32-bit integer.
+ * @return {object} with new X and y.
  */
 function examplesBaggingWithReplacement(trainingSet, trainingValue, seed) {
     var engine = Random.engines.mt19937();
     var distribution = Random.integer(0, trainingSet.rows - 1);
     if (seed === undefined) {
         engine = engine.autoSeed();
-    } else if (isInt(seed)) {
+    } else if (Number.isInteger(seed)) {
         engine = engine.seed(seed);
     } else {
         throw new RangeError('Expected seed must be undefined or integer not ' + seed);
@@ -54,10 +46,10 @@ function examplesBaggingWithReplacement(trainingSet, trainingValue, seed) {
  * selects n features from the training set with or without replacement, returns the new training set and the indexes used.
  * @ignore
  * @param {Matrix} trainingSet
- * @param {Number} n - features.
- * @param {Boolean} replacement
- * @param {Number} seed - seed for the random selection, must be a 32-bit integer.
- * @return {{X: *, usedIndex: Array}}
+ * @param {number} n - features.
+ * @param {boolean} replacement
+ * @param {number} seed - seed for the random selection, must be a 32-bit integer.
+ * @return {object}
  */
 function featureBagging(trainingSet, n, replacement, seed) {
     if (trainingSet.columns < n) {
@@ -68,7 +60,7 @@ function featureBagging(trainingSet, n, replacement, seed) {
     var engine = Random.engines.mt19937();
     if (seed === undefined) {
         engine = engine.autoSeed();
-    } else if (isInt(seed)) {
+    } else if (Number.isInteger(seed)) {
         engine = engine.seed(seed);
     } else {
         throw new RangeError('Expected seed must be undefined or integer not ' + seed);
@@ -122,7 +114,5 @@ module.exports = {
     examplesBaggingWithReplacement: examplesBaggingWithReplacement,
     featureBagging: featureBagging,
     retrieveFeatures: retrieveFeatures,
-    isInt: isInt,
-    isString: isString,
     checkFloat: checkFloat
 };

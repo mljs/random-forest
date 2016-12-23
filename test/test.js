@@ -1,6 +1,6 @@
 'use strict';
 
-var Utils = require('../src/Utils');
+var Utils = require('../src/utils');
 var Matrix = require('ml-matrix');
 var irisDataset = require('ml-dataset-iris');
 var RFClassifier = require('..').RandomForestClassifier;
@@ -34,7 +34,7 @@ describe('Basic functionality', function () {
         });
 
         it('Export and import for random forest classifier', function () {
-            var model = JSON.parse(JSON.stringify(classifier.export()));
+            var model = JSON.parse(JSON.stringify(classifier));
 
             var newClassifier = RFClassifier.load(model);
             var newResult = newClassifier.predict(trainingSet);
@@ -103,7 +103,7 @@ describe('Basic functionality', function () {
         });
 
         it('Export and import for random forest regression', function () {
-            var model = JSON.parse(JSON.stringify(regression.export()));
+            var model = JSON.parse(JSON.stringify(regression));
 
             var newClassifier = RFRegression.load(model);
             var newResult = newClassifier.predict(trainingSet);

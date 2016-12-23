@@ -2,13 +2,8 @@
 
 var DTClassfier = require('ml-cart').DecisionTreeClassifier;
 var DTRegression = require('ml-cart').DecisionTreeRegression;
-var Utils = require('./Utils');
+var Utils = require('./utils');
 var Matrix = require('ml-matrix');
-
-var functions = {
-    'sqrt': Math.sqrt,
-    'log2': Math.log2
-};
 
 /**
  * @class RandomForestBase
@@ -18,17 +13,16 @@ class RandomForestBase {
     /**
      * Create a new base random forest for a classifier or regression model.
      * @constructor
-     * @param {Object} options
-     * @param {Number|String} [options.maxFeatures] - the number of features used on each estimator.
-     *        * if is a String it support two methods to get the max features, "sqrt" or "log2" over all
-     *          sample features.
+     * @param {object} options
+     * @param {number|String} [options.maxFeatures] - the number of features used on each estimator.
      *        * if is an integer it selects maxFeatures elements over the sample features.
      *        * if is a float between (0, 1), it takes the percentage of features.
-     * @param {Boolean} [options.replacement] - use replacement over the sample features.
-     * @param {Number} [options.seed] - seed for feature and samples selection, must be a 32-bit integer.
-     * @param {Number} [options.nEstimators] - number of estimator to use.
-     * @param {Object} [options.treeOptions] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
-     * @param {Boolean} [options.classifier] - boolean to check if is a classifier or regression model (used by subclasses).
+     * @param {boolean} [options.replacement] - use replacement over the sample features.
+     * @param {number} [options.seed] - seed for feature and samples selection, must be a 32-bit integer.
+     * @param {number} [options.nEstimators] - number of estimator to use.
+     * @param {object} [options.treeOptions] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
+     * @param {boolean} [options.classifier] - boolean to check if is a classifier or regression model (used by subclasses).
+     * @param {object} model - for load purposes.
      */
     constructor(options, model) {
         if (options === true) {
@@ -43,11 +37,6 @@ class RandomForestBase {
             if (options.classifier === undefined) options.classifier = true;
             if (options.nEstimators === undefined) options.nEstimators = 10;
             if (options.replacement === undefined) options.replacement = true;
-            if (options.maxFeatures === undefined) options.maxFeatures = 'sqrt';
-
-            if (Utils.isString(options.maxFeatures) && functions[options.maxFeatures] === undefined) {
-                throw new RangeError('Not supported operation: ' + options.maxFeatures);
-            }
 
             this.options = options;
         }
@@ -55,17 +44,15 @@ class RandomForestBase {
 
     /**
      * Train the decision tree with the given training set and labels.
-     * @param {Matrix} trainingSet
+     * @param {Matrix|Array} trainingSet
      * @param {Array} trainingValues
      */
     train(trainingSet, trainingValues) {
-        if (!Matrix.isMatrix(trainingSet)) {
-            trainingSet = new Matrix(trainingSet);
-        }
+        trainingSet = Matrix.checkMatrix(trainingSet);
 
-        if (Utils.isString(this.options.maxFeatures)) {
-            this.n = Math.floor(functions[this.options.maxFeatures](trainingSet.columns));
-        } else if (Utils.isInt(this.options.maxFeatures)) {
+        this.options.maxFeatures = this.options.maxFeatures || trainingSet.columns;
+
+        if (Number.isInteger(this.options.maxFeatures)) {
             if (this.options.maxFeatures > trainingSet.columns) {
                 throw new RangeError('The maxFeatures parameter should be lesser than ' + trainingSet.columns);
             } else {
@@ -104,7 +91,7 @@ class RandomForestBase {
     /**
      * selection method over the predictions of all estimators.
      * @abstract
-     * @return {Number} prediction.
+     * @return {number} prediction.
      */
     selection() {
         throw new Error('Abstract method \'selection\' not implemented!');
@@ -112,8 +99,8 @@ class RandomForestBase {
 
     /**
      * Predicts the output given the matrix to predict.
-     * @param {Matrix} toPredict
-     * @returns {Array} predictions
+     * @param {Matrix|Array} toPredict
+     * @return {Array} predictions
      */
     predict(toPredict) {
         var predictionValues = new Array(this.options.nEstimators);
@@ -133,21 +120,21 @@ class RandomForestBase {
 
     /**
      * Export the current model to JSON.
-     * @returns {Object} - Current model.
+     * @return {object} - Current model.
      */
-    export() {
+    toJSON() {
         return {
             indexes: this.indexes,
             n: this.n,
             options: this.options,
-            estimators: this.estimators.map(est => est.export())
+            estimators: this.estimators
         };
     }
 
     /**
      * Load a Decision tree classifier with the given model.
-     * @param {Object} model
-     * @returns {RandomForestBase}
+     * @param {object} model
+     * @return {RandomForestBase}
      */
     static load(model) {
         return new RandomForestBase(true, model);

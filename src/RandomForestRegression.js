@@ -1,10 +1,11 @@
 'use strict';
 
 var RandomForestBase = require('./RandomForestBase');
+var Stats = require('ml-stat');
 
 var selectionMethods = {
-    mean: mean,
-    median: median
+    mean: Stats.array.mean,
+    median: Stats.array.median
 };
 
 /**
@@ -16,17 +17,16 @@ class RandomForestRegression extends RandomForestBase {
     /**
      * Create a new base random forest for a classifier or regression model.
      * @constructor
-     * @param {Object} options
-     * @param {Number|String} [options.maxFeatures] - the number of features used on each estimator.
-     *        * if is a String it support two methods to get the max features, "sqrt" or "log2" over all
-     *          sample features.
+     * @param {object} options
+     * @param {number} [options.maxFeatures] - the number of features used on each estimator.
      *        * if is an integer it selects maxFeatures elements over the sample features.
      *        * if is a float between (0, 1), it takes the percentage of features.
-     * @param {Boolean} [options.replacement] - use replacement over the sample features.
-     * @param {Number} [options.seed] - seed for feature and samples selection, must be a 32-bit integer.
-     * @param {Number} [options.nEstimators] - number of estimator to use.
-     * @param {Object} [options.treeOptions] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
-     * @param {String} [options.selectionMethod] - the way to calculate the prediction from estimators, "mean" and "median" are supported.
+     * @param {boolean} [options.replacement] - use replacement over the sample features.
+     * @param {number} [options.seed] - seed for feature and samples selection, must be a 32-bit integer.
+     * @param {number} [options.nEstimators] - number of estimator to use.
+     * @param {object} [options.treeOptions] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
+     * @param {string} [options.selectionMethod] - the way to calculate the prediction from estimators, "mean" and "median" are supported.
+     * @param {object} model - for load purposes.
      */
     constructor(options, model) {
         if (options === true) {
@@ -47,7 +47,7 @@ class RandomForestRegression extends RandomForestBase {
     /**
      * retrieve the prediction given the selection method.
      * @param {Array} values - predictions of the estimators.
-     * @returns {Number} prediction
+     * @return {number} prediction
      */
     selection(values) {
         return selectionMethods[this.options.selectionMethod](values);
@@ -55,10 +55,10 @@ class RandomForestRegression extends RandomForestBase {
 
     /**
      * Export the current model to JSON.
-     * @returns {Object} - Current model.
+     * @return {object} - Current model.
      */
-    export() {
-        var baseModel = super.export();
+    toJSON() {
+        var baseModel = super.toJSON();
         return {
             baseModel: baseModel,
             name: 'RFRegression'
@@ -67,8 +67,8 @@ class RandomForestRegression extends RandomForestBase {
 
     /**
      * Load a Decision tree classifier with the given model.
-     * @param {Object} model
-     * @returns {RandomForestRegression}
+     * @param {object} model
+     * @return {RandomForestRegression}
      */
     static load(model) {
         if (model.name !== 'RFRegression') {
@@ -77,37 +77,6 @@ class RandomForestRegression extends RandomForestBase {
 
         return new RandomForestRegression(true, model);
     }
-}
-
-
-/**
- * Return the mean of the given array.
- * @param {array} values
- * @return {number} mean
- */
-function mean(values) {
-    var sum = 0;
-    for (var i = 0; i < values.length; ++i) {
-        sum += values[i];
-    }
-
-    return sum / values.length;
-}
-
-/**
- * Return the median of the given array.
- * @param {array} values
- * @return {number} median
- */
-function median(values) {
-    values.sort(function (a, b) {
-        return a - b;
-    });
-    var half = Math.floor(values.length / 2);
-    if (values.length % 2)
-        return values[half];
-    else
-        return (values[half - 1] + values[half]) / 2.0;
 }
 
 module.exports = RandomForestRegression;

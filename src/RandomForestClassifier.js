@@ -11,16 +11,15 @@ class RandomForestClassifier extends RandomForestBase {
     /**
      * Create a new base random forest for a classifier or regression model.
      * @constructor
-     * @param {Object} options
-     * @param {Number|String} [options.maxFeatures] - the number of features used on each estimator.
-     *        * if is a String it support two methods to get the max features, "sqrt" or "log2" over all
-     *          sample features.
+     * @param {object} options
+     * @param {number} [options.maxFeatures] - the number of features used on each estimator.
      *        * if is an integer it selects maxFeatures elements over the sample features.
      *        * if is a float between (0, 1), it takes the percentage of features.
-     * @param {Boolean} [options.replacement] - use replacement over the sample features.
-     * @param {Number} [options.seed] - seed for feature and samples selection, must be a 32-bit integer.
-     * @param {Number} [options.nEstimators] - number of estimator to use.
-     * @param {Object} [options.treeOptions] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
+     * @param {boolean} [options.replacement] - use replacement over the sample features.
+     * @param {number} [options.seed] - seed for feature and samples selection, must be a 32-bit integer.
+     * @param {number} [options.nEstimators] - number of estimator to use.
+     * @param {object} [options.treeOptions] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
+     * @param {object} model - for load purposes.
      */
     constructor(options, model) {
         if (options === true) {
@@ -35,7 +34,7 @@ class RandomForestClassifier extends RandomForestBase {
     /**
      * retrieve the prediction given the selection method.
      * @param {Array} values - predictions of the estimators.
-     * @returns {Number} prediction
+     * @return {number} prediction
      */
     selection(values) {
         return mode(values);
@@ -43,10 +42,10 @@ class RandomForestClassifier extends RandomForestBase {
 
     /**
      * Export the current model to JSON.
-     * @returns {Object} - Current model.
+     * @return {object} - Current model.
      */
-    export() {
-        var baseModel = super.export();
+    toJSON() {
+        var baseModel = super.toJSON();
         return {
             baseModel: baseModel,
             name: 'RFClassifier'
@@ -55,8 +54,8 @@ class RandomForestClassifier extends RandomForestBase {
 
     /**
      * Load a Decision tree classifier with the given model.
-     * @param {Object} model
-     * @returns {RandomForestClassifier}
+     * @param {object} model
+     * @return {RandomForestClassifier}
      */
     static load(model) {
         if (model.name !== 'RFClassifier') {
@@ -70,7 +69,7 @@ class RandomForestClassifier extends RandomForestBase {
 /**
  * Return the most repeated element on the array.
  * @param {Array} arr
- * @return {Number} mode
+ * @return {number} mode
  */
 function mode(arr) {
     return arr.sort((a, b) =>
