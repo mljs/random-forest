@@ -9,7 +9,7 @@ var data = Matrix.rand(100, 120);
 var suite = new Suite();
 
 suite
-    .add('Tranposing', function () {
+    .add('Transposing', function () {
         for(var i = 0; i < data.column; ++i) {
             fbv1(data, i);
         }

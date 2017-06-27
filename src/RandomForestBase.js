@@ -89,7 +89,9 @@ class RandomForestBase {
     }
 
     /**
-     * selection method over the predictions of all estimators.
+     * Method that returns the way the algorithm generates the predictions, for example, in classification
+     * you can return the mode of all predictions retrieved by the trees, or in case of regression you can
+     * use the mean or the median.
      * @abstract
      * @return {number} prediction.
      */

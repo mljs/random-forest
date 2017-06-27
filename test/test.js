@@ -132,7 +132,8 @@ describe('Utils', function () {
         }
     });
 
-    var rows = 40, cols = 25;
+    var rows = 40;
+    var cols = 25;
     var testX = Matrix.rand(rows, cols);
     var testY = new Array(rows).fill(1);
 
