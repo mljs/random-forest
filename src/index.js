@@ -1,6 +1,2 @@
-'use strict';
-
-module.exports = {
-    RandomForestClassifier: require('./RandomForestClassifier'),
-    RandomForestRegression: require('./RandomForestRegression')
-};
+export {default as RandomForestClassifier} from './RandomForestClassifier';
+export {default as RandomForestRegression} from './RandomForestRegression';

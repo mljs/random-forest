@@ -1,14 +1,12 @@
-'use strict';
-
-var DTClassfier = require('ml-cart').DecisionTreeClassifier;
-var DTRegression = require('ml-cart').DecisionTreeRegression;
-var Utils = require('./utils');
-var Matrix = require('ml-matrix');
+import {DecisionTreeClassifier as DTClassfier} from 'ml-cart';
+import {DecisionTreeRegression as DTRegression} from 'ml-cart';
+import {default as Utils} from './utils';
+import Matrix from 'ml-matrix';
 
 /**
  * @class RandomForestBase
  */
-class RandomForestBase {
+export default class RandomForestBase {
 
     /**
      * Create a new base random forest for a classifier or regression model.
@@ -33,11 +31,6 @@ class RandomForestBase {
             var Estimator = this.options.classifier ? DTClassfier : DTRegression;
             this.estimators = model.estimators.map(est => Estimator.load(est));
         } else {
-            if (options === undefined) options = {};
-            if (options.classifier === undefined) options.classifier = true;
-            if (options.nEstimators === undefined) options.nEstimators = 10;
-            if (options.replacement === undefined) options.replacement = true;
-
             this.options = options;
         }
     }
@@ -142,5 +135,3 @@ class RandomForestBase {
         return new RandomForestBase(true, model);
     }
 }
-
-module.exports = RandomForestBase;

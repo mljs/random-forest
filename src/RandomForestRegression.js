@@ -1,38 +1,45 @@
-'use strict';
+import RandomForestBase from './RandomForestBase';
+import Stats from 'ml-stat';
 
-var RandomForestBase = require('./RandomForestBase');
-var Stats = require('ml-stat');
-
-var selectionMethods = {
+const selectionMethods = {
     mean: Stats.array.mean,
     median: Stats.array.median
+};
+
+const defaultOptions = {
+    maxFeatures: 0.9,
+    replacement: false,
+    nEstimators: 10,
+    treeOptions: {},
+    selectionMethod: 'mean',
+    seed: 42
 };
 
 /**
  * @class RandomForestRegression
  * @augments RandomForestBase
  */
-class RandomForestRegression extends RandomForestBase {
+export default class RandomForestRegression extends RandomForestBase {
 
     /**
      * Create a new base random forest for a classifier or regression model.
      * @constructor
      * @param {object} options
-     * @param {number} [options.maxFeatures] - the number of features used on each estimator.
+     * @param {number} [options.maxFeatures=0.6] - the number of features used on each estimator.
      *        * if is an integer it selects maxFeatures elements over the sample features.
      *        * if is a float between (0, 1), it takes the percentage of features.
-     * @param {boolean} [options.replacement] - use replacement over the sample features.
-     * @param {number} [options.seed] - seed for feature and samples selection, must be a 32-bit integer.
-     * @param {number} [options.nEstimators] - number of estimator to use.
-     * @param {object} [options.treeOptions] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
-     * @param {string} [options.selectionMethod] - the way to calculate the prediction from estimators, "mean" and "median" are supported.
+     * @param {boolean} [options.replacement=true] - use replacement over the sample features.
+     * @param {number} [options.seed=42] - seed for feature and samples selection, must be a 32-bit integer.
+     * @param {number} [options.nEstimators=10] - number of estimator to use.
+     * @param {object} [options.treeOptions={}] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
+     * @param {string} [options.selectionMethod="mean"] - the way to calculate the prediction from estimators, "mean" and "median" are supported.
      * @param {object} model - for load purposes.
      */
     constructor(options, model) {
         if (options === true) {
             super(true, model.baseModel);
         } else {
-            if (options === undefined) options = {};
+            options = Object.assign({}, defaultOptions, options);
             if (options.selectionMethod === undefined) options.selectionMethod = 'mean';
 
             if (!(options.selectionMethod === 'mean' || options.selectionMethod === 'median')) {
@@ -78,5 +85,3 @@ class RandomForestRegression extends RandomForestBase {
         return new RandomForestRegression(true, model);
     }
 }
-
-module.exports = RandomForestRegression;

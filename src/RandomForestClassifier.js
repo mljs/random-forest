@@ -1,23 +1,28 @@
-'use strict';
+import RandomForestBase from './RandomForestBase';
 
-var RandomForestBase = require('./RandomForestBase');
+const defaultOptions = {
+    maxFeatures: 0.9,
+    replacement: true,
+    nEstimators: 10,
+    seed: 42
+};
 
 /**
  * @class RandomForestClassifier
  * @augments RandomForestBase
  */
-class RandomForestClassifier extends RandomForestBase {
+export default class RandomForestClassifier extends RandomForestBase {
 
     /**
      * Create a new base random forest for a classifier or regression model.
      * @constructor
      * @param {object} options
-     * @param {number} [options.maxFeatures] - the number of features used on each estimator.
+     * @param {number} [options.maxFeatures=0.9] - the number of features used on each estimator.
      *        * if is an integer it selects maxFeatures elements over the sample features.
      *        * if is a float between (0, 1), it takes the percentage of features.
-     * @param {boolean} [options.replacement] - use replacement over the sample features.
-     * @param {number} [options.seed] - seed for feature and samples selection, must be a 32-bit integer.
-     * @param {number} [options.nEstimators] - number of estimator to use.
+     * @param {boolean} [options.replacement=true] - use replacement over the sample features.
+     * @param {number} [options.seed=42] - seed for feature and samples selection, must be a 32-bit integer.
+     * @param {number} [options.nEstimators=10] - number of estimator to use.
      * @param {object} [options.treeOptions] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
      * @param {object} model - for load purposes.
      */
@@ -25,7 +30,7 @@ class RandomForestClassifier extends RandomForestBase {
         if (options === true) {
             super(true, model.baseModel);
         } else {
-            if (options === undefined) options = {};
+            options = Object.assign({}, defaultOptions, options);
             options.classifier = true;
             super(options);
         }
@@ -77,5 +82,3 @@ function mode(arr) {
         - arr.filter(v => v === b).length
     ).pop();
 }
-
-module.exports = RandomForestClassifier;

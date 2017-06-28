@@ -7,10 +7,11 @@
     "src"
   ],
   "scripts": {
-    "eslint": "eslint src test",
+    "eslint": "eslint src",
     "eslint-fix": "npm run eslint -- --fix",
-    "test": "npm run test-mocha && npm run eslint",
-    "test-mocha": "mocha --require should --reporter mocha-better-spec-reporter"
+    "prepublish": "rollup -c",
+    "test": "run-s testonly eslint",
+    "testonly": "jest"
   },
   "repository": {
     "type": "git",
@@ -34,13 +35,14 @@
   "homepage": "https://github.com/mljs/random-forest#readme",
   "devDependencies": {
     "benchmark": "^2.1.0",
-    "eslint": "^3.1.0",
-    "eslint-config-cheminfo": "^1.0.0",
-    "eslint-plugin-no-only-tests": "^1.1.0",
     "ml-dataset-iris": "^1.0.0",
-    "mocha": "^3.1.2",
-    "mocha-better-spec-reporter": "^3.0.2",
-    "should": "^11.1.1"
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "eslint": "^4.0.0",
+    "eslint-config-cheminfo": "^1.8.0",
+    "eslint-plugin-no-only-tests": "^2.0.0",
+    "jest": "^20.0.4",
+    "npm-run-all": "^4.0.2",
+    "rollup": "^0.43.0"
   },
   "dependencies": {
     "ml-cart": "1.0.1",

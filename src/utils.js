@@ -1,8 +1,12 @@
-'use strict';
+import Random from 'random-js';
+import Matrix from 'ml-matrix';
 
-var Random = require('random-js');
-var Matrix = require('ml-matrix');
-
+export default {
+    examplesBaggingWithReplacement: examplesBaggingWithReplacement,
+    featureBagging: featureBagging,
+    retrieveFeatures: retrieveFeatures,
+    checkFloat: checkFloat
+};
 
 function checkFloat(n) {
     return n > 0.0 && n < 1.0;
@@ -109,10 +113,3 @@ function retrieveFeatures(X, indexes) {
 
     return toRet;
 }
-
-module.exports = {
-    examplesBaggingWithReplacement: examplesBaggingWithReplacement,
-    featureBagging: featureBagging,
-    retrieveFeatures: retrieveFeatures,
-    checkFloat: checkFloat
-};
