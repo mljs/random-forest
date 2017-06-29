@@ -1783,22 +1783,11 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-ml-array-utils@^0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/ml-array-utils/-/ml-array-utils-0.2.4.tgz#9d27a0a2e08944dc413c4cc3085aacd618f4d838"
-  dependencies:
-    ml-binary-search "^1.0.1"
-    ml-stat "^1.0.1"
-
 ml-array-utils@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/ml-array-utils/-/ml-array-utils-0.3.0.tgz#c0cc5afdc1cb051f5a83b1ce71641c243672f649"
   dependencies:
     ml-stat "^1.0.1"
-
-ml-binary-search@^1.0.1:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/ml-binary-search/-/ml-binary-search-1.1.2.tgz#a94749aa56cc9d21308888f58d07dd2d67e7b4ca"
 
 ml-cart@1.0.1:
   version "1.0.1"
@@ -1811,15 +1800,15 @@ ml-dataset-iris@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ml-dataset-iris/-/ml-dataset-iris-1.0.0.tgz#420f32cb5b874f0a3b008fc999cb30c6dcd7e12a"
 
-ml-matrix@^1.2.1:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/ml-matrix/-/ml-matrix-1.4.0.tgz#5715c0e9de012c6b8b59983b2ed7816e97b7b719"
-  dependencies:
-    ml-array-utils "^0.2.4"
-
 ml-matrix@^2.1.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/ml-matrix/-/ml-matrix-2.3.0.tgz#df4601670a6735068ee9a6dbf23c094c1d3ece29"
+  dependencies:
+    ml-array-utils "^0.3.0"
+
+ml-matrix@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ml-matrix/-/ml-matrix-3.0.0.tgz#e8dd9ee2e976757f0d4e10512cc0466b7f324ecd"
   dependencies:
     ml-array-utils "^0.3.0"
 
