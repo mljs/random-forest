@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {DecisionTreeClassifier as DTClassfier} from 'ml-cart';
 import {DecisionTreeRegression as DTRegression} from 'ml-cart';
 import * as Utils from './utils';
@@ -86,9 +87,10 @@ export default class RandomForestBase {
      * you can return the mode of all predictions retrieved by the trees, or in case of regression you can
      * use the mean or the median.
      * @abstract
+     * @param {Array} values - predictions of the estimators.
      * @return {number} prediction.
      */
-    selection() {
+    selection(values) {
         throw new Error('Abstract method \'selection\' not implemented!');
     }
 
@@ -124,14 +126,5 @@ export default class RandomForestBase {
             options: this.options,
             estimators: this.estimators
         };
-    }
-
-    /**
-     * Load a Decision tree classifier with the given model.
-     * @param {object} model
-     * @return {RandomForestBase}
-     */
-    static load(model) {
-        return new RandomForestBase(true, model);
     }
 }
