@@ -1,6 +1,6 @@
 import {DecisionTreeClassifier as DTClassfier} from 'ml-cart';
 import {DecisionTreeRegression as DTRegression} from 'ml-cart';
-import {default as Utils} from './utils';
+import * as Utils from './utils';
 import Matrix from 'ml-matrix';
 
 /**

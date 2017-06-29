@@ -1,14 +1,7 @@
 import Random from 'random-js';
 import Matrix from 'ml-matrix';
 
-export default {
-    examplesBaggingWithReplacement: examplesBaggingWithReplacement,
-    featureBagging: featureBagging,
-    retrieveFeatures: retrieveFeatures,
-    checkFloat: checkFloat
-};
-
-function checkFloat(n) {
+export function checkFloat(n) {
     return n > 0.0 && n < 1.0;
 }
 
@@ -20,7 +13,7 @@ function checkFloat(n) {
  * @param {number} seed - seed for the random selection, must be a 32-bit integer.
  * @return {object} with new X and y.
  */
-function examplesBaggingWithReplacement(trainingSet, trainingValue, seed) {
+export function examplesBaggingWithReplacement(trainingSet, trainingValue, seed) {
     var engine = Random.engines.mt19937();
     var distribution = Random.integer(0, trainingSet.rows - 1);
     if (seed === undefined) {
@@ -55,7 +48,7 @@ function examplesBaggingWithReplacement(trainingSet, trainingValue, seed) {
  * @param {number} seed - seed for the random selection, must be a 32-bit integer.
  * @return {object}
  */
-function featureBagging(trainingSet, n, replacement, seed) {
+export function featureBagging(trainingSet, n, replacement, seed) {
     if (trainingSet.columns < n) {
         throw new RangeError('N should be lesser or equal to the number of columns of X');
     }
@@ -105,7 +98,7 @@ function featureBagging(trainingSet, n, replacement, seed) {
  * @param {Array} indexes
  * @return {Matrix} toRet - the new X matrix.
  */
-function retrieveFeatures(X, indexes) {
+export function retrieveFeatures(X, indexes) {
     var toRet = new Matrix(X.rows, indexes.length);
     for (var i = 0; i < indexes.length; ++i) {
         toRet.setColumn(i, X.getColumn(indexes[i]));

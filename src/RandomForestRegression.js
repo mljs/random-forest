@@ -1,9 +1,9 @@
 import RandomForestBase from './RandomForestBase';
-import Stats from 'ml-stat';
+import {array} from 'ml-stat';
 
 const selectionMethods = {
-    mean: Stats.array.mean,
-    median: Stats.array.median
+    mean: array.mean,
+    median: array.median
 };
 
 const defaultOptions = {
@@ -40,7 +40,6 @@ export default class RandomForestRegression extends RandomForestBase {
             super(true, model.baseModel);
         } else {
             options = Object.assign({}, defaultOptions, options);
-            if (options.selectionMethod === undefined) options.selectionMethod = 'mean';
 
             if (!(options.selectionMethod === 'mean' || options.selectionMethod === 'median')) {
                 throw new RangeError('Unsupported selection method ' + options.selectionMethod);

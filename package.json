@@ -34,13 +34,13 @@
   },
   "homepage": "https://github.com/mljs/random-forest#readme",
   "devDependencies": {
-    "benchmark": "^2.1.0",
-    "ml-dataset-iris": "^1.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "benchmark": "^2.1.0",
     "eslint": "^4.0.0",
     "eslint-config-cheminfo": "^1.8.0",
     "eslint-plugin-no-only-tests": "^2.0.0",
     "jest": "^20.0.4",
+    "ml-dataset-iris": "^1.0.0",
     "npm-run-all": "^4.0.2",
     "rollup": "^0.43.0"
   },

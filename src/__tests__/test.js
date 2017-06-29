@@ -1,4 +1,4 @@
-import {default as Utils} from '../utils';
+import * as Utils from '../utils';
 import Matrix from 'ml-matrix';
 import IrisDataset from 'ml-dataset-iris';
 import {RandomForestRegression as RFClassifier} from '../index';
