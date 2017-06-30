@@ -1,5 +1,5 @@
 import IrisDataset from 'ml-dataset-iris';
-import {RandomForestClassifier as RFClassifier} from '../index';
+import {RandomForestClassifier as RFClassifier} from '..';
 
 describe('Random Forest Classifier', function () {
 

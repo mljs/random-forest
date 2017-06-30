@@ -1,6 +1,7 @@
-/* eslint-disable no-unused-vars */
-import {DecisionTreeClassifier as DTClassfier} from 'ml-cart';
-import {DecisionTreeRegression as DTRegression} from 'ml-cart';
+import {
+    DecisionTreeClassifier as DTClassfier,
+    DecisionTreeRegression as DTRegression
+} from 'ml-cart';
 import * as Utils from './utils';
 import Matrix from 'ml-matrix';
 
@@ -90,6 +91,7 @@ export default class RandomForestBase {
      * @param {Array} values - predictions of the estimators.
      * @return {number} prediction.
      */
+    // eslint-disable-next-line no-unused-vars
     selection(values) {
         throw new Error('Abstract method \'selection\' not implemented!');
     }
