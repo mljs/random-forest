@@ -31,7 +31,7 @@ export default class RandomForestClassifier extends RandomForestBase {
             super(true, model.baseModel);
         } else {
             options = Object.assign({}, defaultOptions, options);
-            options.classifier = true;
+            options.isClassifier = true;
             super(options);
         }
     }

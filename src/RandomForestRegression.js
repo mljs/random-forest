@@ -38,6 +38,7 @@ export default class RandomForestRegression extends RandomForestBase {
     constructor(options, model) {
         if (options === true) {
             super(true, model.baseModel);
+            this.selectionMethod = model.selectionMethod;
         } else {
             options = Object.assign({}, defaultOptions, options);
 
@@ -45,8 +46,10 @@ export default class RandomForestRegression extends RandomForestBase {
                 throw new RangeError('Unsupported selection method ' + options.selectionMethod);
             }
 
-            options.classifier = false;
+            options.isClassifier = false;
+
             super(options);
+            this.selectionMethod = options.selectionMethod;
         }
     }
 
@@ -56,7 +59,7 @@ export default class RandomForestRegression extends RandomForestBase {
      * @return {number} prediction
      */
     selection(values) {
-        return selectionMethods[this.options.selectionMethod](values);
+        return selectionMethods[this.selectionMethod](values);
     }
 
     /**
@@ -67,6 +70,7 @@ export default class RandomForestRegression extends RandomForestBase {
         var baseModel = super.toJSON();
         return {
             baseModel: baseModel,
+            selectionMethod: this.selectionMethod,
             name: 'RFRegression'
         };
     }
