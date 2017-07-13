@@ -1,9 +1,10 @@
 import RandomForestBase from './RandomForestBase';
-import {array} from 'ml-stat';
+import arrayMean from 'ml-array-mean';
+import arrayMedian from 'ml-array-median';
 
 const selectionMethods = {
-    mean: array.mean,
-    median: array.median
+    mean: arrayMean,
+    median: arrayMedian
 };
 
 const defaultOptions = {
