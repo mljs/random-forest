@@ -50,7 +50,7 @@ export function examplesBaggingWithReplacement(trainingSet, trainingValue, seed)
  */
 export function featureBagging(trainingSet, n, replacement, seed) {
     if (trainingSet.columns < n) {
-        throw new RangeError('N should be lesser or equal to the number of columns of X');
+        throw new RangeError('N should be less or equal to the number of columns of X');
     }
 
     var distribution = Random.integer(0, trainingSet.columns - 1);

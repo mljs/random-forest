@@ -1727,6 +1727,10 @@ map-stream@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.1.0.tgz#e56aa94c4c8055a16404a0674b78f215f7c8e194"
 
+median-quickselect@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/median-quickselect/-/median-quickselect-1.0.1.tgz#de3408035a5b2f0438a39b99893faf3e7d6177f8"
+
 merge@^1.1.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.0.tgz#7531e39d4949c281a66b8c5a6e0265e8b05894da"
@@ -1783,6 +1787,16 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+ml-array-mean@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ml-array-mean/-/ml-array-mean-1.0.0.tgz#0f51113f1fbaba7262c843a945234228fe87b157"
+
+ml-array-median@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ml-array-median/-/ml-array-median-1.0.0.tgz#d500e27d2f82d5ca65e59b62654a6e08a03567af"
+  dependencies:
+    median-quickselect "^1.0.1"
+
 ml-array-utils@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/ml-array-utils/-/ml-array-utils-0.3.0.tgz#c0cc5afdc1cb051f5a83b1ce71641c243672f649"
@@ -1812,7 +1826,7 @@ ml-matrix@^3.0.0:
   dependencies:
     ml-array-utils "^0.3.0"
 
-ml-stat@^1.0.1, ml-stat@^1.3.3:
+ml-stat@^1.0.1:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/ml-stat/-/ml-stat-1.3.3.tgz#8a5493b0f67382fbf705c260e070436655a7dcfa"
 
