@@ -118,10 +118,10 @@ export default class RandomForestBase {
             predictionValues[i] = this.estimators[i].predict(X);
         }
 
-        predictionValues = new Matrix(predictionValues).transpose();
-        var predictions = new Array(predictionValues.length);
-        for (i = 0; i < predictionValues.length; ++i) {
-            predictions[i] = this.selection(predictionValues[i]);
+        predictionValues = new Matrix(predictionValues).transposeView();
+        var predictions = new Array(predictionValues.rows);
+        for (i = 0; i < predictionValues.rows; ++i) {
+            predictions[i] = this.selection(predictionValues.getRow(i));
         }
 
         return predictions;
