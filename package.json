@@ -2,7 +2,8 @@
   "name": "ml-random-forest",
   "version": "0.0.1",
   "description": "Random forest for classification and regression",
-  "main": "./src/index.js",
+  "main": "lib/index.js",
+  "module": "src/index.js",
   "files": [
     "src",
     "lib"
