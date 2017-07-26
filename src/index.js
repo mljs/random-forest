@@ -1,2 +1,7 @@
-export {default as RandomForestClassifier} from './RandomForestClassifier';
-export {default as RandomForestRegression} from './RandomForestRegression';
+import {default as RandomForestClassifier} from './RandomForestClassifier';
+import {default as RandomForestRegression} from './RandomForestRegression';
+
+export default {
+    RandomForestClassifier,
+    RandomForestRegression
+};

@@ -1,4 +1,4 @@
-import {RandomForestRegression as RFRegression} from '..';
+import {RandomForestRegression as RFRegression} from '../..';
 
 describe('Random Forest Regression', function () {
     function approx(val, expected, eps) {
