@@ -31,8 +31,8 @@ describe('Random Forest Regression', function () {
         [76, 83, 71, 149],
         [96, 93, 95, 192]];
 
-    var trainingSet = new Array(dataset);
-    var predictions = new Array(dataset);
+    var trainingSet = new Array(dataset.length);
+    var predictions = new Array(dataset.length);
 
     for (var i = 0; i < dataset.length; ++i) {
         trainingSet[i] = dataset[i].slice(0, 3);

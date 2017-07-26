@@ -1,5 +1,5 @@
 import {
-    DecisionTreeClassifier as DTClassfier,
+    DecisionTreeClassifier as DTClassifier,
     DecisionTreeRegression as DTRegression
 } from 'ml-cart';
 import * as Utils from './utils';
@@ -35,7 +35,7 @@ export default class RandomForestBase {
             this.n = model.n;
             this.indexes = model.indexes;
 
-            var Estimator = this.isClassifier ? DTClassfier : DTRegression;
+            var Estimator = this.isClassifier ? DTClassifier : DTRegression;
             this.estimators = model.estimators.map(est => Estimator.load(est));
         } else {
             this.replacement = options.replacement;
@@ -71,7 +71,7 @@ export default class RandomForestBase {
 
 
         if (this.isClassifier) {
-            var Estimator = DTClassfier;
+            var Estimator = DTClassifier;
         } else {
             Estimator = DTRegression;
         }
