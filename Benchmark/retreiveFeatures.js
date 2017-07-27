@@ -19,7 +19,11 @@ suite
     })
     .add('Get column', function () {
         rfv2(data, indexes);
-    }).on('cycle', function (event) {
+    })
+    .add('use matrix get column', function () {
+        rfv3(data, indexes);
+    })
+    .on('cycle', function (event) {
         console.log(String(event.target));
     }).run();
 
@@ -38,4 +42,8 @@ function rfv2(X, indexes) {
         toRet[i] = X.getColumn(indexes[i]);
     }
     return toRet.transposeView();
+}
+
+function rfv3(X, indexes) {
+    return X.columnSelectionView(indexes);
 }

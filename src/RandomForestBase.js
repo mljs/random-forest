@@ -113,8 +113,9 @@ export default class RandomForestBase {
      */
     predict(toPredict) {
         var predictionValues = new Array(this.nEstimators);
+        toPredict = Matrix.checkMatrix(toPredict);
         for (var i = 0; i < this.nEstimators; ++i) {
-            var X = Utils.retrieveFeatures(new Matrix(toPredict), this.indexes[i]);
+            var X = toPredict.columnSelectionView(this.indexes[i]); // get features for estimator
             predictionValues[i] = this.estimators[i].predict(X);
         }
 
