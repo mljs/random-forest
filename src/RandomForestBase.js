@@ -3,7 +3,7 @@ import {
     DecisionTreeRegression as DTRegression
 } from 'ml-cart';
 import * as Utils from './utils';
-import {Matrix, WrapperMatrix1D} from 'ml-matrix';
+import {Matrix, WrapperMatrix2D} from 'ml-matrix';
 
 /**
  * @class RandomForestBase
@@ -119,7 +119,7 @@ export class RandomForestBase {
             predictionValues[i] = this.estimators[i].predict(X);
         }
 
-        predictionValues = new Matrix(predictionValues).transposeView();
+        predictionValues = new WrapperMatrix2D(predictionValues).transposeView();
         var predictions = new Array(predictionValues.rows);
         for (i = 0; i < predictionValues.rows; ++i) {
             predictions[i] = this.selection(predictionValues.getRow(i));
