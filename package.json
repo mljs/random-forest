@@ -49,7 +49,7 @@
   "dependencies": {
     "ml-array-mean": "^1.0.0",
     "ml-array-median": "^1.0.0",
-    "ml-cart": "^1.0.7",
+    "ml-cart": "^1.0.8",
     "ml-matrix": "^5.0.0",
     "random-js": "^1.0.8"
   }

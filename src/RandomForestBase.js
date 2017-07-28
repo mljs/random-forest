@@ -3,12 +3,12 @@ import {
     DecisionTreeRegression as DTRegression
 } from 'ml-cart';
 import * as Utils from './utils';
-import Matrix from 'ml-matrix';
+import {Matrix, WrapperMatrix1D} from 'ml-matrix';
 
 /**
  * @class RandomForestBase
  */
-export default class RandomForestBase {
+export class RandomForestBase {
 
     /**
      * Create a new base random forest for a classifier or regression model.
