@@ -2,9 +2,11 @@
   "name": "ml-random-forest",
   "version": "0.0.1",
   "description": "Random forest for classification and regression",
-  "main": "./src/index.js",
+  "main": "lib/index.js",
+  "module": "src/index.js",
   "files": [
-    "src"
+    "src",
+    "lib"
   ],
   "scripts": {
     "eslint": "eslint src",
@@ -47,8 +49,8 @@
   "dependencies": {
     "ml-array-mean": "^1.0.0",
     "ml-array-median": "^1.0.0",
-    "ml-cart": "1.0.1",
-    "ml-matrix": "^3.0.0",
+    "ml-cart": "^1.0.8",
+    "ml-matrix": "^5.0.0",
     "random-js": "^1.0.8"
   }
 }

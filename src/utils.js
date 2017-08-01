@@ -90,19 +90,3 @@ export function featureBagging(trainingSet, n, replacement, seed) {
         usedIndex: usedIndex
     };
 }
-
-/**
- * retrieve a new X matrix containing the column elements at the given indexes.
- * @ignore
- * @param {Matrix} X
- * @param {Array} indexes
- * @return {Matrix} toRet - the new X matrix.
- */
-export function retrieveFeatures(X, indexes) {
-    var toRet = new Matrix(X.rows, indexes.length);
-    for (var i = 0; i < indexes.length; ++i) {
-        toRet.setColumn(i, X.getColumn(indexes[i]));
-    }
-
-    return toRet;
-}

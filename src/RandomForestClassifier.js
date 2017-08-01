@@ -1,4 +1,4 @@
-import RandomForestBase from './RandomForestBase';
+import {RandomForestBase} from './RandomForestBase';
 
 const defaultOptions = {
     maxFeatures: 0.9,
@@ -11,7 +11,7 @@ const defaultOptions = {
  * @class RandomForestClassifier
  * @augments RandomForestBase
  */
-export default class RandomForestClassifier extends RandomForestBase {
+export class RandomForestClassifier extends RandomForestBase {
 
     /**
      * Create a new base random forest for a classifier or regression model.

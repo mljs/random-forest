@@ -1,14 +1,14 @@
 import {
-    DecisionTreeClassifier as DTClassfier,
+    DecisionTreeClassifier as DTClassifier,
     DecisionTreeRegression as DTRegression
 } from 'ml-cart';
 import * as Utils from './utils';
-import Matrix from 'ml-matrix';
+import {Matrix, WrapperMatrix2D} from 'ml-matrix';
 
 /**
  * @class RandomForestBase
  */
-export default class RandomForestBase {
+export class RandomForestBase {
 
     /**
      * Create a new base random forest for a classifier or regression model.
@@ -35,7 +35,7 @@ export default class RandomForestBase {
             this.n = model.n;
             this.indexes = model.indexes;
 
-            var Estimator = this.isClassifier ? DTClassfier : DTRegression;
+            var Estimator = this.isClassifier ? DTClassifier : DTRegression;
             this.estimators = model.estimators.map(est => Estimator.load(est));
         } else {
             this.replacement = options.replacement;
@@ -71,7 +71,7 @@ export default class RandomForestBase {
 
 
         if (this.isClassifier) {
-            var Estimator = DTClassfier;
+            var Estimator = DTClassifier;
         } else {
             Estimator = DTRegression;
         }
@@ -113,15 +113,16 @@ export default class RandomForestBase {
      */
     predict(toPredict) {
         var predictionValues = new Array(this.nEstimators);
+        toPredict = Matrix.checkMatrix(toPredict);
         for (var i = 0; i < this.nEstimators; ++i) {
-            var X = Utils.retrieveFeatures(new Matrix(toPredict), this.indexes[i]);
+            var X = toPredict.columnSelectionView(this.indexes[i]); // get features for estimator
             predictionValues[i] = this.estimators[i].predict(X);
         }
 
-        predictionValues = new Matrix(predictionValues).transpose();
-        var predictions = new Array(predictionValues.length);
-        for (i = 0; i < predictionValues.length; ++i) {
-            predictions[i] = this.selection(predictionValues[i]);
+        predictionValues = new WrapperMatrix2D(predictionValues).transposeView();
+        var predictions = new Array(predictionValues.rows);
+        for (i = 0; i < predictionValues.rows; ++i) {
+            predictions[i] = this.selection(predictionValues.getRow(i));
         }
 
         return predictions;

@@ -1,4 +1,4 @@
-import RandomForestBase from './RandomForestBase';
+import {RandomForestBase} from './RandomForestBase';
 import arrayMean from 'ml-array-mean';
 import arrayMedian from 'ml-array-median';
 
@@ -20,7 +20,7 @@ const defaultOptions = {
  * @class RandomForestRegression
  * @augments RandomForestBase
  */
-export default class RandomForestRegression extends RandomForestBase {
+export class RandomForestRegression extends RandomForestBase {
 
     /**
      * Create a new base random forest for a classifier or regression model.

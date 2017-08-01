@@ -1,2 +1,2 @@
-export {default as RandomForestClassifier} from './RandomForestClassifier';
-export {default as RandomForestRegression} from './RandomForestRegression';
+export {RandomForestClassifier} from './RandomForestClassifier';
+export {RandomForestRegression} from './RandomForestRegression';

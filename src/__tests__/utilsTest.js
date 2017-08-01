@@ -8,7 +8,7 @@ describe('Utils', function () {
             [1, 2, 3, 4, 5]]);
         var indexes = [0, 4];
 
-        var newData = Utils.retrieveFeatures(data, indexes);
+        var newData = new Matrix(data).columnSelectionView(indexes);
         for (var i = 0; i < newData.column; ++i) {
             expect(newData[i]).toBe([1, 5]);
         }
