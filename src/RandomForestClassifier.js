@@ -4,7 +4,8 @@ const defaultOptions = {
     maxFeatures: 0.9,
     replacement: true,
     nEstimators: 10,
-    seed: 42
+    seed: 42,
+    featureBagging: false
 };
 
 /**
@@ -23,7 +24,8 @@ export class RandomForestClassifier extends RandomForestBase {
      * @param {boolean} [options.replacement=true] - use replacement over the sample features.
      * @param {number} [options.seed=42] - seed for feature and samples selection, must be a 32-bit integer.
      * @param {number} [options.nEstimators=10] - number of estimator to use.
-     * @param {object} [options.treeOptions] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
+     * @param {object} [options.treeOptions={}] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
+     * @param {boolean} [options.useSampleBagging=false] - use bagging over training samples.
      * @param {object} model - for load purposes.
      */
     constructor(options, model) {

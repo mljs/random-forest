@@ -44,7 +44,8 @@ describe('Random Forest Regression', function () {
         maxFeatures: 2,
         replacement: false,
         nEstimators: 200,
-        treeOptions: undefined // default options for the decision tree
+        treeOptions: undefined, // default options for the decision tree
+        useSampleBagging: true
     };
 
     var regression = new RFRegression(options);
