@@ -22,6 +22,7 @@ export class RandomForestBase {
      * @param {number} [options.nEstimators] - number of estimator to use.
      * @param {object} [options.treeOptions] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
      * @param {boolean} [options.isClassifier] - boolean to check if is a classifier or regression model (used by subclasses).
+     * @param {boolean} [options.useSampleBagging] - use bagging over training samples.
      * @param {object} model - for load purposes.
      */
     constructor(options, model) {
@@ -34,6 +35,7 @@ export class RandomForestBase {
             this.seed = model.seed;
             this.n = model.n;
             this.indexes = model.indexes;
+            this.useSampleBagging = model.useSampleBagging;
 
             var Estimator = this.isClassifier ? DTClassifier : DTRegression;
             this.estimators = model.estimators.map(est => Estimator.load(est));
@@ -44,6 +46,7 @@ export class RandomForestBase {
             this.treeOptions = options.treeOptions;
             this.isClassifier = options.isClassifier;
             this.seed = options.seed;
+            this.useSampleBagging = options.useSampleBagging;
         }
     }
 
@@ -57,14 +60,14 @@ export class RandomForestBase {
 
         this.maxFeatures = this.maxFeatures || trainingSet.columns;
 
-        if (Number.isInteger(this.maxFeatures)) {
+        if (Utils.checkFloat(this.maxFeatures)) {
+            this.n = Math.floor(trainingSet.columns * this.maxFeatures);
+        } else if (Number.isInteger(this.maxFeatures)) {
             if (this.maxFeatures > trainingSet.columns) {
                 throw new RangeError('The maxFeatures parameter should be less than ' + trainingSet.columns);
             } else {
                 this.n = this.maxFeatures;
             }
-        } else if (Utils.checkFloat(this.maxFeatures)) {
-            this.n = Math.floor(trainingSet.columns * this.maxFeatures);
         } else {
             throw new RangeError('Cannot process the maxFeatures parameter ' + this.maxFeatures);
         }
@@ -80,7 +83,7 @@ export class RandomForestBase {
         this.indexes = new Array(this.nEstimators);
 
         for (var i = 0; i < this.nEstimators; ++i) {
-            var res = Utils.examplesBaggingWithReplacement(trainingSet, trainingValues, this.seed);
+            var res = this.useSampleBagging ? Utils.examplesBaggingWithReplacement(trainingSet, trainingValues, this.seed) : {X: trainingSet, y: trainingValues};
             var X = res.X;
             var y = res.y;
 
@@ -142,7 +145,8 @@ export class RandomForestBase {
             treeOptions: this.treeOptions,
             isClassifier: this.isClassifier,
             seed: this.seed,
-            estimators: this.estimators
+            estimators: this.estimators,
+            useSampleBagging: this.useSampleBagging
         };
     }
 }

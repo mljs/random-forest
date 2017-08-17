@@ -8,12 +8,13 @@ const selectionMethods = {
 };
 
 const defaultOptions = {
-    maxFeatures: 0.9,
+    maxFeatures: 1.0,
     replacement: false,
     nEstimators: 10,
     treeOptions: {},
     selectionMethod: 'mean',
-    seed: 42
+    seed: 42,
+    useSampleBagging: false
 };
 
 /**
@@ -26,7 +27,7 @@ export class RandomForestRegression extends RandomForestBase {
      * Create a new base random forest for a classifier or regression model.
      * @constructor
      * @param {object} options
-     * @param {number} [options.maxFeatures=0.6] - the number of features used on each estimator.
+     * @param {number} [options.maxFeatures=1.0] - the number of features used on each estimator.
      *        * if is an integer it selects maxFeatures elements over the sample features.
      *        * if is a float between (0, 1), it takes the percentage of features.
      * @param {boolean} [options.replacement=true] - use replacement over the sample features.
@@ -34,6 +35,7 @@ export class RandomForestRegression extends RandomForestBase {
      * @param {number} [options.nEstimators=10] - number of estimator to use.
      * @param {object} [options.treeOptions={}] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
      * @param {string} [options.selectionMethod="mean"] - the way to calculate the prediction from estimators, "mean" and "median" are supported.
+     * @param {boolean} [options.useSampleBagging=false] - use bagging over training samples.
      * @param {object} model - for load purposes.
      */
     constructor(options, model) {
