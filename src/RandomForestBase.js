@@ -60,14 +60,14 @@ export class RandomForestBase {
 
         this.maxFeatures = this.maxFeatures || trainingSet.columns;
 
-        if (Number.isInteger(this.maxFeatures)) {
+        if (Utils.checkFloat(this.maxFeatures)) {
+            this.n = Math.floor(trainingSet.columns * this.maxFeatures);
+        } else if (Number.isInteger(this.maxFeatures)) {
             if (this.maxFeatures > trainingSet.columns) {
                 throw new RangeError('The maxFeatures parameter should be less than ' + trainingSet.columns);
             } else {
                 this.n = this.maxFeatures;
             }
-        } else if (Utils.checkFloat(this.maxFeatures)) {
-            this.n = Math.floor(trainingSet.columns * this.maxFeatures);
         } else {
             throw new RangeError('Cannot process the maxFeatures parameter ' + this.maxFeatures);
         }

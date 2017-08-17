@@ -42,7 +42,7 @@ describe('Random Forest Classifier', function () {
         }
     });
 
-    test('Accuracy test', function () {
+    test('Test with full features dataset', function () {
         var X = new Matrix([[0, -1], [1, 0], [1, 1], [1, -1], [2, 0], [2, 1], [2, -1], [3, 2], [0, 4], [1, 3], [1, 4], [1, 5], [2, 3], [2, 4], [2, 5], [3, 4], [1, 10], [1, 12], [2, 10], [2, 11], [2, 14], [3, 11]]);
         var Y = Matrix.columnVector([0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2]);
 
@@ -56,6 +56,8 @@ describe('Random Forest Classifier', function () {
 
         // we try to predict the test set
         var finalResults = rf.predict(Xtest);
-        console.log(finalResults);
+        for(var i = 0; i < Ytest.rows; ++i) {
+            expect(finalResults[i]).toBe(Ytest[i][0]);
+        }
     });
 });

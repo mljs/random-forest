@@ -2,7 +2,7 @@ import Random from 'random-js';
 import Matrix from 'ml-matrix';
 
 export function checkFloat(n) {
-    return n > 0.0 && n < 1.0;
+    return n > 0.0 && n <= 1.0;
 }
 
 /**

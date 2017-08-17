@@ -1,11 +1,11 @@
 import {RandomForestBase} from './RandomForestBase';
 
 const defaultOptions = {
-    maxFeatures: 0.9,
+    maxFeatures: 1.0,
     replacement: true,
     nEstimators: 10,
     seed: 42,
-    featureBagging: false
+    useSampleBagging: false
 };
 
 /**
@@ -18,7 +18,7 @@ export class RandomForestClassifier extends RandomForestBase {
      * Create a new base random forest for a classifier or regression model.
      * @constructor
      * @param {object} options
-     * @param {number} [options.maxFeatures=0.9] - the number of features used on each estimator.
+     * @param {number} [options.maxFeatures=1.0] - the number of features used on each estimator.
      *        * if is an integer it selects maxFeatures elements over the sample features.
      *        * if is a float between (0, 1), it takes the percentage of features.
      * @param {boolean} [options.replacement=true] - use replacement over the sample features.
