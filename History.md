@@ -1,3 +1,13 @@
+<a name="1.0.2"></a>
+## [1.0.2](https://github.com/mljs/random forest/compare/v1.0.1...v1.0.2) (2017-08-17)
+
+
+### Bug Fixes
+
+* bug related with feature bagging, now the default percentage is 100 ([4cae0dd](https://github.com/mljs/random forest/commit/4cae0dd))
+
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/mljs/random forest/compare/v1.0.0...v1.0.1) (2017-08-02)
 
