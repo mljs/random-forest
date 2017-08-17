@@ -31,7 +31,7 @@ describe('Random Forest Classifier', function () {
         expect(score).toBeGreaterThanOrEqual(0.7); // above or equal
     });
 
-    test('Export and import for random forest classifier', function () {
+    test('Export and import for random forest classifier', () => {
         var model = JSON.parse(JSON.stringify(classifier));
 
         var newClassifier = RFClassifier.load(model);
