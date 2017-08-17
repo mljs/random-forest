@@ -38,14 +38,6 @@ for (var i = 0; i < dataset.length; ++i) {
     predictions[i] = dataset[i][3];
 }
 
-var options = {
-    seed: 3,
-    maxFeatures: 2,
-    replacement: false,
-    nEstimators: 200,
-    treeOptions: undefined // default options for the decision tree
-};
-
 
 var options = {
     seed: 3,
@@ -55,6 +47,7 @@ var options = {
     treeOptions: undefined, // default options for the decision tree
     useSampleBagging: true
 };
+
 var regression = new RFRegression(options);
 regression.train(trainingSet, predictions);
 var result = regression.predict(trainingSet);
