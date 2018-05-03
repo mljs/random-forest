@@ -2,19 +2,19 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>ml-random-forest 1.0.2 | Documentation</title>
+  <title>ml-random-forest 1.0.3 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
   <link href='assets/github.css' type='text/css' rel='stylesheet' />
+  <link href='assets/split.css' type='text/css' rel='stylesheet' />
 </head>
-<body class='documentation'>
-  <div class='max-width-4 mx-auto'>
-    <div class='clearfix md-mxn2'>
-      <div class='fixed xs-hide fix-3 overflow-auto max-height-100'>
+<body class='documentation m0'>
+    <div class='flex'>
+      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>ml-random-forest</h3>
-          <div class='mb1'><code>1.0.2</code></div>
+          <div class='mb1'><code>1.0.3</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -22,68 +22,6 @@
             type='text' />
           <div id='toc'>
             <ul class='list-reset h5 py1-ul'>
-              
-                
-                <li><a
-                  href='#mode'
-                  class="">
-                  mode
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#randomforestbase'
-                  class=" toggle-sibling">
-                  RandomForestBase
-                  <span class='icon'>▸</span>
-                </a>
-                
-                <div class='toggle-target display-none'>
-                  
-                  
-                    <ul class='list-reset py1-ul pl1'>
-                      <li class='h5'><span>Instance members</span></li>
-                      
-                      <li><a
-                        href='#randomforestbaseconstructor'
-                        class='regular pre-open'>
-                        #constructor
-                      </a></li>
-                      
-                      <li><a
-                        href='#randomforestbasetrain'
-                        class='regular pre-open'>
-                        #train
-                      </a></li>
-                      
-                      <li><a
-                        href='#randomforestbaseselection'
-                        class='regular pre-open'>
-                        #selection
-                      </a></li>
-                      
-                      <li><a
-                        href='#randomforestbasepredict'
-                        class='regular pre-open'>
-                        #predict
-                      </a></li>
-                      
-                      <li><a
-                        href='#randomforestbasetojson'
-                        class='regular pre-open'>
-                        #toJSON
-                      </a></li>
-                      
-                    </ul>
-                  
-                  
-                  
-                </div>
-                
-                </li>
               
                 
                 <li><a
@@ -109,12 +47,6 @@
                   
                     <ul class='list-reset py1-ul pl1'>
                       <li class='h5'><span>Instance members</span></li>
-                      
-                      <li><a
-                        href='#randomforestclassifierconstructor'
-                        class='regular pre-open'>
-                        #constructor
-                      </a></li>
                       
                       <li><a
                         href='#randomforestclassifierselection'
@@ -162,12 +94,6 @@
                       <li class='h5'><span>Instance members</span></li>
                       
                       <li><a
-                        href='#randomforestregressionconstructor'
-                        class='regular pre-open'>
-                        #constructor
-                      </a></li>
-                      
-                      <li><a
                         href='#randomforestregressionselection'
                         class='regular pre-open'>
                         #selection
@@ -187,6 +113,62 @@
                 
                 </li>
               
+                
+                <li><a
+                  href='#mode'
+                  class="">
+                  mode
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#randomforestbase'
+                  class=" toggle-sibling">
+                  RandomForestBase
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+                      
+                      <li><a
+                        href='#randomforestbasepredict'
+                        class='regular pre-open'>
+                        #predict
+                      </a></li>
+                      
+                      <li><a
+                        href='#randomforestbaseselection'
+                        class='regular pre-open'>
+                        #selection
+                      </a></li>
+                      
+                      <li><a
+                        href='#randomforestbasetojson'
+                        class='regular pre-open'>
+                        #toJSON
+                      </a></li>
+                      
+                      <li><a
+                        href='#randomforestbasetrain'
+                        class='regular pre-open'>
+                        #train
+                      </a></li>
+                      
+                    </ul>
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
             </ul>
           </div>
           <div class='mt1 h6 quiet'>
@@ -194,600 +176,7 @@
           </div>
         </div>
       </div>
-      <div class='fix-margin-3'>
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='mode'>
-      mode
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestClassifier.js#L81-L86'>
-      <span>src/RandomForestClassifier.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Return the most repeated element on the array.</p>
-
-
-  <div class='pre p1 fill-light mt0'>mode(arr: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>arr</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
-        mode
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='randomforestbase'>
-      RandomForestBase
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestBase.js#L11-L152'>
-      <span>src/RandomForestBase.js</span>
-      </a>
-    
-  </div>
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>new RandomForestBase(options: any, model: any)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>model</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='randomforestbaseconstructor'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>new constructor(options, model)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestBase.js#L28-L51'>
-      <span>src/RandomForestBase.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Create a new base random forest for a classifier or regression model.</p>
-
-
-  <div class='pre p1 fill-light mt0'>new constructor(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, model: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    
-          </div>
-          
-          <table class='mt1 mb2 fixed-table h5 col-12'>
-            <colgroup>
-              <col width='30%' />
-              <col width='70%' />
-            </colgroup>
-            <thead>
-              <tr class='bold fill-light'>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody class='mt1'>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.maxFeatures</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)?</code>
-                  </td>
-                  <td class='break-word'><span>the number of features used on each estimator.
-
-<em> if is an integer it selects maxFeatures elements over the sample features.
-</em>
- if is a float between (0, 1), it takes the percentage of features.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.replacement</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?</code>
-                  </td>
-                  <td class='break-word'><span>use replacement over the sample features.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.seed</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?</code>
-                  </td>
-                  <td class='break-word'><span>seed for feature and samples selection, must be a 32-bit integer.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.nEstimators</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?</code>
-                  </td>
-                  <td class='break-word'><span>number of estimator to use.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.treeOptions</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>?</code>
-                  </td>
-                  <td class='break-word'><span>options for the tree classifier, see 
-[
-ml-cart
-]
-<a href="https://mljs.github.io/decision-tree-cart/">https://mljs.github.io/decision-tree-cart/</a>
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.isClassifier</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?</code>
-                  </td>
-                  <td class='break-word'><span>boolean to check if is a classifier or regression model (used by subclasses).
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.useSampleBagging</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?</code>
-                  </td>
-                  <td class='break-word'><span>use bagging over training samples.
-</span></td>
-                </tr>
-              
-            </tbody>
-          </table>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    for load purposes.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='randomforestbasetrain'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>train(trainingSet, trainingValues)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestBase.js#L58-L97'>
-      <span>src/RandomForestBase.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Train the decision tree with the given training set and labels.</p>
-
-
-  <div class='pre p1 fill-light mt0'>train(trainingSet: (Matrix | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>), trainingValues: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>trainingSet</span> <code class='quiet'>((Matrix | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>trainingValues</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='randomforestbaseselection'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>selection(values)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestBase.js#L108-L110'>
-      <span>src/RandomForestBase.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Method that returns the way the algorithm generates the predictions, for example, in classification
-you can return the mode of all predictions retrieved by the trees, or in case of regression you can
-use the mean or the median.</p>
-
-
-  <div class='pre p1 fill-light mt0'>selection(values: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>values</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
-	    predictions of the estimators.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
-        prediction.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='randomforestbasepredict'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>predict(toPredict)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestBase.js#L117-L132'>
-      <span>src/RandomForestBase.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Predicts the output given the matrix to predict.</p>
-
-
-  <div class='pre p1 fill-light mt0'>predict(toPredict: (Matrix | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>toPredict</span> <code class='quiet'>((Matrix | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
-        predictions
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='randomforestbasetojson'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>toJSON()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestBase.js#L138-L151'>
-      <span>src/RandomForestBase.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Export the current model to JSON.</p>
-
-
-  <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
-        Current model.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-</div>
-
-  
-
-  
-</section>
-
-          
+      <div id='split-right' class='relative overflow-auto height-viewport-100'>
         
           
             <section class='p2 mb2 clearfix bg-white minishadow'>
@@ -800,7 +189,7 @@ use the mean or the median.</p>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestClassifier.js#L15-L74'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestClassifier.js#L15-L73'>
       <span>src/RandomForestClassifier.js</span>
       </a>
     
@@ -809,7 +198,7 @@ use the mean or the median.</p>
 
   
 
-  <div class='pre p1 fill-light mt0'>new RandomForestClassifier(options: any, model: any)</div>
+  <div class='pre p1 fill-light mt0'>new RandomForestClassifier()</div>
   
   
     <p>
@@ -827,27 +216,6 @@ use the mean or the median.</p>
   
   
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>model</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
   
 
   
@@ -876,7 +244,7 @@ use the mean or the median.</p>
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestClassifier.js#L67-L73'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestClassifier.js#L66-L72'>
       <span>src/RandomForestClassifier.js</span>
       </a>
     
@@ -886,7 +254,7 @@ use the mean or the median.</p>
   <p>Load a Decision tree classifier with the given model.</p>
 
 
-  <div class='pre p1 fill-light mt0'>load(model: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="#randomforestclassifier">RandomForestClassifier</a></div>
+  <div class='pre p1 fill-light mt0'>load(model: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="#randomforestclassifier">RandomForestClassifier</a></div>
   
   
 
@@ -903,7 +271,7 @@ use the mean or the median.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
 	    
           </div>
           
@@ -946,161 +314,6 @@ use the mean or the median.</p>
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
-    <div class='border-bottom' id='randomforestclassifierconstructor'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>new constructor(options, model)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestClassifier.js#L31-L39'>
-      <span>src/RandomForestClassifier.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Create a new base random forest for a classifier or regression model.</p>
-
-
-  <div class='pre p1 fill-light mt0'>new constructor(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, model: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    
-          </div>
-          
-          <table class='mt1 mb2 fixed-table h5 col-12'>
-            <colgroup>
-              <col width='30%' />
-              <col width='70%' />
-            </colgroup>
-            <thead>
-              <tr class='bold fill-light'>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody class='mt1'>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.maxFeatures</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
-                  
-                    (default <code>1.0</code>)
-                  </td>
-                  <td class='break-word'><span>the number of features used on each estimator.
-
-<em> if is an integer it selects maxFeatures elements over the sample features.
-</em>
- if is a float between (0, 1), it takes the percentage of features.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.replacement</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
-                  
-                    (default <code>true</code>)
-                  </td>
-                  <td class='break-word'><span>use replacement over the sample features.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.seed</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
-                  
-                    (default <code>42</code>)
-                  </td>
-                  <td class='break-word'><span>seed for feature and samples selection, must be a 32-bit integer.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.nEstimators</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
-                  
-                    (default <code>10</code>)
-                  </td>
-                  <td class='break-word'><span>number of estimator to use.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.treeOptions</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>
-                  
-                    (default <code>{}</code>)
-                  </td>
-                  <td class='break-word'><span>options for the tree classifier, see 
-[
-ml-cart
-]
-<a href="https://mljs.github.io/decision-tree-cart/">https://mljs.github.io/decision-tree-cart/</a>
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.useSampleBagging</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
-                  
-                    (default <code>false</code>)
-                  </td>
-                  <td class='break-word'><span>use bagging over training samples.
-</span></td>
-                </tr>
-              
-            </tbody>
-          </table>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    for load purposes.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
     <div class='border-bottom' id='randomforestclassifierselection'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -1115,7 +328,7 @@ ml-cart
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestClassifier.js#L46-L48'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestClassifier.js#L45-L47'>
       <span>src/RandomForestClassifier.js</span>
       </a>
     
@@ -1125,7 +338,7 @@ ml-cart
   <p>retrieve the prediction given the selection method.</p>
 
 
-  <div class='pre p1 fill-light mt0'>selection(values: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+  <div class='pre p1 fill-light mt0'>selection(values: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
   
   
 
@@ -1142,7 +355,7 @@ ml-cart
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>values</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
+            <span class='code bold'>values</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
 	    predictions of the estimators.
 
           </div>
@@ -1157,7 +370,7 @@ ml-cart
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
         prediction
 
       
@@ -1192,7 +405,7 @@ ml-cart
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestClassifier.js#L54-L60'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestClassifier.js#L53-L59'>
       <span>src/RandomForestClassifier.js</span>
       </a>
     
@@ -1202,7 +415,7 @@ ml-cart
   <p>Export the current model to JSON.</p>
 
 
-  <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
   
   
 
@@ -1220,7 +433,7 @@ ml-cart
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
         Current model.
 
       
@@ -1261,7 +474,7 @@ ml-cart
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestRegression.js#L24-L93'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestRegression.js#L25-L93'>
       <span>src/RandomForestRegression.js</span>
       </a>
     
@@ -1270,7 +483,7 @@ ml-cart
 
   
 
-  <div class='pre p1 fill-light mt0'>new RandomForestRegression(options: any, model: any)</div>
+  <div class='pre p1 fill-light mt0'>new RandomForestRegression()</div>
   
   
     <p>
@@ -1288,27 +501,6 @@ ml-cart
   
   
 
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>model</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
   
 
   
@@ -1337,7 +529,7 @@ ml-cart
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestRegression.js#L86-L92'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestRegression.js#L86-L92'>
       <span>src/RandomForestRegression.js</span>
       </a>
     
@@ -1347,7 +539,7 @@ ml-cart
   <p>Load a Decision tree classifier with the given model.</p>
 
 
-  <div class='pre p1 fill-light mt0'>load(model: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="#randomforestregression">RandomForestRegression</a></div>
+  <div class='pre p1 fill-light mt0'>load(model: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="#randomforestregression">RandomForestRegression</a></div>
   
   
 
@@ -1364,7 +556,7 @@ ml-cart
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
 	    
           </div>
           
@@ -1407,170 +599,6 @@ ml-cart
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
   
-    <div class='border-bottom' id='randomforestregressionconstructor'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>new constructor(options, model)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestRegression.js#L41-L57'>
-      <span>src/RandomForestRegression.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Create a new base random forest for a classifier or regression model.</p>
-
-
-  <div class='pre p1 fill-light mt0'>new constructor(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, model: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    
-          </div>
-          
-          <table class='mt1 mb2 fixed-table h5 col-12'>
-            <colgroup>
-              <col width='30%' />
-              <col width='70%' />
-            </colgroup>
-            <thead>
-              <tr class='bold fill-light'>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody class='mt1'>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.maxFeatures</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
-                  
-                    (default <code>1.0</code>)
-                  </td>
-                  <td class='break-word'><span>the number of features used on each estimator.
-
-<em> if is an integer it selects maxFeatures elements over the sample features.
-</em>
- if is a float between (0, 1), it takes the percentage of features.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.replacement</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
-                  
-                    (default <code>true</code>)
-                  </td>
-                  <td class='break-word'><span>use replacement over the sample features.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.seed</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
-                  
-                    (default <code>42</code>)
-                  </td>
-                  <td class='break-word'><span>seed for feature and samples selection, must be a 32-bit integer.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.nEstimators</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
-                  
-                    (default <code>10</code>)
-                  </td>
-                  <td class='break-word'><span>number of estimator to use.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.treeOptions</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>
-                  
-                    (default <code>{}</code>)
-                  </td>
-                  <td class='break-word'><span>options for the tree classifier, see 
-[
-ml-cart
-]
-<a href="https://mljs.github.io/decision-tree-cart/">https://mljs.github.io/decision-tree-cart/</a>
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.selectionMethod</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-                  
-                    (default <code>&quot;mean&quot;</code>)
-                  </td>
-                  <td class='break-word'><span>the way to calculate the prediction from estimators, "mean" and "median" are supported.
-</span></td>
-                </tr>
-              
-                <tr>
-                  <td class='break-word'><span class='code bold'>options.useSampleBagging</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
-                  
-                    (default <code>false</code>)
-                  </td>
-                  <td class='break-word'><span>use bagging over training samples.
-</span></td>
-                </tr>
-              
-            </tbody>
-          </table>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    for load purposes.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
     <div class='border-bottom' id='randomforestregressionselection'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -1585,7 +613,7 @@ ml-cart
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestRegression.js#L64-L66'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestRegression.js#L64-L66'>
       <span>src/RandomForestRegression.js</span>
       </a>
     
@@ -1595,7 +623,7 @@ ml-cart
   <p>retrieve the prediction given the selection method.</p>
 
 
-  <div class='pre p1 fill-light mt0'>selection(values: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+  <div class='pre p1 fill-light mt0'>selection(values: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
   
   
 
@@ -1612,7 +640,7 @@ ml-cart
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>values</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
+            <span class='code bold'>values</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
 	    predictions of the estimators.
 
           </div>
@@ -1627,7 +655,7 @@ ml-cart
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
         prediction
 
       
@@ -1662,7 +690,7 @@ ml-cart
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/4c7eb20218cfd010eacabc1c92eb5a3e7b852894/src/RandomForestRegression.js#L72-L79'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestRegression.js#L72-L79'>
       <span>src/RandomForestRegression.js</span>
       </a>
     
@@ -1672,7 +700,7 @@ ml-cart
   <p>Export the current model to JSON.</p>
 
 
-  <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
   
   
 
@@ -1690,7 +718,7 @@ ml-cart
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
         Current model.
 
       
@@ -1720,10 +748,432 @@ ml-cart
 
           
         
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='mode'>
+      mode
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestClassifier.js#L80-L85'>
+      <span>src/RandomForestClassifier.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Return the most repeated element on the array.</p>
+
+
+  <div class='pre p1 fill-light mt0'>mode(arr: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>arr</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
+        mode
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='randomforestbase'>
+      RandomForestBase
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestBase.js#L12-L152'>
+      <span>src/RandomForestBase.js</span>
+      </a>
+    
+  </div>
+  
+
+  
+
+  <div class='pre p1 fill-light mt0'>new RandomForestBase()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='randomforestbasepredict'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>predict(toPredict)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestBase.js#L117-L132'>
+      <span>src/RandomForestBase.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Predicts the output given the matrix to predict.</p>
+
+
+  <div class='pre p1 fill-light mt0'>predict(toPredict: (Matrix | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>toPredict</span> <code class='quiet'>((Matrix | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>:
+        predictions
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
       </div>
     </div>
+  
+    <div class='border-bottom' id='randomforestbaseselection'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>selection(values)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestBase.js#L108-L110'>
+      <span>src/RandomForestBase.js</span>
+      </a>
+    
   </div>
+  
+
+  <p>Method that returns the way the algorithm generates the predictions, for example, in classification
+you can return the mode of all predictions retrieved by the trees, or in case of regression you can
+use the mean or the median.</p>
+
+
+  <div class='pre p1 fill-light mt0'>selection(values: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>values</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
+	    predictions of the estimators.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
+        prediction.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='randomforestbasetojson'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>toJSON()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestBase.js#L138-L151'>
+      <span>src/RandomForestBase.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Export the current model to JSON.</p>
+
+
+  <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        Current model.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='randomforestbasetrain'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>train(trainingSet, trainingValues)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestBase.js#L58-L97'>
+      <span>src/RandomForestBase.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Train the decision tree with the given training set and labels.</p>
+
+
+  <div class='pre p1 fill-light mt0'>train(trainingSet: (Matrix | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>), trainingValues: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>trainingSet</span> <code class='quiet'>((Matrix | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>))</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>trainingValues</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+</section>
+
+          
+        
+      </div>
+    </div>
   <script src='assets/anchor.js'></script>
+  <script src='assets/split.js'></script>
   <script src='assets/site.js'></script>
 </body>
 </html>
