@@ -1,20 +1,21 @@
-import {RandomForestBase} from './RandomForestBase';
 import arrayMean from 'ml-array-mean';
 import arrayMedian from 'ml-array-median';
 
+import { RandomForestBase } from './RandomForestBase';
+
 const selectionMethods = {
-    mean: arrayMean,
-    median: arrayMedian
+  mean: arrayMean,
+  median: arrayMedian
 };
 
 const defaultOptions = {
-    maxFeatures: 1.0,
-    replacement: false,
-    nEstimators: 10,
-    treeOptions: {},
-    selectionMethod: 'mean',
-    seed: 42,
-    useSampleBagging: false
+  maxFeatures: 1.0,
+  replacement: false,
+  nEstimators: 10,
+  treeOptions: {},
+  selectionMethod: 'mean',
+  seed: 42,
+  useSampleBagging: false
 };
 
 /**
@@ -22,8 +23,7 @@ const defaultOptions = {
  * @augments RandomForestBase
  */
 export class RandomForestRegression extends RandomForestBase {
-
-    /**
+  /**
      * Create a new base random forest for a classifier or regression model.
      * @constructor
      * @param {object} options
@@ -38,56 +38,56 @@ export class RandomForestRegression extends RandomForestBase {
      * @param {boolean} [options.useSampleBagging=false] - use bagging over training samples.
      * @param {object} model - for load purposes.
      */
-    constructor(options, model) {
-        if (options === true) {
-            super(true, model.baseModel);
-            this.selectionMethod = model.selectionMethod;
-        } else {
-            options = Object.assign({}, defaultOptions, options);
+  constructor(options, model) {
+    if (options === true) {
+      super(true, model.baseModel);
+      this.selectionMethod = model.selectionMethod;
+    } else {
+      options = Object.assign({}, defaultOptions, options);
 
-            if (!(options.selectionMethod === 'mean' || options.selectionMethod === 'median')) {
-                throw new RangeError('Unsupported selection method ' + options.selectionMethod);
-            }
+      if (!(options.selectionMethod === 'mean' || options.selectionMethod === 'median')) {
+        throw new RangeError(`Unsupported selection method ${options.selectionMethod}`);
+      }
 
-            options.isClassifier = false;
+      options.isClassifier = false;
 
-            super(options);
-            this.selectionMethod = options.selectionMethod;
-        }
+      super(options);
+      this.selectionMethod = options.selectionMethod;
     }
+  }
 
-    /**
+  /**
      * retrieve the prediction given the selection method.
      * @param {Array} values - predictions of the estimators.
      * @return {number} prediction
      */
-    selection(values) {
-        return selectionMethods[this.selectionMethod](values);
-    }
+  selection(values) {
+    return selectionMethods[this.selectionMethod](values);
+  }
 
-    /**
+  /**
      * Export the current model to JSON.
      * @return {object} - Current model.
      */
-    toJSON() {
-        var baseModel = super.toJSON();
-        return {
-            baseModel: baseModel,
-            selectionMethod: this.selectionMethod,
-            name: 'RFRegression'
-        };
-    }
+  toJSON() {
+    var baseModel = super.toJSON();
+    return {
+      baseModel: baseModel,
+      selectionMethod: this.selectionMethod,
+      name: 'RFRegression'
+    };
+  }
 
-    /**
+  /**
      * Load a Decision tree classifier with the given model.
      * @param {object} model
      * @return {RandomForestRegression}
      */
-    static load(model) {
-        if (model.name !== 'RFRegression') {
-            throw new RangeError('Invalid model: ' + model.name);
-        }
-
-        return new RandomForestRegression(true, model);
+  static load(model) {
+    if (model.name !== 'RFRegression') {
+      throw new RangeError(`Invalid model: ${model.name}`);
     }
+
+    return new RandomForestRegression(true, model);
+  }
 }

@@ -1,11 +1,11 @@
-import {RandomForestBase} from './RandomForestBase';
+import { RandomForestBase } from './RandomForestBase';
 
 const defaultOptions = {
-    maxFeatures: 1.0,
-    replacement: true,
-    nEstimators: 10,
-    seed: 42,
-    useSampleBagging: false
+  maxFeatures: 1.0,
+  replacement: true,
+  nEstimators: 10,
+  seed: 42,
+  useSampleBagging: false
 };
 
 /**
@@ -13,8 +13,7 @@ const defaultOptions = {
  * @augments RandomForestBase
  */
 export class RandomForestClassifier extends RandomForestBase {
-
-    /**
+  /**
      * Create a new base random forest for a classifier or regression model.
      * @constructor
      * @param {object} options
@@ -28,49 +27,49 @@ export class RandomForestClassifier extends RandomForestBase {
      * @param {boolean} [options.useSampleBagging=false] - use bagging over training samples.
      * @param {object} model - for load purposes.
      */
-    constructor(options, model) {
-        if (options === true) {
-            super(true, model.baseModel);
-        } else {
-            options = Object.assign({}, defaultOptions, options);
-            options.isClassifier = true;
-            super(options);
-        }
+  constructor(options, model) {
+    if (options === true) {
+      super(true, model.baseModel);
+    } else {
+      options = Object.assign({}, defaultOptions, options);
+      options.isClassifier = true;
+      super(options);
     }
+  }
 
-    /**
+  /**
      * retrieve the prediction given the selection method.
      * @param {Array} values - predictions of the estimators.
      * @return {number} prediction
      */
-    selection(values) {
-        return mode(values);
-    }
+  selection(values) {
+    return mode(values);
+  }
 
-    /**
+  /**
      * Export the current model to JSON.
      * @return {object} - Current model.
      */
-    toJSON() {
-        var baseModel = super.toJSON();
-        return {
-            baseModel: baseModel,
-            name: 'RFClassifier'
-        };
-    }
+  toJSON() {
+    var baseModel = super.toJSON();
+    return {
+      baseModel: baseModel,
+      name: 'RFClassifier'
+    };
+  }
 
-    /**
+  /**
      * Load a Decision tree classifier with the given model.
      * @param {object} model
      * @return {RandomForestClassifier}
      */
-    static load(model) {
-        if (model.name !== 'RFClassifier') {
-            throw new RangeError('Invalid model: ' + model.name);
-        }
-
-        return new RandomForestClassifier(true, model);
+  static load(model) {
+    if (model.name !== 'RFClassifier') {
+      throw new RangeError(`Invalid model: ${model.name}`);
     }
+
+    return new RandomForestClassifier(true, model);
+  }
 }
 
 /**
@@ -79,8 +78,8 @@ export class RandomForestClassifier extends RandomForestBase {
  * @return {number} mode
  */
 function mode(arr) {
-    return arr.sort((a, b) =>
-        arr.filter(v => v === a).length
-        - arr.filter(v => v === b).length
-    ).pop();
+  return arr.sort((a, b) =>
+    arr.filter((v) => v === a).length
+        - arr.filter((v) => v === b).length
+  ).pop();
 }
