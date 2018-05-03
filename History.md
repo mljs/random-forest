@@ -1,3 +1,13 @@
+<a name="1.0.3"></a>
+## [1.0.3](https://github.com/mljs/random-forest/compare/v1.0.2...v1.0.3) (2018-05-03)
+
+
+### Bug Fixes
+
+* call toJSON to include name property in estimators section ([#12](https://github.com/mljs/random-forest/issues/12)) ([1f2f833](https://github.com/mljs/random-forest/commit/1f2f833)), closes [#11](https://github.com/mljs/random-forest/issues/11)
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/mljs/random forest/compare/v1.0.1...v1.0.2) (2017-08-17)
 
