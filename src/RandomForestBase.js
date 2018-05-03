@@ -145,7 +145,7 @@ export class RandomForestBase {
             treeOptions: this.treeOptions,
             isClassifier: this.isClassifier,
             seed: this.seed,
-            estimators: this.estimators,
+            estimators: this.estimators.map(est => est.toJSON()),
             useSampleBagging: this.useSampleBagging
         };
     }
