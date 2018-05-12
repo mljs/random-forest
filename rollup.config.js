@@ -1,5 +1,14 @@
 export default {
-    entry: 'src/index.js',
-    format: 'cjs',
-    dest: 'lib/index.js'
+  input: 'src/index.js',
+  output: {
+    file: 'random-forest.js',
+    format: 'cjs'
+  },
+  external: [
+    'ml-array-mean',
+    'ml-array-median',
+    'ml-cart',
+    'ml-matrix',
+    'random-js'
+  ]
 };

@@ -3,3 +3,5 @@ node_js:
   - 10
   - 8
   - 6
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

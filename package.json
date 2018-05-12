@@ -2,18 +2,20 @@
   "name": "ml-random-forest",
   "version": "1.0.3",
   "description": "Random forest for classification and regression",
-  "main": "lib/index.js",
+  "main": "random-forest.js",
   "module": "src/index.js",
   "files": [
     "src",
-    "lib"
+    "random-forest.js"
   ],
   "scripts": {
+    "compile": "rollup -c",
     "eslint": "eslint src",
     "eslint-fix": "npm run eslint -- --fix",
-    "prepublish": "rollup -c",
-    "test": "run-s testonly eslint",
-    "testonly": "jest"
+    "prepublishOnly": "npm run compile",
+    "test": "run-s test-coverage eslint",
+    "test-only": "jest",
+    "test-coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -36,10 +38,10 @@
   },
   "homepage": "https://github.com/mljs/random-forest#readme",
   "devDependencies": {
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "benchmark": "^2.1.0",
     "eslint": "^4.19.1",
-    "eslint-config-cheminfo": "^1.8.0",
+    "eslint-config-cheminfo": "^1.17.3",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jest": "^21.15.1",
     "jest": "^22.4.3",

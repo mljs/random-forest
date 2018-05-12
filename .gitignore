@@ -36,5 +36,4 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-lib
-.idea
+random-forest.js
