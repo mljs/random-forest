@@ -1,20 +1,21 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset='utf-8' />
-  <title>ml-random-forest 1.0.3 | Documentation</title>
+  <meta charset='utf-8'>
+  <title>ml-random-forest 2.0.0 | Documentation</title>
+  <meta name='description' content='Random forest for classification and regression'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
-  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
-  <link href='assets/style.css' type='text/css' rel='stylesheet' />
-  <link href='assets/github.css' type='text/css' rel='stylesheet' />
-  <link href='assets/split.css' type='text/css' rel='stylesheet' />
+  <link href='assets/bass.css' rel='stylesheet'>
+  <link href='assets/style.css' rel='stylesheet'>
+  <link href='assets/github.css' rel='stylesheet'>
+  <link href='assets/split.css' rel='stylesheet'>
 </head>
 <body class='documentation m0'>
     <div class='flex'>
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>ml-random-forest</h3>
-          <div class='mb1'><code>1.0.3</code></div>
+          <div class='mb1'><code>2.0.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -22,51 +23,6 @@
             type='text' />
           <div id='toc'>
             <ul class='list-reset h5 py1-ul'>
-              
-                
-                <li><a
-                  href='#randomforestclassifier'
-                  class=" toggle-sibling">
-                  RandomForestClassifier
-                  <span class='icon'>▸</span>
-                </a>
-                
-                <div class='toggle-target display-none'>
-                  
-                  <ul class='list-reset py1-ul pl1'>
-                    <li class='h5'><span>Static members</span></li>
-                    
-                      <li><a
-                        href='#randomforestclassifierload'
-                        class='regular pre-open'>
-                        .load
-                      </a></li>
-                    
-                    </ul>
-                  
-                  
-                    <ul class='list-reset py1-ul pl1'>
-                      <li class='h5'><span>Instance members</span></li>
-                      
-                      <li><a
-                        href='#randomforestclassifierselection'
-                        class='regular pre-open'>
-                        #selection
-                      </a></li>
-                      
-                      <li><a
-                        href='#randomforestclassifiertojson'
-                        class='regular pre-open'>
-                        #toJSON
-                      </a></li>
-                      
-                    </ul>
-                  
-                  
-                  
-                </div>
-                
-                </li>
               
                 
                 <li><a
@@ -101,6 +57,51 @@
                       
                       <li><a
                         href='#randomforestregressiontojson'
+                        class='regular pre-open'>
+                        #toJSON
+                      </a></li>
+                      
+                    </ul>
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#randomforestclassifier'
+                  class=" toggle-sibling">
+                  RandomForestClassifier
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#randomforestclassifierload'
+                        class='regular pre-open'>
+                        .load
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+                      
+                      <li><a
+                        href='#randomforestclassifierselection'
+                        class='regular pre-open'>
+                        #selection
+                      </a></li>
+                      
+                      <li><a
+                        href='#randomforestclassifiertojson'
                         class='regular pre-open'>
                         #toJSON
                       </a></li>
@@ -172,299 +173,14 @@
             </ul>
           </div>
           <div class='mt1 h6 quiet'>
-            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+            <a href='https://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
           </div>
         </div>
       </div>
       <div id='split-right' class='relative overflow-auto height-viewport-100'>
         
           
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='randomforestclassifier'>
-      RandomForestClassifier
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestClassifier.js#L15-L73'>
-      <span>src/RandomForestClassifier.js</span>
-      </a>
-    
-  </div>
-  
-
-  
-
-  <div class='pre p1 fill-light mt0'>new RandomForestClassifier()</div>
-  
-  
-    <p>
-      Extends
-      
-        <a href="#randomforestbase">RandomForestBase</a>
-      
-    </p>
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Static Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='randomforestclassifierload'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>load(model)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestClassifier.js#L66-L72'>
-      <span>src/RandomForestClassifier.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Load a Decision tree classifier with the given model.</p>
-
-
-  <div class='pre p1 fill-light mt0'>load(model: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="#randomforestclassifier">RandomForestClassifier</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="#randomforestclassifier">RandomForestClassifier</a></code>:
-        
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-</div>
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='randomforestclassifierselection'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>selection(values)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestClassifier.js#L45-L47'>
-      <span>src/RandomForestClassifier.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>retrieve the prediction given the selection method.</p>
-
-
-  <div class='pre p1 fill-light mt0'>selection(values: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>values</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
-	    predictions of the estimators.
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
-        prediction
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='randomforestclassifiertojson'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>toJSON()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestClassifier.js#L53-L59'>
-      <span>src/RandomForestClassifier.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Export the current model to JSON.</p>
-
-
-  <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
-        Current model.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-</div>
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+          <section class='p2 mb2 clearfix bg-white minishadow'>
 
   
   <div class='clearfix'>
@@ -474,7 +190,7 @@
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestRegression.js#L25-L93'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/ce7a6e8822bc7d574a99ed8cf7edb96b3ba92c0d/src/RandomForestRegression.js#L25-L100'>
       <span>src/RandomForestRegression.js</span>
       </a>
     
@@ -482,8 +198,7 @@
   
 
   
-
-  <div class='pre p1 fill-light mt0'>new RandomForestRegression()</div>
+    <div class='pre p1 fill-light mt0'>new RandomForestRegression()</div>
   
   
     <p>
@@ -529,7 +244,7 @@
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestRegression.js#L86-L92'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/ce7a6e8822bc7d574a99ed8cf7edb96b3ba92c0d/src/RandomForestRegression.js#L93-L99'>
       <span>src/RandomForestRegression.js</span>
       </a>
     
@@ -538,8 +253,7 @@
 
   <p>Load a Decision tree classifier with the given model.</p>
 
-
-  <div class='pre p1 fill-light mt0'>load(model: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="#randomforestregression">RandomForestRegression</a></div>
+    <div class='pre p1 fill-light mt0'>load(model: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="#randomforestregression">RandomForestRegression</a></div>
   
   
 
@@ -586,6 +300,8 @@
   
 
   
+
+  
 </section>
 
       </div>
@@ -613,7 +329,7 @@
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestRegression.js#L64-L66'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/ce7a6e8822bc7d574a99ed8cf7edb96b3ba92c0d/src/RandomForestRegression.js#L71-L73'>
       <span>src/RandomForestRegression.js</span>
       </a>
     
@@ -622,8 +338,7 @@
 
   <p>retrieve the prediction given the selection method.</p>
 
-
-  <div class='pre p1 fill-light mt0'>selection(values: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+    <div class='pre p1 fill-light mt0'>selection(values: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
   
   
 
@@ -671,6 +386,8 @@
   
 
   
+
+  
 </section>
 
       </div>
@@ -690,7 +407,7 @@
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestRegression.js#L72-L79'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/ce7a6e8822bc7d574a99ed8cf7edb96b3ba92c0d/src/RandomForestRegression.js#L79-L86'>
       <span>src/RandomForestRegression.js</span>
       </a>
     
@@ -699,8 +416,7 @@
 
   <p>Export the current model to JSON.</p>
 
-
-  <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+    <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
   
   
 
@@ -734,6 +450,8 @@
   
 
   
+
+  
 </section>
 
       </div>
@@ -744,12 +462,303 @@
   
 
   
+
+  
 </section>
 
           
         
           
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='randomforestclassifier'>
+      RandomForestClassifier
+    </h3>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/ce7a6e8822bc7d574a99ed8cf7edb96b3ba92c0d/src/RandomForestClassifier.js#L15-L73'>
+      <span>src/RandomForestClassifier.js</span>
+      </a>
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>new RandomForestClassifier()</div>
+  
+  
+    <p>
+      Extends
+      
+        <a href="#randomforestbase">RandomForestBase</a>
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='randomforestclassifierload'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>load(model)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/ce7a6e8822bc7d574a99ed8cf7edb96b3ba92c0d/src/RandomForestClassifier.js#L66-L72'>
+      <span>src/RandomForestClassifier.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Load a Decision tree classifier with the given model.</p>
+
+    <div class='pre p1 fill-light mt0'>load(model: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>): <a href="#randomforestclassifier">RandomForestClassifier</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>model</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="#randomforestclassifier">RandomForestClassifier</a></code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='randomforestclassifierselection'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>selection(values)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/ce7a6e8822bc7d574a99ed8cf7edb96b3ba92c0d/src/RandomForestClassifier.js#L45-L47'>
+      <span>src/RandomForestClassifier.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>retrieve the prediction given the selection method.</p>
+
+    <div class='pre p1 fill-light mt0'>selection(values: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>values</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</code>
+	    predictions of the estimators.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
+        prediction
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='randomforestclassifiertojson'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>toJSON()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/ce7a6e8822bc7d574a99ed8cf7edb96b3ba92c0d/src/RandomForestClassifier.js#L53-L59'>
+      <span>src/RandomForestClassifier.js</span>
+      </a>
+    
+  </div>
+  
+
+  <p>Export the current model to JSON.</p>
+
+    <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        Current model.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
 
   
   <div class='clearfix'>
@@ -759,7 +768,7 @@
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestClassifier.js#L80-L85'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/ce7a6e8822bc7d574a99ed8cf7edb96b3ba92c0d/src/RandomForestClassifier.js#L80-L87'>
       <span>src/RandomForestClassifier.js</span>
       </a>
     
@@ -768,8 +777,7 @@
 
   <p>Return the most repeated element on the array.</p>
 
-
-  <div class='pre p1 fill-light mt0'>mode(arr: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+    <div class='pre p1 fill-light mt0'>mode(arr: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
   
   
 
@@ -816,12 +824,14 @@
   
 
   
+
+  
 </section>
 
           
         
           
-            <section class='p2 mb2 clearfix bg-white minishadow'>
+          <section class='p2 mb2 clearfix bg-white minishadow'>
 
   
   <div class='clearfix'>
@@ -831,7 +841,7 @@
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestBase.js#L12-L152'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/ce7a6e8822bc7d574a99ed8cf7edb96b3ba92c0d/src/RandomForestBase.js#L12-L161'>
       <span>src/RandomForestBase.js</span>
       </a>
     
@@ -839,8 +849,7 @@
   
 
   
-
-  <div class='pre p1 fill-light mt0'>new RandomForestBase()</div>
+    <div class='pre p1 fill-light mt0'>new RandomForestBase()</div>
   
   
 
@@ -881,7 +890,7 @@
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestBase.js#L117-L132'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/ce7a6e8822bc7d574a99ed8cf7edb96b3ba92c0d/src/RandomForestBase.js#L126-L141'>
       <span>src/RandomForestBase.js</span>
       </a>
     
@@ -890,8 +899,7 @@
 
   <p>Predicts the output given the matrix to predict.</p>
 
-
-  <div class='pre p1 fill-light mt0'>predict(toPredict: (Matrix | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
+    <div class='pre p1 fill-light mt0'>predict(toPredict: (Matrix | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></div>
   
   
 
@@ -938,6 +946,8 @@
   
 
   
+
+  
 </section>
 
       </div>
@@ -957,7 +967,7 @@
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestBase.js#L108-L110'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/ce7a6e8822bc7d574a99ed8cf7edb96b3ba92c0d/src/RandomForestBase.js#L117-L119'>
       <span>src/RandomForestBase.js</span>
       </a>
     
@@ -968,8 +978,7 @@
 you can return the mode of all predictions retrieved by the trees, or in case of regression you can
 use the mean or the median.</p>
 
-
-  <div class='pre p1 fill-light mt0'>selection(values: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+    <div class='pre p1 fill-light mt0'>selection(values: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
   
   
 
@@ -1017,6 +1026,8 @@ use the mean or the median.</p>
   
 
   
+
+  
 </section>
 
       </div>
@@ -1036,7 +1047,7 @@ use the mean or the median.</p>
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestBase.js#L138-L151'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/ce7a6e8822bc7d574a99ed8cf7edb96b3ba92c0d/src/RandomForestBase.js#L147-L160'>
       <span>src/RandomForestBase.js</span>
       </a>
     
@@ -1045,8 +1056,7 @@ use the mean or the median.</p>
 
   <p>Export the current model to JSON.</p>
 
-
-  <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+    <div class='pre p1 fill-light mt0'>toJSON(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
   
   
 
@@ -1080,6 +1090,8 @@ use the mean or the median.</p>
   
 
   
+
+  
 </section>
 
       </div>
@@ -1099,7 +1111,7 @@ use the mean or the median.</p>
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/e05c3ee82979d0711c22f785745e2283cb85a63c/src/RandomForestBase.js#L58-L97'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/mljs/random-forest/blob/ce7a6e8822bc7d574a99ed8cf7edb96b3ba92c0d/src/RandomForestBase.js#L58-L106'>
       <span>src/RandomForestBase.js</span>
       </a>
     
@@ -1108,8 +1120,7 @@ use the mean or the median.</p>
 
   <p>Train the decision tree with the given training set and labels.</p>
 
-
-  <div class='pre p1 fill-light mt0'>train(trainingSet: (Matrix | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>), trainingValues: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</div>
+    <div class='pre p1 fill-light mt0'>train(trainingSet: (Matrix | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>), trainingValues: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>)</div>
   
   
 
@@ -1156,12 +1167,16 @@ use the mean or the median.</p>
   
 
   
+
+  
 </section>
 
       </div>
     </div>
   
 </div>
+
+  
 
   
 
