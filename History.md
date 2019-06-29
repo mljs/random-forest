@@ -1,3 +1,17 @@
+# [2.0.0](https://github.com/mljs/random-forest/compare/v1.0.3...v2.0.0) (2019-06-29)
+
+
+### chore
+
+* update dependencies and remove support for Node.js 6 ([99fcd3c](https://github.com/mljs/random-forest/commit/99fcd3c))
+
+
+### BREAKING CHANGES
+
+* Node.js 6 is no longer supported
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/mljs/random-forest/compare/v1.0.2...v1.0.3) (2018-05-03)
 
