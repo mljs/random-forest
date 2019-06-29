@@ -40,7 +40,6 @@ for (var i = 0; i < dataset.length; ++i) {
   predictions[i] = dataset[i][3];
 }
 
-
 var options = {
   seed: 3,
   maxFeatures: 2,
@@ -60,7 +59,7 @@ var result = regression.predict(trainingSet);
  * Name: Test Scores for General Psychology
  */
 describe('Random Forest Regression', () => {
-  test('Random Forest regression with scores psychology from Houghton Mifflin', () => {
+  it('Random Forest regression with scores psychology from Houghton Mifflin', () => {
     var correct = 0;
     for (var i = 0; i < result.length; ++i) {
       if (approx(result[i], predictions[i], 10)) correct++;
@@ -70,7 +69,7 @@ describe('Random Forest Regression', () => {
     expect(score).toBeGreaterThanOrEqual(0.7);
   });
 
-  test('Export and import for random forest regression', () => {
+  it('Export and import for random forest regression', () => {
     var model = JSON.parse(JSON.stringify(regression));
 
     var newClassifier = RFRegression.load(model);

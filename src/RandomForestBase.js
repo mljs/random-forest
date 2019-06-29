@@ -2,7 +2,7 @@ import {
   DecisionTreeClassifier as DTClassifier,
   DecisionTreeRegression as DTRegression
 } from 'ml-cart';
-import { Matrix, WrapperMatrix2D } from 'ml-matrix';
+import { Matrix, WrapperMatrix2D, MatrixTransposeView, MatrixColumnSelectionView } from 'ml-matrix';
 
 import * as Utils from './utils';
 
@@ -64,14 +64,17 @@ export class RandomForestBase {
       this.n = Math.floor(trainingSet.columns * this.maxFeatures);
     } else if (Number.isInteger(this.maxFeatures)) {
       if (this.maxFeatures > trainingSet.columns) {
-        throw new RangeError(`The maxFeatures parameter should be less than ${trainingSet.columns}`);
+        throw new RangeError(
+          `The maxFeatures parameter should be less than ${trainingSet.columns}`
+        );
       } else {
         this.n = this.maxFeatures;
       }
     } else {
-      throw new RangeError(`Cannot process the maxFeatures parameter ${this.maxFeatures}`);
+      throw new RangeError(
+        `Cannot process the maxFeatures parameter ${this.maxFeatures}`
+      );
     }
-
 
     if (this.isClassifier) {
       var Estimator = DTClassifier;
@@ -83,7 +86,13 @@ export class RandomForestBase {
     this.indexes = new Array(this.nEstimators);
 
     for (var i = 0; i < this.nEstimators; ++i) {
-      var res = this.useSampleBagging ? Utils.examplesBaggingWithReplacement(trainingSet, trainingValues, this.seed) : { X: trainingSet, y: trainingValues };
+      var res = this.useSampleBagging
+        ? Utils.examplesBaggingWithReplacement(
+          trainingSet,
+          trainingValues,
+          this.seed
+        )
+        : { X: trainingSet, y: trainingValues };
       var X = res.X;
       var y = res.y;
 
@@ -106,7 +115,7 @@ export class RandomForestBase {
    */
   // eslint-disable-next-line no-unused-vars
   selection(values) {
-    throw new Error('Abstract method \'selection\' not implemented!');
+    throw new Error("Abstract method 'selection' not implemented!");
   }
 
   /**
@@ -118,11 +127,11 @@ export class RandomForestBase {
     var predictionValues = new Array(this.nEstimators);
     toPredict = Matrix.checkMatrix(toPredict);
     for (var i = 0; i < this.nEstimators; ++i) {
-      var X = toPredict.columnSelectionView(this.indexes[i]); // get features for estimator
+      var X = new MatrixColumnSelectionView(toPredict, this.indexes[i]); // get features for estimator
       predictionValues[i] = this.estimators[i].predict(X);
     }
 
-    predictionValues = new WrapperMatrix2D(predictionValues).transposeView();
+    predictionValues = new MatrixTransposeView(new WrapperMatrix2D(predictionValues));
     var predictions = new Array(predictionValues.rows);
     for (i = 0; i < predictionValues.rows; ++i) {
       predictions[i] = this.selection(predictionValues.getRow(i));

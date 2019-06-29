@@ -1,9 +1,10 @@
-import Random from 'random-js';
+import * as Random from 'random-js';
 import Matrix from 'ml-matrix';
 
 export function checkFloat(n) {
   return n > 0.0 && n <= 1.0;
 }
+
 
 /**
  * Select n with replacement elements on the training set and values, where n is the size of the training set.
@@ -13,15 +14,21 @@ export function checkFloat(n) {
  * @param {number} seed - seed for the random selection, must be a 32-bit integer.
  * @return {object} with new X and y.
  */
-export function examplesBaggingWithReplacement(trainingSet, trainingValue, seed) {
-  var engine = Random.engines.mt19937();
+export function examplesBaggingWithReplacement(
+  trainingSet,
+  trainingValue,
+  seed
+) {
+  var engine;
   var distribution = Random.integer(0, trainingSet.rows - 1);
   if (seed === undefined) {
-    engine = engine.autoSeed();
+    engine = Random.MersenneTwister19937.autoSeed();
   } else if (Number.isInteger(seed)) {
-    engine = engine.seed(seed);
+    engine = Random.MersenneTwister19937.seed(seed);
   } else {
-    throw new RangeError(`Expected seed must be undefined or integer not ${seed}`);
+    throw new RangeError(
+      `Expected seed must be undefined or integer not ${seed}`
+    );
   }
 
   var Xr = new Array(trainingSet.rows);
@@ -29,7 +36,7 @@ export function examplesBaggingWithReplacement(trainingSet, trainingValue, seed)
 
   for (var i = 0; i < trainingSet.rows; ++i) {
     var index = distribution(engine);
-    Xr[i] = trainingSet[index];
+    Xr[i] = trainingSet.getRow(index);
     yr[i] = trainingValue[index];
   }
 
@@ -50,17 +57,21 @@ export function examplesBaggingWithReplacement(trainingSet, trainingValue, seed)
  */
 export function featureBagging(trainingSet, n, replacement, seed) {
   if (trainingSet.columns < n) {
-    throw new RangeError('N should be less or equal to the number of columns of X');
+    throw new RangeError(
+      'N should be less or equal to the number of columns of X'
+    );
   }
 
   var distribution = Random.integer(0, trainingSet.columns - 1);
-  var engine = Random.engines.mt19937();
+  var engine;
   if (seed === undefined) {
-    engine = engine.autoSeed();
+    engine = Random.MersenneTwister19937.autoSeed();
   } else if (Number.isInteger(seed)) {
-    engine = engine.seed(seed);
+    engine = Random.MersenneTwister19937.seed(seed);
   } else {
-    throw new RangeError(`Expected seed must be undefined or integer not ${seed}`);
+    throw new RangeError(
+      `Expected seed must be undefined or integer not ${seed}`
+    );
   }
 
   var toRet = new Matrix(trainingSet.rows, n);

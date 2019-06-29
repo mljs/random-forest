@@ -13,7 +13,7 @@
     "eslint": "eslint src",
     "eslint-fix": "npm run eslint -- --fix",
     "prepublishOnly": "npm run compile",
-    "test": "run-s test-coverage eslint",
+    "test": "npm run test-coverage && npm run eslint",
     "test-only": "jest",
     "test-coverage": "jest --coverage"
   },
@@ -38,22 +38,22 @@
   },
   "homepage": "https://github.com/mljs/random-forest#readme",
   "devDependencies": {
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
-    "benchmark": "^2.1.0",
-    "eslint": "^4.19.1",
-    "eslint-config-cheminfo": "^1.17.3",
-    "eslint-plugin-import": "^2.11.0",
-    "eslint-plugin-jest": "^21.15.1",
-    "jest": "^22.4.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.4",
+    "benchmark": "^2.1.4",
+    "eslint": "^6.0.1",
+    "eslint-config-cheminfo": "^1.20.1",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jest": "^22.7.1",
+    "jest": "^24.8.0",
     "ml-dataset-iris": "^1.0.0",
     "npm-run-all": "^4.0.2",
-    "rollup": "^0.58.2"
+    "rollup": "^1.16.3"
   },
   "dependencies": {
-    "ml-array-mean": "^1.0.0",
-    "ml-array-median": "^1.0.0",
-    "ml-cart": "^1.0.8",
-    "ml-matrix": "^5.0.0",
-    "random-js": "^1.0.8"
+    "ml-array-mean": "^1.1.1",
+    "ml-array-median": "^1.1.1",
+    "ml-cart": "^2.0.0",
+    "ml-matrix": "^6.1.2",
+    "random-js": "^2.1.0"
   }
 }
