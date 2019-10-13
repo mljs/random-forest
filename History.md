@@ -1,3 +1,12 @@
+## [2.0.1](https://github.com/mljs/random-forest/compare/v2.0.0...v2.0.1) (2019-10-13)
+
+
+### Bug Fixes
+
+* bump ml-cart version ([#14](https://github.com/mljs/random-forest/issues/14)) ([1883192](https://github.com/mljs/random-forest/commit/1883192965d0be4da11ae911f257a6ccb1c7a764))
+
+
+
 # [2.0.0](https://github.com/mljs/random-forest/compare/v1.0.3...v2.0.0) (2019-06-29)
 
 
