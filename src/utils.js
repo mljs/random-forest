@@ -5,7 +5,6 @@ export function checkFloat(n) {
   return n > 0.0 && n <= 1.0;
 }
 
-
 /**
  * Select n with replacement elements on the training set and values, where n is the size of the training set.
  * @ignore
@@ -17,32 +16,32 @@ export function checkFloat(n) {
 export function examplesBaggingWithReplacement(
   trainingSet,
   trainingValue,
-  seed
+  seed,
 ) {
-  var engine;
-  var distribution = Random.integer(0, trainingSet.rows - 1);
+  let engine;
+  let distribution = Random.integer(0, trainingSet.rows - 1);
   if (seed === undefined) {
     engine = Random.MersenneTwister19937.autoSeed();
   } else if (Number.isInteger(seed)) {
     engine = Random.MersenneTwister19937.seed(seed);
   } else {
     throw new RangeError(
-      `Expected seed must be undefined or integer not ${seed}`
+      `Expected seed must be undefined or integer not ${seed}`,
     );
   }
 
-  var Xr = new Array(trainingSet.rows);
-  var yr = new Array(trainingSet.rows);
+  let Xr = new Array(trainingSet.rows);
+  let yr = new Array(trainingSet.rows);
 
-  for (var i = 0; i < trainingSet.rows; ++i) {
-    var index = distribution(engine);
+  for (let i = 0; i < trainingSet.rows; ++i) {
+    let index = distribution(engine);
     Xr[i] = trainingSet.getRow(index);
     yr[i] = trainingValue[index];
   }
 
   return {
     X: new Matrix(Xr),
-    y: yr
+    y: yr,
   };
 }
 
@@ -58,35 +57,37 @@ export function examplesBaggingWithReplacement(
 export function featureBagging(trainingSet, n, replacement, seed) {
   if (trainingSet.columns < n) {
     throw new RangeError(
-      'N should be less or equal to the number of columns of X'
+      'N should be less or equal to the number of columns of X',
     );
   }
 
-  var distribution = Random.integer(0, trainingSet.columns - 1);
-  var engine;
+  let distribution = Random.integer(0, trainingSet.columns - 1);
+  let engine;
   if (seed === undefined) {
     engine = Random.MersenneTwister19937.autoSeed();
   } else if (Number.isInteger(seed)) {
     engine = Random.MersenneTwister19937.seed(seed);
   } else {
     throw new RangeError(
-      `Expected seed must be undefined or integer not ${seed}`
+      `Expected seed must be undefined or integer not ${seed}`,
     );
   }
 
-  var toRet = new Matrix(trainingSet.rows, n);
+  let toRet = new Matrix(trainingSet.rows, n);
 
+  let usedIndex;
+  let index;
   if (replacement) {
-    var usedIndex = new Array(n);
-    for (var i = 0; i < n; ++i) {
-      var index = distribution(engine);
+    usedIndex = new Array(n);
+    for (let i = 0; i < n; ++i) {
+      index = distribution(engine);
       usedIndex[i] = index;
       toRet.setColumn(i, trainingSet.getColumn(index));
     }
   } else {
     usedIndex = new Set();
     index = distribution(engine);
-    for (i = 0; i < n; ++i) {
+    for (let i = 0; i < n; ++i) {
       while (usedIndex.has(index)) {
         index = distribution(engine);
       }
@@ -98,6 +99,6 @@ export function featureBagging(trainingSet, n, replacement, seed) {
 
   return {
     X: toRet,
-    usedIndex: usedIndex
+    usedIndex: usedIndex,
   };
 }

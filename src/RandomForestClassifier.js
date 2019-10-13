@@ -5,7 +5,7 @@ const defaultOptions = {
   replacement: true,
   nEstimators: 10,
   seed: 42,
-  useSampleBagging: false
+  useSampleBagging: false,
 };
 
 /**
@@ -51,10 +51,10 @@ export class RandomForestClassifier extends RandomForestBase {
    * @return {object} - Current model.
    */
   toJSON() {
-    var baseModel = super.toJSON();
+    let baseModel = super.toJSON();
     return {
       baseModel: baseModel,
-      name: 'RFClassifier'
+      name: 'RFClassifier',
     };
   }
 
@@ -81,7 +81,7 @@ function mode(arr) {
   return arr
     .sort(
       (a, b) =>
-        arr.filter((v) => v === a).length - arr.filter((v) => v === b).length
+        arr.filter((v) => v === a).length - arr.filter((v) => v === b).length,
     )
     .pop();
 }

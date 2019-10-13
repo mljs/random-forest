@@ -4,7 +4,7 @@ function approx(val, expected, eps) {
   return val - eps < expected && expected < val + eps;
 }
 
-var dataset = [
+let dataset = [
   [73, 80, 75, 152],
   [93, 88, 93, 185],
   [89, 91, 90, 180],
@@ -29,29 +29,29 @@ var dataset = [
   [86, 82, 89, 175],
   [78, 83, 85, 175],
   [76, 83, 71, 149],
-  [96, 93, 95, 192]
+  [96, 93, 95, 192],
 ];
 
-var trainingSet = new Array(dataset.length);
-var predictions = new Array(dataset.length);
+let trainingSet = new Array(dataset.length);
+let predictions = new Array(dataset.length);
 
-for (var i = 0; i < dataset.length; ++i) {
+for (let i = 0; i < dataset.length; ++i) {
   trainingSet[i] = dataset[i].slice(0, 3);
   predictions[i] = dataset[i][3];
 }
 
-var options = {
+let options = {
   seed: 3,
   maxFeatures: 2,
   replacement: false,
   nEstimators: 200,
   treeOptions: undefined, // default options for the decision tree
-  useSampleBagging: true
+  useSampleBagging: true,
 };
 
-var regression = new RFRegression(options);
+let regression = new RFRegression(options);
 regression.train(trainingSet, predictions);
-var result = regression.predict(trainingSet);
+let result = regression.predict(trainingSet);
 
 /**
  * test dataset found here:
@@ -60,22 +60,21 @@ var result = regression.predict(trainingSet);
  */
 describe('Random Forest Regression', () => {
   it('Random Forest regression with scores psychology from Houghton Mifflin', () => {
-    var correct = 0;
-    for (var i = 0; i < result.length; ++i) {
-      if (approx(result[i], predictions[i], 10)) correct++;
-    }
+    const correct = result.reduce((prev, value, index) => {
+      return approx(value, predictions[index], 10) ? prev + 1 : prev;
+    }, 0);
 
-    var score = correct / result.length;
+    let score = correct / result.length;
     expect(score).toBeGreaterThanOrEqual(0.7);
   });
 
   it('Export and import for random forest regression', () => {
-    var model = JSON.parse(JSON.stringify(regression));
+    let model = JSON.parse(JSON.stringify(regression));
 
-    var newClassifier = RFRegression.load(model);
-    var newResult = newClassifier.predict(trainingSet);
+    let newClassifier = RFRegression.load(model);
+    let newResult = newClassifier.predict(trainingSet);
 
-    for (var i = 0; i < result.length; ++i) {
+    for (let i = 0; i < result.length; ++i) {
       expect(newResult[i]).toBeCloseTo(result[i], 0.01);
     }
   });

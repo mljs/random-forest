@@ -1,8 +1,13 @@
 import {
   DecisionTreeClassifier as DTClassifier,
-  DecisionTreeRegression as DTRegression
+  DecisionTreeRegression as DTRegression,
 } from 'ml-cart';
-import { Matrix, WrapperMatrix2D, MatrixTransposeView, MatrixColumnSelectionView } from 'ml-matrix';
+import {
+  Matrix,
+  WrapperMatrix2D,
+  MatrixTransposeView,
+  MatrixColumnSelectionView,
+} from 'ml-matrix';
 
 import * as Utils from './utils';
 
@@ -37,7 +42,7 @@ export class RandomForestBase {
       this.indexes = model.indexes;
       this.useSampleBagging = model.useSampleBagging;
 
-      var Estimator = this.isClassifier ? DTClassifier : DTRegression;
+      let Estimator = this.isClassifier ? DTClassifier : DTRegression;
       this.estimators = model.estimators.map((est) => Estimator.load(est));
     } else {
       this.replacement = options.replacement;
@@ -65,19 +70,20 @@ export class RandomForestBase {
     } else if (Number.isInteger(this.maxFeatures)) {
       if (this.maxFeatures > trainingSet.columns) {
         throw new RangeError(
-          `The maxFeatures parameter should be less than ${trainingSet.columns}`
+          `The maxFeatures parameter should be less than ${trainingSet.columns}`,
         );
       } else {
         this.n = this.maxFeatures;
       }
     } else {
       throw new RangeError(
-        `Cannot process the maxFeatures parameter ${this.maxFeatures}`
+        `Cannot process the maxFeatures parameter ${this.maxFeatures}`,
       );
     }
 
+    let Estimator;
     if (this.isClassifier) {
-      var Estimator = DTClassifier;
+      Estimator = DTClassifier;
     } else {
       Estimator = DTRegression;
     }
@@ -85,16 +91,16 @@ export class RandomForestBase {
     this.estimators = new Array(this.nEstimators);
     this.indexes = new Array(this.nEstimators);
 
-    for (var i = 0; i < this.nEstimators; ++i) {
-      var res = this.useSampleBagging
+    for (let i = 0; i < this.nEstimators; ++i) {
+      let res = this.useSampleBagging
         ? Utils.examplesBaggingWithReplacement(
-          trainingSet,
-          trainingValues,
-          this.seed
-        )
+            trainingSet,
+            trainingValues,
+            this.seed,
+          )
         : { X: trainingSet, y: trainingValues };
-      var X = res.X;
-      var y = res.y;
+      let X = res.X;
+      let y = res.y;
 
       res = Utils.featureBagging(X, this.n, this.replacement, this.seed);
       X = res.X;
@@ -124,16 +130,18 @@ export class RandomForestBase {
    * @return {Array} predictions
    */
   predict(toPredict) {
-    var predictionValues = new Array(this.nEstimators);
+    let predictionValues = new Array(this.nEstimators);
     toPredict = Matrix.checkMatrix(toPredict);
-    for (var i = 0; i < this.nEstimators; ++i) {
-      var X = new MatrixColumnSelectionView(toPredict, this.indexes[i]); // get features for estimator
+    for (let i = 0; i < this.nEstimators; ++i) {
+      let X = new MatrixColumnSelectionView(toPredict, this.indexes[i]); // get features for estimator
       predictionValues[i] = this.estimators[i].predict(X);
     }
 
-    predictionValues = new MatrixTransposeView(new WrapperMatrix2D(predictionValues));
-    var predictions = new Array(predictionValues.rows);
-    for (i = 0; i < predictionValues.rows; ++i) {
+    predictionValues = new MatrixTransposeView(
+      new WrapperMatrix2D(predictionValues),
+    );
+    let predictions = new Array(predictionValues.rows);
+    for (let i = 0; i < predictionValues.rows; ++i) {
       predictions[i] = this.selection(predictionValues.getRow(i));
     }
 
@@ -155,7 +163,7 @@ export class RandomForestBase {
       isClassifier: this.isClassifier,
       seed: this.seed,
       estimators: this.estimators.map((est) => est.toJSON()),
-      useSampleBagging: this.useSampleBagging
+      useSampleBagging: this.useSampleBagging,
     };
   }
 }

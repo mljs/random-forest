@@ -5,7 +5,7 @@ import { RandomForestBase } from './RandomForestBase';
 
 const selectionMethods = {
   mean: arrayMean,
-  median: arrayMedian
+  median: arrayMedian,
 };
 
 const defaultOptions = {
@@ -15,7 +15,7 @@ const defaultOptions = {
   treeOptions: {},
   selectionMethod: 'mean',
   seed: 42,
-  useSampleBagging: false
+  useSampleBagging: false,
 };
 
 /**
@@ -52,7 +52,7 @@ export class RandomForestRegression extends RandomForestBase {
         )
       ) {
         throw new RangeError(
-          `Unsupported selection method ${options.selectionMethod}`
+          `Unsupported selection method ${options.selectionMethod}`,
         );
       }
 
@@ -77,11 +77,11 @@ export class RandomForestRegression extends RandomForestBase {
    * @return {object} - Current model.
    */
   toJSON() {
-    var baseModel = super.toJSON();
+    let baseModel = super.toJSON();
     return {
       baseModel: baseModel,
       selectionMethod: this.selectionMethod,
-      name: 'RFRegression'
+      name: 'RFRegression',
     };
   }
 
