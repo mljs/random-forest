@@ -52,7 +52,7 @@
   "dependencies": {
     "ml-array-mean": "^1.1.1",
     "ml-array-median": "^1.1.1",
-    "ml-cart": "^2.0.0",
+    "ml-cart": "^2.0.1",
     "ml-matrix": "^6.1.2",
     "random-js": "^2.1.0"
   }
