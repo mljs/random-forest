@@ -42,6 +42,7 @@ export function examplesBaggingWithReplacement(
   return {
     X: new Matrix(Xr),
     y: yr,
+    seed: engine.next()
   };
 }
 
@@ -100,5 +101,6 @@ export function featureBagging(trainingSet, n, replacement, seed) {
   return {
     X: toRet,
     usedIndex: usedIndex,
+    seed: engine.next()
   };
 }
