@@ -61,7 +61,6 @@ export class RandomForestBase {
    * @param {Array} trainingValues
    */
   train(trainingSet, trainingValues) {
-
     let currentSeed = this.seed;
 
     trainingSet = Matrix.checkMatrix(trainingSet);
