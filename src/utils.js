@@ -33,15 +33,36 @@ export function examplesBaggingWithReplacement(
   let Xr = new Array(trainingSet.rows);
   let yr = new Array(trainingSet.rows);
 
+  let oob = new Array(trainingSet.rows).fill(0);
+  let oobN = trainingSet.rows;
+
   for (let i = 0; i < trainingSet.rows; ++i) {
     let index = distribution(engine);
     Xr[i] = trainingSet.getRow(index);
     yr[i] = trainingValue[index];
+
+    if (oob[index]++ === 0) {
+      oobN--;
+    }
+    
   }
 
+  let Xoob = new Array(oobN);
+  let ioob = new Array(oobN);
+
+  // run backwards to have ioob filled in increasing order
+  for (let i = trainingSet.rows - 1; i >= 0 && oobN > 0; --i) {
+    if (oob[i] === 0) {
+      Xoob[--oobN] = trainingSet.getRow(i);
+      ioob[oobN] = i;
+    }
+  }
+  
   return {
     X: new Matrix(Xr),
     y: yr,
+    Xoob: new Matrix(Xoob),
+    ioob,
     seed: engine.next()
   };
 }
@@ -103,4 +124,29 @@ export function featureBagging(trainingSet, n, replacement, seed) {
     usedIndex: usedIndex,
     seed: engine.next()
   };
+}
+
+/**
+ * collects and combines the individual results from the tree predictions on Out-Of-Bag data
+ * @ignore
+ * @param {{index: {Array},predicted: {Array}}[]} oob: array of individual tree predictions 
+ * @param {array} y: true labels
+ * @param {(predictions:{Array})=>{number}} aggregate: aggregation function
+ * @return {object}
+ */
+export const collectOOB = (oob, y, aggregate) => {
+  const res = Array(y.length);
+  for (let i = 0; i < y.length; i++) {
+    const all = [];
+    for (let j = 0; j < oob.length; j++) {
+      const o = oob[j];
+      if (o.index[0] === i) {
+        all.push(o.predicted[0]);
+        o.index = o.index.slice(1);
+        o.predicted = o.predicted.slice(1);
+      }
+    }
+    res[i] = { true: y[i], all: all, predicted: aggregate(all) }
+  }
+  return res;
 }

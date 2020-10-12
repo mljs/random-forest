@@ -59,8 +59,9 @@ export class RandomForestBase {
    * Train the decision tree with the given training set and labels.
    * @param {Matrix|Array} trainingSet
    * @param {Array} trainingValues
+   * @param {boolean} oob // calculate Out-Of-Bag results
    */
-  train(trainingSet, trainingValues) {
+  train(trainingSet, trainingValues, oob = true) {
     let currentSeed = this.seed;
 
     trainingSet = Matrix.checkMatrix(trainingSet);
@@ -93,17 +94,20 @@ export class RandomForestBase {
     this.estimators = new Array(this.nEstimators);
     this.indexes = new Array(this.nEstimators);
 
+    let oobResults = new Array(this.nEstimators);
+
     for (let i = 0; i < this.nEstimators; ++i) {
       let res = this.useSampleBagging
         ? Utils.examplesBaggingWithReplacement(
-            trainingSet,
-            trainingValues,
-            currentSeed,
-          )
-        : { X: trainingSet, y: trainingValues, seed: currentSeed };
+          trainingSet,
+          trainingValues,
+          currentSeed,
+        )
+        : { X: trainingSet, y: trainingValues, seed: currentSeed, Xoob: undefined, yoob: [], ioob: [] };
       let X = res.X;
       let y = res.y;
       currentSeed = res.seed;
+      let { Xoob, ioob } = res;
 
       res = Utils.featureBagging(X, this.n, this.replacement, currentSeed);
       X = res.X;
@@ -112,6 +116,16 @@ export class RandomForestBase {
       this.indexes[i] = res.usedIndex;
       this.estimators[i] = new Estimator(this.treeOptions);
       this.estimators[i].train(X, y);
+
+      if (oob && this.useSampleBagging) {
+        oobResults[i] = {
+          index: ioob,
+          predicted: this.estimators[i].predict(Xoob)
+        }
+      }
+    }
+    if (oob && this.useSampleBagging && oobResults.length > 0) {
+      this.oobResults = Utils.collectOOB(oobResults, trainingValues, this.selection);
     }
   }
 
