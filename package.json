@@ -33,6 +33,7 @@
   ],
   "author": "Jefferson Hernandez",
   "license": "MIT",
+  "types": "types/types.d.ts",
   "bugs": {
     "url": "https://github.com/mljs/random-forest/issues"
   },
