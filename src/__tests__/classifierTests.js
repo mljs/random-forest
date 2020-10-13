@@ -147,16 +147,18 @@ describe('Random Forest Classifier', function() {
       useSampleBagging: true,
     };
     let classifierProb = new RFClassifier(opts);
-    
+
     const n = 147;
     const toPredict = trainingSet.slice(n);
-    const toTrain = trainingSet.slice(0,n);
-    const trainLabel = predictions.slice(0,n);
-    
+    const toTrain = trainingSet.slice(0, n);
+    const trainLabel = predictions.slice(0, n);
+
     classifierProb.train(toTrain, trainLabel);
-    
-    const probabilities = classifierProb.predictProbability(toPredict,2);
-    expect(probabilities.reduce((p,v)=>Math.min(p,v),1)).toBeGreaterThanOrEqual(.7);
+
+    const probabilities = classifierProb.predictProbability(toPredict, 2);
+    expect(
+      probabilities.reduce((p, v) => Math.min(p, v), 1),
+    ).toBeGreaterThanOrEqual(0.7);
     //expect(score).toBeGreaterThanOrEqual(0.7); // above or equal
   });
 });
