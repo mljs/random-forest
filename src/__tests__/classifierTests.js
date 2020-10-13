@@ -139,4 +139,26 @@ describe('Random Forest Classifier', function() {
       expect(finalResults[i]).toBe(Ytest[i][0]);
     }
   });
+  it('Random Forest Classifier with iris dataset - probability', function() {
+    let opts = {
+      seed: 17,
+      nEstimators: 100,
+      treeOptions: undefined, // default options for the decision tree
+      useSampleBagging: true,
+    };
+    let classifierProb = new RFClassifier(opts);
+
+    const n = 147;
+    const toPredict = trainingSet.slice(n);
+    const toTrain = trainingSet.slice(0, n);
+    const trainLabel = predictions.slice(0, n);
+
+    classifierProb.train(toTrain, trainLabel);
+
+    const probabilities = classifierProb.predictProbability(toPredict, 2);
+    expect(
+      probabilities.reduce((p, v) => Math.min(p, v), 1),
+    ).toBeGreaterThanOrEqual(0.7);
+    //expect(score).toBeGreaterThanOrEqual(0.7); // above or equal
+  });
 });

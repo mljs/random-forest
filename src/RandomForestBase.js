@@ -130,6 +130,16 @@ export class RandomForestBase {
    * @return {Array} predictions
    */
   predict(toPredict) {
+    const predictionValues = this.predictionValues(toPredict);
+    let predictions = new Array(predictionValues.rows);
+    for (let i = 0; i < predictionValues.rows; ++i) {
+      predictions[i] = this.selection(predictionValues.getRow(i));
+    }
+
+    return predictions;
+  }
+
+  predictionValues(toPredict) {
     let predictionValues = new Array(this.nEstimators);
     toPredict = Matrix.checkMatrix(toPredict);
     for (let i = 0; i < this.nEstimators; ++i) {
@@ -137,15 +147,9 @@ export class RandomForestBase {
       predictionValues[i] = this.estimators[i].predict(X);
     }
 
-    predictionValues = new MatrixTransposeView(
+    return (predictionValues = new MatrixTransposeView(
       new WrapperMatrix2D(predictionValues),
-    );
-    let predictions = new Array(predictionValues.rows);
-    for (let i = 0; i < predictionValues.rows; ++i) {
-      predictions[i] = this.selection(predictionValues.getRow(i));
-    }
-
-    return predictions;
+    ));
   }
 
   /**
