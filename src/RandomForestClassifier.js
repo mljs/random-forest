@@ -6,7 +6,7 @@ const defaultOptions = {
   nEstimators: 50,
   seed: 42,
   useSampleBagging: true,
-  noOOB: false
+  noOOB: false,
 };
 
 /**
@@ -66,24 +66,23 @@ export class RandomForestClassifier extends RandomForestBase {
    */
   getConfusionMatrix() {
     if (!this.oobResults) {
-      throw new Error("No Out-Of-Bag results available.");
+      throw new Error('No Out-Of-Bag results available.');
     }
 
     const labels = new Set();
-    const matrix = this.oobResults.reduce(
-      (p, v) => {
-        labels.add(v.true);
-        labels.add(v.predicted);
-        const x = (p[v.predicted] || {});
-        x[v.true] = (x[v.true] || 0) + 1;
-        p[v.predicted] = x;
-        return p;
-      },
-      {}
-    )
+    const matrix = this.oobResults.reduce((p, v) => {
+      labels.add(v.true);
+      labels.add(v.predicted);
+      const x = p[v.predicted] || {};
+      x[v.true] = (x[v.true] || 0) + 1;
+      p[v.predicted] = x;
+      return p;
+    }, {});
     const sortedLabels = [...labels].sort();
 
-    return sortedLabels.map(v => sortedLabels.map(w => (((matrix[v] || {})[w]) || 0)));
+    return sortedLabels.map((v) =>
+      sortedLabels.map((w) => (matrix[v] || {})[w] || 0),
+    );
   }
   /**
    * Load a Decision tree classifier with the given model.

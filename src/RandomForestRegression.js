@@ -16,7 +16,7 @@ const defaultOptions = {
   selectionMethod: 'mean',
   seed: 42,
   useSampleBagging: true,
-  noOOB:false
+  noOOB: false,
 };
 
 /**

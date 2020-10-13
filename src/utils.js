@@ -56,13 +56,13 @@ export function examplesBaggingWithReplacement(
       ioob[oobN] = i;
     }
   }
-  
+
   return {
     X: new Matrix(Xr),
     y: yr,
     Xoob: new Matrix(Xoob),
     ioob,
-    seed: engine.next()
+    seed: engine.next(),
   };
 }
 
@@ -121,14 +121,14 @@ export function featureBagging(trainingSet, n, replacement, seed) {
   return {
     X: toRet,
     usedIndex: usedIndex,
-    seed: engine.next()
+    seed: engine.next(),
   };
 }
 
 /**
  * collects and combines the individual results from the tree predictions on Out-Of-Bag data
  * @ignore
- * @param {{index: {Array},predicted: {Array}}[]} oob: array of individual tree predictions 
+ * @param {{index: {Array},predicted: {Array}}[]} oob: array of individual tree predictions
  * @param {array} y: true labels
  * @param {(predictions:{Array})=>{number}} aggregate: aggregation function
  * @return {Array}
@@ -145,7 +145,7 @@ export const collectOOB = (oob, y, aggregate) => {
         o.predicted = o.predicted.slice(1);
       }
     }
-    res[i] = { true: y[i], all: all, predicted: aggregate(all) }
+    res[i] = { true: y[i], all: all, predicted: aggregate(all) };
   }
   return res;
-}
+};

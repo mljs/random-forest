@@ -64,7 +64,6 @@ export class RandomForestBase {
    * @param {Array} trainingValues
    */
   train(trainingSet, trainingValues) {
-
     let currentSeed = this.seed;
 
     trainingSet = Matrix.checkMatrix(trainingSet);
@@ -102,11 +101,18 @@ export class RandomForestBase {
     for (let i = 0; i < this.nEstimators; ++i) {
       let res = this.useSampleBagging
         ? Utils.examplesBaggingWithReplacement(
-          trainingSet,
-          trainingValues,
-          currentSeed,
-        )
-        : { X: trainingSet, y: trainingValues, seed: currentSeed, Xoob: undefined, yoob: [], ioob: [] };
+            trainingSet,
+            trainingValues,
+            currentSeed,
+          )
+        : {
+            X: trainingSet,
+            y: trainingValues,
+            seed: currentSeed,
+            Xoob: undefined,
+            yoob: [],
+            ioob: [],
+          };
       let X = res.X;
       let y = res.y;
       currentSeed = res.seed;
@@ -121,15 +127,19 @@ export class RandomForestBase {
       this.estimators[i].train(X, y);
 
       if (!this.noOOB && this.useSampleBagging) {
-        let xoob = new MatrixColumnSelectionView(Xoob, this.indexes[i]); 
+        let xoob = new MatrixColumnSelectionView(Xoob, this.indexes[i]);
         oobResults[i] = {
           index: ioob,
-          predicted: this.estimators[i].predict(xoob)
-        }
+          predicted: this.estimators[i].predict(xoob),
+        };
       }
     }
     if (!this.noOOB && this.useSampleBagging && oobResults.length > 0) {
-      this.oobResults = Utils.collectOOB(oobResults, trainingValues, this.selection);
+      this.oobResults = Utils.collectOOB(
+        oobResults,
+        trainingValues,
+        this.selection,
+      );
     }
   }
 
@@ -173,11 +183,13 @@ export class RandomForestBase {
    * Returns the Out-Of-Bag predictions.
    * @return {Array} predictions
    */
-  predictOOB(){
-    if (!this.oobResults || this.oobResults.length===0){
-      throw new Error("No Out-Of-Bag results found. Did you forgot to train first?");
+  predictOOB() {
+    if (!this.oobResults || this.oobResults.length === 0) {
+      throw new Error(
+        'No Out-Of-Bag results found. Did you forgot to train first?',
+      );
     }
-    return this.oobResults.map(v=>v.predicted);
+    return this.oobResults.map((v) => v.predicted);
   }
 
   /**
