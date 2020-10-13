@@ -6,7 +6,7 @@ import { RandomForestClassifier as RFClassifier } from '..';
 describe('Random Forest Classifier', function () {
   let trainingSet = IrisDataset.getNumbers();
   let predictions = IrisDataset.getClasses().map((elem) =>
-    IrisDataset.getDistinctClasses().indexOf(elem),
+    IrisDataset.getDistinctClasses().indexOf(elem) ,
   );
 
   let options = {
@@ -144,14 +144,19 @@ describe('Random Forest Classifier', function () {
       seed: 17,
       replacement: false,
       nEstimators: 100,
-      treeOptions: undefined, // default options for the decision tree
+      treeOptions: { minNumSamples: 1 }, // default options for the decision tree
       useSampleBagging: true,
     };
 
     let classifier = new RFClassifier(opts);
     classifier.train(trainingSet, predictions);
     const confusionMatrix = classifier.getConfusionMatrix();
-    console.log(confusionMatrix)
-    console.log(classifier.oobResults.reduce((p,v)=>{p[v.predicted] = (p[v.predicted]||0)+1;return p},{}));
+    const correctVsTotal = confusionMatrix.reduce((p, v, i) => {
+      p.correct += v[i];
+      p.total += v.reduce((q, w) => q + w, 0);
+      return p;
+    }, { correct: 0, total: 0 })
+    expect(100 * correctVsTotal.correct / correctVsTotal.total > 95.0);
+
   })
 });

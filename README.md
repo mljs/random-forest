@@ -36,6 +36,8 @@ var options = {
 var classifier = new RFClassifier(options);
 classifier.train(trainingSet, predictions);
 var result = classifier.predict(trainingSet);
+var oobResult = classifier.predictOOB();
+var confusionMatrix = classifier.getConfusionMatrix();
 ```
 
 ### As regression

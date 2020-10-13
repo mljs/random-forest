@@ -44,7 +44,6 @@ export function examplesBaggingWithReplacement(
     if (oob[index]++ === 0) {
       oobN--;
     }
-    
   }
 
   let Xoob = new Array(oobN);
@@ -132,7 +131,7 @@ export function featureBagging(trainingSet, n, replacement, seed) {
  * @param {{index: {Array},predicted: {Array}}[]} oob: array of individual tree predictions 
  * @param {array} y: true labels
  * @param {(predictions:{Array})=>{number}} aggregate: aggregation function
- * @return {object}
+ * @return {Array}
  */
 export const collectOOB = (oob, y, aggregate) => {
   const res = Array(y.length);

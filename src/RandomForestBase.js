@@ -28,6 +28,7 @@ export class RandomForestBase {
    * @param {object} [options.treeOptions] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
    * @param {boolean} [options.isClassifier] - boolean to check if is a classifier or regression model (used by subclasses).
    * @param {boolean} [options.useSampleBagging] - use bagging over training samples.
+   * @param {boolean} [options.noOOB] - don't calculate Out-Of-Bag predictions.
    * @param {object} model - for load purposes.
    */
   constructor(options, model) {
@@ -41,6 +42,7 @@ export class RandomForestBase {
       this.n = model.n;
       this.indexes = model.indexes;
       this.useSampleBagging = model.useSampleBagging;
+      this.noOOB = true;
 
       let Estimator = this.isClassifier ? DTClassifier : DTRegression;
       this.estimators = model.estimators.map((est) => Estimator.load(est));
@@ -52,6 +54,7 @@ export class RandomForestBase {
       this.isClassifier = options.isClassifier;
       this.seed = options.seed;
       this.useSampleBagging = options.useSampleBagging;
+      this.noOOB = options.noOOB;
     }
   }
 
@@ -59,9 +62,9 @@ export class RandomForestBase {
    * Train the decision tree with the given training set and labels.
    * @param {Matrix|Array} trainingSet
    * @param {Array} trainingValues
-   * @param {boolean} oob // calculate Out-Of-Bag results
    */
-  train(trainingSet, trainingValues, oob = true) {
+  train(trainingSet, trainingValues) {
+
     let currentSeed = this.seed;
 
     trainingSet = Matrix.checkMatrix(trainingSet);
@@ -117,14 +120,15 @@ export class RandomForestBase {
       this.estimators[i] = new Estimator(this.treeOptions);
       this.estimators[i].train(X, y);
 
-      if (oob && this.useSampleBagging) {
+      if (!this.noOOB && this.useSampleBagging) {
+        let xoob = new MatrixColumnSelectionView(Xoob, this.indexes[i]); 
         oobResults[i] = {
           index: ioob,
-          predicted: this.estimators[i].predict(Xoob)
+          predicted: this.estimators[i].predict(xoob)
         }
       }
     }
-    if (oob && this.useSampleBagging && oobResults.length > 0) {
+    if (!this.noOOB && this.useSampleBagging && oobResults.length > 0) {
       this.oobResults = Utils.collectOOB(oobResults, trainingValues, this.selection);
     }
   }
@@ -164,6 +168,16 @@ export class RandomForestBase {
     }
 
     return predictions;
+  }
+  /**
+   * Returns the Out-Of-Bag predictions.
+   * @return {Array} predictions
+   */
+  predictOOB(){
+    if (!this.oobResults || this.oobResults.length===0){
+      throw new Error("No Out-Of-Bag results found. Did you forgot to train first?");
+    }
+    return this.oobResults.map(v=>v.predicted);
   }
 
   /**
