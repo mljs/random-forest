@@ -84,12 +84,14 @@ export class RandomForestClassifier extends RandomForestBase {
   for (let i = 0; i < predictionValues.rows; ++i) { 
     const pvs = predictionValues.getRow(i); 
     const l = pvs.length; 
-    predictions[i] = pvs.reduce((p,v)=>{ 
+    const roundFactor = Math.pow(10,6)
+    predictions[i] = Math.round(
+      pvs.reduce((p,v)=>{ 
       if (v===label){ 
-        p += 1/l; 
+        p += roundFactor / l; 
       } 
       return p; 
-    },0); 
+    }) / roundFactor); 
   } 
 
   return predictions; 
