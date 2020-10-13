@@ -3,9 +3,10 @@ import { RandomForestBase } from './RandomForestBase';
 const defaultOptions = {
   maxFeatures: 1.0,
   replacement: true,
-  nEstimators: 10,
+  nEstimators: 50,
   seed: 42,
-  useSampleBagging: false,
+  useSampleBagging: true,
+  noOOB: false,
 };
 
 /**
@@ -22,9 +23,9 @@ export class RandomForestClassifier extends RandomForestBase {
    *        * if is a float between (0, 1), it takes the percentage of features.
    * @param {boolean} [options.replacement=true] - use replacement over the sample features.
    * @param {number} [options.seed=42] - seed for feature and samples selection, must be a 32-bit integer.
-   * @param {number} [options.nEstimators=10] - number of estimator to use.
+   * @param {number} [options.nEstimators=50] - number of estimator to use.
    * @param {object} [options.treeOptions={}] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
-   * @param {boolean} [options.useSampleBagging=false] - use bagging over training samples.
+   * @param {boolean} [options.useSampleBagging=true] - use bagging over training samples.
    * @param {object} model - for load purposes.
    */
   constructor(options, model) {
@@ -58,6 +59,31 @@ export class RandomForestClassifier extends RandomForestBase {
     };
   }
 
+  /**
+   * Returns the confusion matrix
+   * Make sure to run train first.
+   * @return {object} - Current model.
+   */
+  getConfusionMatrix() {
+    if (!this.oobResults) {
+      throw new Error('No Out-Of-Bag results available.');
+    }
+
+    const labels = new Set();
+    const matrix = this.oobResults.reduce((p, v) => {
+      labels.add(v.true);
+      labels.add(v.predicted);
+      const x = p[v.predicted] || {};
+      x[v.true] = (x[v.true] || 0) + 1;
+      p[v.predicted] = x;
+      return p;
+    }, {});
+    const sortedLabels = [...labels].sort();
+
+    return sortedLabels.map((v) =>
+      sortedLabels.map((w) => (matrix[v] || {})[w] || 0),
+    );
+  }
   /**
    * Load a Decision tree classifier with the given model.
    * @param {object} model

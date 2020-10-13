@@ -159,6 +159,30 @@ describe('Random Forest Classifier', function() {
     expect(
       probabilities.reduce((p, v) => Math.min(p, v), 1),
     ).toBeGreaterThanOrEqual(0.7);
+    })
     //expect(score).toBeGreaterThanOrEqual(0.7); // above or equal
+  it('Test Out-Of-Bag estimates', () => {
+    let opts = {
+      seed: 17,
+      replacement: false,
+      nEstimators: 100,
+      treeOptions: { minNumSamples: 1 }, // default options for the decision tree
+      useSampleBagging: true,
+    };
+
+    let OOBclassifier = new RFClassifier(opts);
+    OOBclassifier.train(trainingSet, predictions);
+    const confusionMatrix = OOBclassifier.getConfusionMatrix();
+    const correctVsTotal = confusionMatrix.reduce(
+      (p, v, i) => {
+        p.correct += v[i];
+        p.total += v.reduce((q, w) => q + w, 0);
+        return p;
+      },
+      { correct: 0, total: 0 },
+    );
+    expect(
+      (100 * correctVsTotal.correct) / correctVsTotal.total,
+    ).toBeGreaterThanOrEqual(95.0);
   });
-});
+})

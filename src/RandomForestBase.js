@@ -28,6 +28,7 @@ export class RandomForestBase {
    * @param {object} [options.treeOptions] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
    * @param {boolean} [options.isClassifier] - boolean to check if is a classifier or regression model (used by subclasses).
    * @param {boolean} [options.useSampleBagging] - use bagging over training samples.
+   * @param {boolean} [options.noOOB] - don't calculate Out-Of-Bag predictions.
    * @param {object} model - for load purposes.
    */
   constructor(options, model) {
@@ -41,6 +42,7 @@ export class RandomForestBase {
       this.n = model.n;
       this.indexes = model.indexes;
       this.useSampleBagging = model.useSampleBagging;
+      this.noOOB = true;
 
       let Estimator = this.isClassifier ? DTClassifier : DTRegression;
       this.estimators = model.estimators.map((est) => Estimator.load(est));
@@ -52,6 +54,7 @@ export class RandomForestBase {
       this.isClassifier = options.isClassifier;
       this.seed = options.seed;
       this.useSampleBagging = options.useSampleBagging;
+      this.noOOB = options.noOOB;
     }
   }
 
@@ -61,6 +64,8 @@ export class RandomForestBase {
    * @param {Array} trainingValues
    */
   train(trainingSet, trainingValues) {
+    let currentSeed = this.seed;
+
     trainingSet = Matrix.checkMatrix(trainingSet);
 
     this.maxFeatures = this.maxFeatures || trainingSet.columns;
@@ -91,23 +96,50 @@ export class RandomForestBase {
     this.estimators = new Array(this.nEstimators);
     this.indexes = new Array(this.nEstimators);
 
+    let oobResults = new Array(this.nEstimators);
+
     for (let i = 0; i < this.nEstimators; ++i) {
       let res = this.useSampleBagging
         ? Utils.examplesBaggingWithReplacement(
             trainingSet,
             trainingValues,
-            this.seed,
+            currentSeed,
           )
-        : { X: trainingSet, y: trainingValues };
+        : {
+            X: trainingSet,
+            y: trainingValues,
+            seed: currentSeed,
+            Xoob: undefined,
+            yoob: [],
+            ioob: [],
+          };
       let X = res.X;
       let y = res.y;
+      currentSeed = res.seed;
+      let { Xoob, ioob } = res;
 
-      res = Utils.featureBagging(X, this.n, this.replacement, this.seed);
+      res = Utils.featureBagging(X, this.n, this.replacement, currentSeed);
       X = res.X;
+      currentSeed = res.seed;
 
       this.indexes[i] = res.usedIndex;
       this.estimators[i] = new Estimator(this.treeOptions);
       this.estimators[i].train(X, y);
+
+      if (!this.noOOB && this.useSampleBagging) {
+        let xoob = new MatrixColumnSelectionView(Xoob, this.indexes[i]);
+        oobResults[i] = {
+          index: ioob,
+          predicted: this.estimators[i].predict(xoob),
+        };
+      }
+    }
+    if (!this.noOOB && this.useSampleBagging && oobResults.length > 0) {
+      this.oobResults = Utils.collectOOB(
+        oobResults,
+        trainingValues,
+        this.selection,
+      );
     }
   }
 
@@ -150,6 +182,18 @@ export class RandomForestBase {
     return (predictionValues = new MatrixTransposeView(
       new WrapperMatrix2D(predictionValues),
     ));
+  }
+  /**
+   * Returns the Out-Of-Bag predictions.
+   * @return {Array} predictions
+   */
+  predictOOB() {
+    if (!this.oobResults || this.oobResults.length === 0) {
+      throw new Error(
+        'No Out-Of-Bag results found. Did you forgot to train first?',
+      );
+    }
+    return this.oobResults.map((v) => v.predicted);
   }
 
   /**
