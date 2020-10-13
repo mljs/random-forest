@@ -6,7 +6,8 @@
   "module": "src/index.js",
   "files": [
     "src",
-    "random-forest.js"
+    "random-forest.js",
+    "types"
   ],
   "scripts": {
     "compile": "rollup -c",
