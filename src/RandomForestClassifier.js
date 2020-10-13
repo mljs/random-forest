@@ -70,6 +70,32 @@ export class RandomForestClassifier extends RandomForestBase {
 
     return new RandomForestClassifier(true, model);
   }
+
+ /** 
+  * Predicts the probability of a label given the matrix to predict. 
+  * @param {Matrix|Array} toPredict 
+  * @param {number} label 
+  * @return {Array} predictions 
+  */ 
+ predictProbability(toPredict,label){ 
+    
+  const predictionValues = this.predictionValues(toPredict); 
+  let predictions = new Array(predictionValues.rows); 
+  for (let i = 0; i < predictionValues.rows; ++i) { 
+    const pvs = predictionValues.getRow(i); 
+    const l = pvs.length; 
+    predictions[i] = pvs.reduce((p,v)=>{ 
+      if (v===label){ 
+        p += 1/l; 
+      } 
+      return p; 
+    },0); 
+  } 
+
+  return predictions; 
+ 
+}
+
 }
 
 /**
