@@ -1,7 +1,7 @@
-import arrayMean from 'ml-array-mean';
-import arrayMedian from 'ml-array-median';
+import arrayMean from "ml-array-mean";
+import arrayMedian from "ml-array-median";
 
-import { RandomForestBase } from './RandomForestBase';
+import { RandomForestBase } from "./RandomForestBase";
 
 const selectionMethods = {
   mean: arrayMean,
@@ -13,9 +13,10 @@ const defaultOptions = {
   replacement: false,
   nEstimators: 50,
   treeOptions: {},
-  selectionMethod: 'mean',
+  selectionMethod: "mean",
   seed: 42,
   useSampleBagging: true,
+  noOOB: false,
 };
 
 /**
@@ -47,12 +48,12 @@ export class RandomForestRegression extends RandomForestBase {
 
       if (
         !(
-          options.selectionMethod === 'mean' ||
-          options.selectionMethod === 'median'
+          options.selectionMethod === "mean" ||
+          options.selectionMethod === "median"
         )
       ) {
         throw new RangeError(
-          `Unsupported selection method ${options.selectionMethod}`,
+          `Unsupported selection method ${options.selectionMethod}`
         );
       }
 
@@ -81,7 +82,7 @@ export class RandomForestRegression extends RandomForestBase {
     return {
       baseModel: baseModel,
       selectionMethod: this.selectionMethod,
-      name: 'RFRegression',
+      name: "RFRegression",
     };
   }
 
@@ -91,7 +92,7 @@ export class RandomForestRegression extends RandomForestBase {
    * @return {RandomForestRegression}
    */
   static load(model) {
-    if (model.name !== 'RFRegression') {
+    if (model.name !== "RFRegression") {
       throw new RangeError(`Invalid model: ${model.name}`);
     }
 

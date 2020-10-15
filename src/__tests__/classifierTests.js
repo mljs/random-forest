@@ -1,12 +1,12 @@
-import IrisDataset from 'ml-dataset-iris';
-import Matrix from 'ml-matrix';
+import IrisDataset from "ml-dataset-iris";
+import Matrix from "ml-matrix";
 
-import { RandomForestClassifier as RFClassifier } from '..';
+import { RandomForestClassifier as RFClassifier } from "..";
 
-describe('Random Forest Classifier', function () {
+describe("Random Forest Classifier", function () {
   let trainingSet = IrisDataset.getNumbers();
   let predictions = IrisDataset.getClasses().map((elem) =>
-    IrisDataset.getDistinctClasses().indexOf(elem),
+    IrisDataset.getDistinctClasses().indexOf(elem)
   );
 
   let options = {
@@ -22,7 +22,7 @@ describe('Random Forest Classifier', function () {
   classifier.train(trainingSet, predictions);
   let result = classifier.predict(trainingSet);
 
-  it('Random Forest Classifier with iris dataset', function () {
+  it("Random Forest Classifier with iris dataset", function () {
     let correct = 0;
     for (let i = 0; i < result.length; ++i) {
       if (result[i] === predictions[i]) correct++;
@@ -32,7 +32,7 @@ describe('Random Forest Classifier', function () {
     expect(score).toBeGreaterThanOrEqual(0.7); // above or equal
   });
 
-  it('Export and import for random forest classifier', () => {
+  it("Export and import for random forest classifier", () => {
     let model = JSON.parse(JSON.stringify(classifier));
 
     let newClassifier = RFClassifier.load(model);
@@ -43,7 +43,7 @@ describe('Random Forest Classifier', function () {
     }
   });
 
-  it('Test with a 2 features dataset', function () {
+  it("Test with a 2 features dataset", function () {
     let X = new Matrix([
       [1, 1],
       [1, 0],
@@ -88,7 +88,7 @@ describe('Random Forest Classifier', function () {
     }
   });
 
-  it('Test with full features dataset', function () {
+  it("Test with full features dataset", function () {
     let X = new Matrix([
       [0, -1],
       [1, 0],
@@ -139,26 +139,28 @@ describe('Random Forest Classifier', function () {
       expect(finalResults[i]).toBe(Ytest[i][0]);
     }
   });
-  it('Random Forest Classifier with iris dataset - probability', function () {
+  it("Test Out-Of-Bag estimates", () => {
     let opts = {
       seed: 17,
+      replacement: false,
       nEstimators: 100,
-      treeOptions: undefined, // default options for the decision tree
+      treeOptions: { minNumSamples: 1 }, // default options for the decision tree
       useSampleBagging: true,
     };
-    let classifierProb = new RFClassifier(opts);
 
-    const n = 147;
-    const toPredict = trainingSet.slice(n);
-    const toTrain = trainingSet.slice(0, n);
-    const trainLabel = predictions.slice(0, n);
-
-    classifierProb.train(toTrain, trainLabel);
-
-    const probabilities = classifierProb.predictProbability(toPredict, 2);
+    let OOBclassifier = new RFClassifier(opts);
+    OOBclassifier.train(trainingSet, predictions);
+    const confusionMatrix = OOBclassifier.getConfusionMatrix();
+    const correctVsTotal = confusionMatrix.reduce(
+      (p, v, i) => {
+        p.correct += v[i];
+        p.total += v.reduce((q, w) => q + w, 0);
+        return p;
+      },
+      { correct: 0, total: 0 }
+    );
     expect(
-      probabilities.reduce((p, v) => Math.min(p, v), 1),
-    ).toBeGreaterThanOrEqual(0.7);
-    //expect(score).toBeGreaterThanOrEqual(0.7); // above or equal
+      (100 * correctVsTotal.correct) / correctVsTotal.total
+    ).toBeGreaterThanOrEqual(95.0);
   });
 });
