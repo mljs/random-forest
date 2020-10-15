@@ -61,6 +61,8 @@ export class RandomForestBase {
    * @param {Array} trainingValues
    */
   train(trainingSet, trainingValues) {
+    let currentSeed = this.seed;
+
     trainingSet = Matrix.checkMatrix(trainingSet);
 
     this.maxFeatures = this.maxFeatures || trainingSet.columns;
@@ -96,14 +98,16 @@ export class RandomForestBase {
         ? Utils.examplesBaggingWithReplacement(
             trainingSet,
             trainingValues,
-            this.seed,
+            currentSeed,
           )
-        : { X: trainingSet, y: trainingValues };
+        : { X: trainingSet, y: trainingValues, seed: currentSeed };
       let X = res.X;
       let y = res.y;
+      currentSeed = res.seed;
 
-      res = Utils.featureBagging(X, this.n, this.replacement, this.seed);
+      res = Utils.featureBagging(X, this.n, this.replacement, currentSeed);
       X = res.X;
+      currentSeed = res.seed;
 
       this.indexes[i] = res.usedIndex;
       this.estimators[i] = new Estimator(this.treeOptions);
