@@ -1,4 +1,4 @@
-import { RandomForestBase } from "./RandomForestBase";
+import { RandomForestBase } from './RandomForestBase';
 
 const defaultOptions = {
   maxFeatures: 1.0,
@@ -55,7 +55,7 @@ export class RandomForestClassifier extends RandomForestBase {
     let baseModel = super.toJSON();
     return {
       baseModel: baseModel,
-      name: "RFClassifier",
+      name: 'RFClassifier',
     };
   }
 
@@ -66,7 +66,7 @@ export class RandomForestClassifier extends RandomForestBase {
    */
   getConfusionMatrix() {
     if (!this.oobResults) {
-      throw new Error("No Out-Of-Bag results available.");
+      throw new Error('No Out-Of-Bag results available.');
     }
 
     const labels = new Set();
@@ -81,7 +81,7 @@ export class RandomForestClassifier extends RandomForestBase {
     const sortedLabels = [...labels].sort();
 
     return sortedLabels.map((v) =>
-      sortedLabels.map((w) => (matrix[v] || {})[w] || 0)
+      sortedLabels.map((w) => (matrix[v] || {})[w] || 0),
     );
   }
   /**
@@ -90,7 +90,7 @@ export class RandomForestClassifier extends RandomForestBase {
    * @return {RandomForestClassifier}
    */
   static load(model) {
-    if (model.name !== "RFClassifier") {
+    if (model.name !== 'RFClassifier') {
       throw new RangeError(`Invalid model: ${model.name}`);
     }
 
@@ -116,7 +116,7 @@ export class RandomForestClassifier extends RandomForestBase {
             p += roundFactor / l;
           }
           return p;
-        }) / roundFactor
+        }) / roundFactor,
       );
     }
 
@@ -133,7 +133,7 @@ function mode(arr) {
   return arr
     .sort(
       (a, b) =>
-        arr.filter((v) => v === a).length - arr.filter((v) => v === b).length
+        arr.filter((v) => v === a).length - arr.filter((v) => v === b).length,
     )
     .pop();
 }

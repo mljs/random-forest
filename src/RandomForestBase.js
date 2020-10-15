@@ -1,15 +1,15 @@
 import {
   DecisionTreeClassifier as DTClassifier,
   DecisionTreeRegression as DTRegression,
-} from "ml-cart";
+} from 'ml-cart';
 import {
   Matrix,
   WrapperMatrix2D,
   MatrixTransposeView,
   MatrixColumnSelectionView,
-} from "ml-matrix";
+} from 'ml-matrix';
 
-import * as Utils from "./utils";
+import * as Utils from './utils';
 
 /**
  * @class RandomForestBase
@@ -75,14 +75,14 @@ export class RandomForestBase {
     } else if (Number.isInteger(this.maxFeatures)) {
       if (this.maxFeatures > trainingSet.columns) {
         throw new RangeError(
-          `The maxFeatures parameter should be less than ${trainingSet.columns}`
+          `The maxFeatures parameter should be less than ${trainingSet.columns}`,
         );
       } else {
         this.n = this.maxFeatures;
       }
     } else {
       throw new RangeError(
-        `Cannot process the maxFeatures parameter ${this.maxFeatures}`
+        `Cannot process the maxFeatures parameter ${this.maxFeatures}`,
       );
     }
 
@@ -103,7 +103,7 @@ export class RandomForestBase {
         ? Utils.examplesBaggingWithReplacement(
             trainingSet,
             trainingValues,
-            currentSeed
+            currentSeed,
           )
         : {
             X: trainingSet,
@@ -138,7 +138,7 @@ export class RandomForestBase {
       this.oobResults = Utils.collectOOB(
         oobResults,
         trainingValues,
-        this.selection
+        this.selection,
       );
     }
   }
@@ -180,7 +180,7 @@ export class RandomForestBase {
     }
 
     return (predictionValues = new MatrixTransposeView(
-      new WrapperMatrix2D(predictionValues)
+      new WrapperMatrix2D(predictionValues),
     ));
   }
   /**
@@ -190,7 +190,7 @@ export class RandomForestBase {
   predictOOB() {
     if (!this.oobResults || this.oobResults.length === 0) {
       throw new Error(
-        "No Out-Of-Bag results found. Did you forgot to train first?"
+        'No Out-Of-Bag results found. Did you forgot to train first?',
       );
     }
     return this.oobResults.map((v) => v.predicted);

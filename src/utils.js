@@ -1,5 +1,5 @@
-import Matrix from "ml-matrix";
-import * as Random from "random-js";
+import Matrix from 'ml-matrix';
+import * as Random from 'random-js';
 
 export function checkFloat(n) {
   return n > 0.0 && n <= 1.0;
@@ -16,7 +16,7 @@ export function checkFloat(n) {
 export function examplesBaggingWithReplacement(
   trainingSet,
   trainingValue,
-  seed
+  seed,
 ) {
   let engine;
   let distribution = Random.integer(0, trainingSet.rows - 1);
@@ -26,7 +26,7 @@ export function examplesBaggingWithReplacement(
     engine = Random.MersenneTwister19937.seed(seed);
   } else {
     throw new RangeError(
-      `Expected seed must be undefined or integer not ${seed}`
+      `Expected seed must be undefined or integer not ${seed}`,
     );
   }
 
@@ -78,7 +78,7 @@ export function examplesBaggingWithReplacement(
 export function featureBagging(trainingSet, n, replacement, seed) {
   if (trainingSet.columns < n) {
     throw new RangeError(
-      "N should be less or equal to the number of columns of X"
+      'N should be less or equal to the number of columns of X',
     );
   }
 
@@ -90,7 +90,7 @@ export function featureBagging(trainingSet, n, replacement, seed) {
     engine = Random.MersenneTwister19937.seed(seed);
   } else {
     throw new RangeError(
-      `Expected seed must be undefined or integer not ${seed}`
+      `Expected seed must be undefined or integer not ${seed}`,
     );
   }
 
