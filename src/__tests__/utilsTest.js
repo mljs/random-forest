@@ -9,7 +9,11 @@ let testY = new Array(rows).fill(1);
 
 describe('Utils', () => {
   it('Retrieve features', () => {
-    let data = new Matrix([[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]]);
+    let data = new Matrix([
+      [1, 2, 3, 4, 5],
+      [1, 2, 3, 4, 5],
+      [1, 2, 3, 4, 5],
+    ]);
     let indexes = [0, 4];
 
     let newData = new MatrixColumnSelectionView(new Matrix(data), indexes);
