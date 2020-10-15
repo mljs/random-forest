@@ -1,5 +1,5 @@
-import * as Random from 'random-js';
 import Matrix from 'ml-matrix';
+import * as Random from 'random-js';
 
 export function checkFloat(n) {
   return n > 0.0 && n <= 1.0;
@@ -42,7 +42,7 @@ export function examplesBaggingWithReplacement(
   return {
     X: new Matrix(Xr),
     y: yr,
-    seed: engine.next()
+    seed: engine.next(),
   };
 }
 
@@ -101,6 +101,6 @@ export function featureBagging(trainingSet, n, replacement, seed) {
   return {
     X: toRet,
     usedIndex: usedIndex,
-    seed: engine.next()
+    seed: engine.next(),
   };
 }

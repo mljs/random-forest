@@ -3,7 +3,7 @@ import Matrix from 'ml-matrix';
 
 import { RandomForestClassifier as RFClassifier } from '..';
 
-describe('Random Forest Classifier', function() {
+describe('Random Forest Classifier', function () {
   let trainingSet = IrisDataset.getNumbers();
   let predictions = IrisDataset.getClasses().map((elem) =>
     IrisDataset.getDistinctClasses().indexOf(elem),
@@ -22,7 +22,7 @@ describe('Random Forest Classifier', function() {
   classifier.train(trainingSet, predictions);
   let result = classifier.predict(trainingSet);
 
-  it('Random Forest Classifier with iris dataset', function() {
+  it('Random Forest Classifier with iris dataset', function () {
     let correct = 0;
     for (let i = 0; i < result.length; ++i) {
       if (result[i] === predictions[i]) correct++;
@@ -43,7 +43,7 @@ describe('Random Forest Classifier', function() {
     }
   });
 
-  it('Test with a 2 features dataset', function() {
+  it('Test with a 2 features dataset', function () {
     let X = new Matrix([
       [1, 1],
       [1, 0],
@@ -88,7 +88,7 @@ describe('Random Forest Classifier', function() {
     }
   });
 
-  it('Test with full features dataset', function() {
+  it('Test with full features dataset', function () {
     let X = new Matrix([
       [0, -1],
       [1, 0],
@@ -139,7 +139,7 @@ describe('Random Forest Classifier', function() {
       expect(finalResults[i]).toBe(Ytest[i][0]);
     }
   });
-  it('Random Forest Classifier with iris dataset - probability', function() {
+  it('Random Forest Classifier with iris dataset - probability', function () {
     let opts = {
       seed: 17,
       nEstimators: 100,
