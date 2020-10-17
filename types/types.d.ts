@@ -119,7 +119,7 @@ declare module 'ml-random-forest' {
          * @param {object} model
          * @return {RandomForestClassifier}
          */
-        static load(model: RandomForestModel): RandomForestClassifier;
+        static load(model: RandomForestClassifierModel): RandomForestClassifier;
         /**
          * Predicts the probability of a label given the matrix to predict.
          * @param {Matrix|Array} toPredict
