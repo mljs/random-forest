@@ -138,7 +138,7 @@ export class RandomForestBase {
       this.oobResults = Utils.collectOOB(
         oobResults,
         trainingValues,
-        this.selection,
+        this.selection.bind(this),
       );
     }
   }
