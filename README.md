@@ -1,15 +1,14 @@
 # ml-random-forest
 
 [![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
-[![Test coverage][codecov-image]][codecov-url]
+[![build status][ci-image]][ci-url]
 [![npm download][download-image]][download-url]
 
 Random forest for classification and regression.
 
 ## Installation
 
-`npm install --save ml-random-forest`
+`npm i ml-random-forest`
 
 ## [API Documentation](https://mljs.github.io/random-forest/)
 
@@ -21,23 +20,23 @@ Random forest for classification and regression.
 import IrisDataset from 'ml-dataset-iris';
 import { RandomForestClassifier as RFClassifier } from 'ml-random-forest';
 
-var trainingSet = IrisDataset.getNumbers();
-var predictions = IrisDataset.getClasses().map((elem) =>
+const trainingSet = IrisDataset.getNumbers();
+const predictions = IrisDataset.getClasses().map((elem) =>
   IrisDataset.getDistinctClasses().indexOf(elem)
 );
 
-var options = {
+const options = {
   seed: 3,
   maxFeatures: 0.8,
   replacement: true,
   nEstimators: 25
 };
 
-var classifier = new RFClassifier(options);
+const classifier = new RFClassifier(options);
 classifier.train(trainingSet, predictions);
-var result = classifier.predict(trainingSet);
-var oobResult = classifier.predictOOB();
-var confusionMatrix = classifier.getConfusionMatrix();
+const result = classifier.predict(trainingSet);
+const oobResult = classifier.predictOOB();
+const confusionMatrix = classifier.getConfusionMatrix();
 ```
 
 ### As regression
@@ -45,7 +44,7 @@ var confusionMatrix = classifier.getConfusionMatrix();
 ```js
 import { RandomForestRegression as RFRegression } from 'ml-random-forest';
 
-var dataset = [
+const dataset = [
   [73, 80, 75, 152],
   [93, 88, 93, 185],
   [89, 91, 90, 180],
@@ -73,35 +72,33 @@ var dataset = [
   [96, 93, 95, 192]
 ];
 
-var trainingSet = new Array(dataset.length);
-var predictions = new Array(dataset.length);
+const trainingSet = new Array(dataset.length);
+const predictions = new Array(dataset.length);
 
-for (var i = 0; i < dataset.length; ++i) {
+for (let i = 0; i < dataset.length; ++i) {
   trainingSet[i] = dataset[i].slice(0, 3);
   predictions[i] = dataset[i][3];
 }
 
-var options = {
+const options = {
   seed: 3,
   maxFeatures: 2,
   replacement: false,
   nEstimators: 200
 };
 
-var regression = new RFRegression(options);
+const regression = new RFRegression(options);
 regression.train(trainingSet, predictions);
-var result = regression.predict(trainingSet);
+const result = regression.predict(trainingSet);
 ```
 
 ## License
 
 [MIT](./LICENSE)
 
-[npm-image]: https://img.shields.io/npm/v/ml-random-forest.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/ml-random-forest.svg
 [npm-url]: https://npmjs.org/package/ml-random-forest
-[travis-image]: https://img.shields.io/travis/mljs/random-forest/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/mljs/random-forest
-[codecov-image]: https://img.shields.io/codecov/c/github/mljs/random-forest.svg?style=flat-square
-[codecov-url]: https://codecov.io/github/mljs/random-forest
-[download-image]: https://img.shields.io/npm/dm/ml-random-forest.svg?style=flat-square
+[ci-image]: https://github.com/mljs/random-forest/workflows/Node.js%20CI/badge.svg?branch=master
+[ci-url]: https://github.com/mljs/random-forest/actions?query=workflow%3A%22Node.js+CI%22
+[download-image]: https://img.shields.io/npm/dm/ml-random-forest.svg
 [download-url]: https://npmjs.org/package/ml-random-forest

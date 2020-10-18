@@ -23,10 +23,9 @@ describe('Random Forest Classifier', function () {
   let result = classifier.predict(trainingSet);
 
   it('Random Forest Classifier with iris dataset', function () {
-    let correct = 0;
-    for (let i = 0; i < result.length; ++i) {
-      if (result[i] === predictions[i]) correct++;
-    }
+    const correct = result.reduce((previous, result, index) => {
+      return result === predictions[index] ? previous + 1 : previous;
+    }, 0);
 
     let score = correct / result.length;
     expect(score).toBeGreaterThanOrEqual(0.7); // above or equal
@@ -139,7 +138,7 @@ describe('Random Forest Classifier', function () {
       expect(finalResults[i]).toBe(Ytest[i][0]);
     }
   });
-  it('Random Forest Classifier with iris dataset - probability', function() {
+  it('Random Forest Classifier with iris dataset - probability', function () {
     let opts = {
       seed: 17,
       nEstimators: 100,
@@ -159,8 +158,8 @@ describe('Random Forest Classifier', function () {
     expect(
       probabilities.reduce((p, v) => Math.min(p, v), 1),
     ).toBeGreaterThanOrEqual(0.7);
-    })
-    //expect(score).toBeGreaterThanOrEqual(0.7); // above or equal
+  });
+  //expect(score).toBeGreaterThanOrEqual(0.7); // above or equal
   it('Test Out-Of-Bag estimates', () => {
     let opts = {
       seed: 17,
@@ -185,4 +184,4 @@ describe('Random Forest Classifier', function () {
       (100 * correctVsTotal.correct) / correctVsTotal.total,
     ).toBeGreaterThanOrEqual(95.0);
   });
-})
+});
