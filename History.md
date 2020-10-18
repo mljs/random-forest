@@ -1,3 +1,10 @@
+### [2.0.2](https://github.com/mljs/random-forest/compare/v2.0.1...v2.0.2) (2020-10-18)
+
+
+### Bug Fixes
+
+* small fixes to previous PRs ([#24](https://github.com/mljs/random-forest/issues/24)) ([a5fc52e](https://github.com/mljs/random-forest/commit/a5fc52e3f62289d12a4394926d5fee70ed450938))
+
 ## [2.0.1](https://github.com/mljs/random-forest/compare/v2.0.0...v2.0.1) (2019-10-13)
 
 
