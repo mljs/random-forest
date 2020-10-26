@@ -4,7 +4,7 @@
 [![build status][ci-image]][ci-url]
 [![npm download][download-image]][download-url]
 
-Random forest for classification and regression.
+[Random forest for classification and regression](https://en.wikipedia.org/wiki/Random_forest).
 
 ## Installation
 
