@@ -171,6 +171,11 @@ export class RandomForestBase {
     return predictions;
   }
 
+  /**
+   * Predicts the output given the matrix to predict.
+   * @param {Matrix|Array} toPredict
+   * @return {MatrixTransposeView} predictions of estimators
+   */
   predictionValues(toPredict) {
     let predictionValues = new Array(this.nEstimators);
     toPredict = Matrix.checkMatrix(toPredict);
@@ -183,6 +188,7 @@ export class RandomForestBase {
       new WrapperMatrix2D(predictionValues),
     ));
   }
+
   /**
    * Returns the Out-Of-Bag predictions.
    * @return {Array} predictions
