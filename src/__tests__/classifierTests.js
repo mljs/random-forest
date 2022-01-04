@@ -1,12 +1,12 @@
-import IrisDataset from 'ml-dataset-iris';
+import { getClasses, getDistinctClasses, getNumbers } from 'ml-dataset-iris';
 import Matrix from 'ml-matrix';
 
 import { RandomForestClassifier as RFClassifier } from '..';
 
-describe('Random Forest Classifier', function () {
-  let trainingSet = IrisDataset.getNumbers();
-  let predictions = IrisDataset.getClasses().map((elem) =>
-    IrisDataset.getDistinctClasses().indexOf(elem),
+describe('Random Forest Classifier', () => {
+  let trainingSet = getNumbers();
+  let predictions = getClasses().map((elem) =>
+    getDistinctClasses().indexOf(elem),
   );
 
   let options = {
@@ -22,7 +22,7 @@ describe('Random Forest Classifier', function () {
   classifier.train(trainingSet, predictions);
   let result = classifier.predict(trainingSet);
 
-  it('Random Forest Classifier with iris dataset', function () {
+  it('Random Forest Classifier with iris dataset', () => {
     const correct = result.reduce((previous, result, index) => {
       return result === predictions[index] ? previous + 1 : previous;
     }, 0);
@@ -42,7 +42,7 @@ describe('Random Forest Classifier', function () {
     }
   });
 
-  it('Test with a 2 features dataset', function () {
+  it('Test with a 2 features dataset', () => {
     let X = new Matrix([
       [1, 1],
       [1, 0],
@@ -87,7 +87,7 @@ describe('Random Forest Classifier', function () {
     }
   });
 
-  it('Test with full features dataset', function () {
+  it('Test with full features dataset', () => {
     let X = new Matrix([
       [0, -1],
       [1, 0],
@@ -138,7 +138,7 @@ describe('Random Forest Classifier', function () {
       expect(finalResults[i]).toBe(Ytest[i][0]);
     }
   });
-  it('Random Forest Classifier with iris dataset - probability', function () {
+  it('Random Forest Classifier with iris dataset - probability', () => {
     let opts = {
       seed: 17,
       nEstimators: 100,
