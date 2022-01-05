@@ -26,8 +26,6 @@ let X = [
 
 let Y = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
-// when comparing the bigger datasets, compare the execution time for the different functions which use different sets of data
-// of various sizes
 let options = {
   seed: 3,
   maxFeatures: 1.0,

@@ -38,5 +38,5 @@ jspm_packages
 
 random-forest.js
 
-# CPU PROFILES
+# CPU PROFILE
 *.cpuprofile
