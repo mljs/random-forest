@@ -1,39 +1,6 @@
 const RF = require('../random-forest.js');
 const fs = require('fs');
 
-// testing the classifier and regression scripts, using them on specific data
-
-// using types integer arrays, as the algorithm works more quickly with these
-// this type is already implemented in the matrix
-/*
-var X = new Int32Array([
-  [72, 0, 1],
-  [63, 0, 1],
-  [89, 1, 2],
-  [80, 0, 3],
-  [62, 1, 3],
-  [56, 1, 3],
-  [63, 0, 1],
-  [61, 0, 1],
-  [66, 1, 1],
-  [70, 1, 3],
-  [49, 1, 1],
-  [33, 1, 1],
-  [33, 1, 2],
-  [68, 0, 1],
-  [68, 0, 2],
-  [48, 0, 1],
-  [49, 0, 2],
-  [77, 0, 1],
-  [39, 0, 1],
-  [58, 1, 1],
-]);
-
-var Y = new Int32Array([
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-]);
-*/
-
 let X = [
   [72, 0, 1],
   [63, 0, 1],
@@ -144,7 +111,6 @@ function callback(numberEntries, score) {
 
 function classification(path, numberEntries) {
   fs.readFile(path, 'utf8', function (err, data) {
-    // console.log(path); //path logged in correctly
     let dataFinal = data.split(/\r?\n/);
 
     for (let i = 0; i < dataFinal.length; i++) {
