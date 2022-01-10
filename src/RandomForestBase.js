@@ -122,6 +122,7 @@ export class RandomForestBase {
       X = res.X;
       currentSeed = res.seed;
 
+      // presumably different trees
       this.indexes[i] = res.usedIndex;
       this.estimators[i] = new Estimator(this.treeOptions);
       this.estimators[i].train(X, y);

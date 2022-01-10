@@ -38,17 +38,14 @@ let options = {
 // FULL DATASET
 const pathFull = 'scripts/sepsis_survival_primary_cohort.csv';
 
-// DATASET with 10000 entries
+// DATASET with 500 entries
+const path500 = 'scripts/sepsis_survival_primary_cohort_500_entries.csv';
+
+// DATASET with 1000 entries
 const path1000 = 'scripts/sepsis_survival_primary_cohort_1000_entries.csv';
 
 // DATASET with 5000 entries
 const path5000 = 'scripts/sepsis_survival_primary_cohort_5000_entries.csv';
-
-// DATASET with 1000 entries
-const path10000 = 'scripts/sepsis_survival_primary_cohort_10000_entries.csv';
-
-// DATASET with 500 entries
-const path500 = 'scripts/sepsis_survival_primary_cohort_500_entries.csv';
 
 let classifier = new RF.RandomForestClassifier(options);
 let xFull = [];
@@ -57,10 +54,9 @@ let yFull = [];
 classification20Entries();
 classification500Entries();
 classification1000Entries();
+classification5000Entries();
 
 // Takes Too Long
-// classification5000Entries();
-// classification10000Entries();
 // classificationAllEntries();
 
 function classification20Entries() {
@@ -71,6 +67,7 @@ function classification20Entries() {
   }, 0);
 
   let score = correct / result.length;
+  //console.log('Predictions for 20 entries: ', result);
   console.log('Score for 20 entries: ', score);
 }
 
@@ -86,15 +83,11 @@ function classification5000Entries() {
   classification(path5000, 5000);
 }
 
-function classification10000Entries() {
-  classification(path10000, 10000);
-}
-
 function classificationAllEntries() {
   classification(pathFull, 'all');
 }
 
-function callback(numberEntries, score) {
+function callback(numberEntries, score, result) {
   try {
     console.log(
       'Score for the dataset with ',
@@ -102,6 +95,7 @@ function callback(numberEntries, score) {
       ' entries: ',
       score,
     );
+    console.log('Predictions for ', numberEntries, ' entries: ', result);
   } catch (error) {
     console.log(error);
   }
@@ -134,6 +128,6 @@ function classification(path, numberEntries) {
     }, 0);
 
     let score = correct / result.length;
-    callback(numberEntries, score);
+    callback(numberEntries, score, result);
   });
 }

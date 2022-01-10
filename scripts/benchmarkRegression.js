@@ -2,69 +2,76 @@ const RF = require('../random-forest.js');
 const fs = require('fs');
 
 function approx(val, expected, eps) {
+  eps = 5000;
   return val - eps < expected && expected < val + eps;
 }
 
 let X = [
-  [72, 0, 1],
-  [63, 0, 1],
-  [89, 1, 2],
-  [80, 0, 3],
-  [62, 1, 3],
-  [56, 1, 3],
-  [63, 0, 1],
-  [61, 0, 1],
-  [66, 1, 1],
-  [70, 1, 3],
-  [49, 1, 1],
-  [33, 1, 1],
-  [33, 1, 2],
-  [68, 0, 1],
-  [68, 0, 2],
-  [48, 0, 1],
-  [49, 0, 2],
-  [77, 0, 1],
-  [39, 0, 1],
-  [58, 1, 1],
+  [6.559, 73.8, 0.083, 0.051, 0.119],
+  [6.414, 74.5, 0.083, 0.07, 0.085],
+  [6.313, 74.5, 0.08, 0.062, 0.1],
+  [6.121, 75.0, 0.083, 0.091, 0.096],
+  [5.921, 75.7, 0.081, 0.048, 0.085],
+  [5.853, 76.9, 0.081, 0.059, 0.108],
+  [5.641, 77.7, 0.08, 0.048, 0.096],
+  [5.496, 78.2, 0.085, 0.055, 0.093],
+  [5.678, 78.1, 0.081, 0.066, 0.141],
+  [5.491, 77.3, 0.082, 0.062, 0.111],
+  [5.516, 77.5, 0.081, 0.051, 0.108],
+  [5.471, 76.7, 0.083, 0.059, 0.126],
+  [5.059, 78.6, 0.081, 0.07, 0.096],
+  [4.968, 78.8, 0.084, 0.07, 0.134],
+  [4.975, 78.9, 0.083, 0.055, 0.152],
+  [4.897, 79.1, 0.083, 0.07, 0.096],
+  [5.02, 79.7, 0.081, 0.051, 0.134],
+  [5.407, 78.5, 0.082, 0.062, 0.163],
+  [5.169, 77.9, 0.083, 0.066, 0.108],
+  [5.081, 77.7, 0.084, 0.051, 0.13],
 ];
 
-let Y = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+let Y = [
+  34055.6962, 29814.6835, 29128.1012, 28228.8607, 27335.6962, 26624.8101,
+  25998.9873, 25446.0759, 24777.7215, 24279.4936, 23896.7088, 23544.3038,
+  23003.5443, 22329.1139, 22092.1519, 21903.7974, 21685.0632, 21484.5569,
+  21107.8481, 20998.481,
+];
 
 let options = {
   seed: 3,
   maxFeatures: 1.0,
   replacement: true,
-  nEstimators: 50,
+  nEstimators: 100,
   treeOptions: undefined,
   useSampleBagging: true,
 };
 
+// FULL DATASET
+const pathFull = 'scripts/tetuan_city_power_consumption.csv';
+
 // DATASET with 500 entries
-const path500 = 'scripts/sepsis_survival_primary_cohort_500_entries.csv';
+const path500 = 'scripts/tetuan_city_power_consumption_500_entries.csv';
 
-// DATASET with 10000 entries
-const path1000 = 'scripts/sepsis_survival_primary_cohort_1000_entries.csv';
-
-// DATASET with 5000 entries
-const path5000 = 'scripts/sepsis_survival_primary_cohort_5000_entries.csv';
+// DATASET with 750 entries
+const path750 = 'scripts/tetuan_city_power_consumption_750_entries.csv';
 
 // DATASET with 1000 entries
-const path10000 = 'scripts/sepsis_survival_primary_cohort_10000_entries.csv';
+const path1000 = 'scripts/tetuan_city_power_consumption_1000_entries.csv';
 
-// FULL DATASET
-const pathFull = 'scripts/sepsis_survival_primary_cohort.csv';
+// DATASET with 5000 entries
+const path5000 = 'scripts/tetuan_city_power_consumption_5000_entries.csv';
 
 let regressor = new RF.RandomForestRegression(options);
 let xFull = [];
 let yFull = [];
 
-regression20Entries();
-regression500Entries();
+// UNCOMMENT ONE OF THESE FUNCTIONS
+// UNCOMMENTING ALL LEADS TO CERTAIN NULL PREDICTIONS
+// regression20Entries();
+// regression500Entries();
 regression1000Entries();
-regression5000Entries();
 
 // Takes Too Long
-// regression10000Entries();
+// regression5000Entries();
 // regressionAllEntries();
 
 function regression20Entries() {
@@ -72,10 +79,11 @@ function regression20Entries() {
   let result = regressor.predict(X);
 
   const correct = result.reduce((prev, value, index) => {
-    return approx(value, Y[index], 5) ? prev + 1 : prev; // from 10 changed to 5
+    return approx(value, Y[index], 10) ? prev + 1 : prev;
   }, 0);
 
   let score = correct / result.length;
+  console.log('Predictions for 20 entries: ', result);
   console.log('Score for 20 entries: ', score);
 }
 
@@ -91,15 +99,11 @@ function regression5000Entries() {
   regression(path5000, 5000);
 }
 
-function regression10000Entries() {
-  regression(path10000, 10000);
-}
-
 function regressionAllEntries() {
   regression(pathFull, 'all');
 }
 
-function callback(numberEntries, score) {
+function callback(numberEntries, score, result) {
   try {
     console.log(
       'Score for the dataset with ',
@@ -107,6 +111,7 @@ function callback(numberEntries, score) {
       ' entries: ',
       score,
     );
+    // console.log('Predictions for ', numberEntries, ' entries: ', result);
   } catch (error) {
     console.log(error);
   }
@@ -121,8 +126,8 @@ function regression(path, numberEntries) {
       let arrayToInt = intermediate.map(function (x) {
         return parseInt(x, 10);
       });
-      let xPart = arrayToInt.slice(0, 3);
-      let yPart = arrayToInt[3];
+      let xPart = arrayToInt.slice(1, 6);
+      let yPart = arrayToInt[6];
       xFull.push(xPart);
       yFull.push(yPart);
     }
@@ -132,13 +137,20 @@ function regression(path, numberEntries) {
     yFull.shift();
     yFull.pop();
 
-    regressor.train(xFull, yFull);
-    let result = regressor.predict(xFull);
+    let result;
+
+    try {
+      regressor.train(xFull, yFull);
+      result = regressor.predict(xFull);
+    } catch (error) {
+      console.log(error);
+    }
+
     const correct = result.reduce((prev, value, index) => {
-      return approx(value, yFull[index], 5) ? prev + 1 : prev; // from 10 changed to 5
+      return approx(value, yFull[index], 10) ? prev + 1 : prev;
     }, 0);
 
     let score = correct / result.length;
-    callback(numberEntries, score);
+    callback(numberEntries, score, result);
   });
 }
