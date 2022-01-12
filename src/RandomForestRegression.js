@@ -1,11 +1,7 @@
 import arrayMean from 'ml-array-mean';
 import arrayMedian from 'ml-array-median';
-// import arrayMode from 'ml-array-mode';
-// from what I understoor the mean should be more so used
-
 import { RandomForestBase } from './RandomForestBase';
 
-// not present in classification
 const selectionMethods = {
   mean: arrayMean,
   median: arrayMedian,
@@ -13,10 +9,10 @@ const selectionMethods = {
 
 const defaultOptions = {
   maxFeatures: 1.0,
-  replacement: true, // was false before
-  nEstimators: 50, // maybe 50 is not enough?
+  replacement: false,
+  nEstimators: 50,
   treeOptions: {},
-  selectionMethod: 'mean', // median
+  selectionMethod: 'mean',
   seed: 42,
   useSampleBagging: true,
   noOOB: false,
@@ -72,9 +68,7 @@ export class RandomForestRegression extends RandomForestBase {
    * @return {number} prediction
    */
   selection(values) {
-    // meaning the mean or the median is applied on the predictions of the different trees
     return selectionMethods[this.selectionMethod](values);
-    // return arrayMode(values);
   }
 
   /**
@@ -83,36 +77,12 @@ export class RandomForestRegression extends RandomForestBase {
    */
   toJSON() {
     let baseModel = super.toJSON();
-    // name: 'RFClassifier',
     return {
       baseModel: baseModel,
       selectionMethod: this.selectionMethod,
       name: 'RFRegression',
     };
   }
-
-  /* whole code below here is missing - do we need this for the code? getConfusionMatrix
-  getConfusionMatrix() {
-    if (!this.oobResults) {
-      throw new Error('No Out-Of-Bag results available.');
-    }
-
-    const labels = new Set();
-    const matrix = this.oobResults.reduce((p, v) => {
-      labels.add(v.true);
-      labels.add(v.predicted);
-      const x = p[v.predicted] || {};
-      x[v.true] = (x[v.true] || 0) + 1;
-      p[v.predicted] = x;
-      return p;
-    }, {});
-    const sortedLabels = [...labels].sort();
-
-    return sortedLabels.map((v) =>
-      sortedLabels.map((w) => (matrix[v] || {})[w] || 0),
-    );
-  }
-  */
 
   /**
    * Load a Decision tree classifier with the given model.
@@ -126,27 +96,4 @@ export class RandomForestRegression extends RandomForestBase {
 
     return new RandomForestRegression(true, model);
   }
-
-  /* all following missing predictProbability
-  predictProbability(toPredict, label) {
-    const predictionValues = this.predictionValues(toPredict);
-    let predictions = new Array(predictionValues.rows);
-    for (let i = 0; i < predictionValues.rows; ++i) {
-      const pvs = predictionValues.getRow(i);
-      const l = pvs.length;
-      const roundFactor = Math.pow(10, 6);
-      predictions[i] =
-        Math.round(
-          pvs.reduce((p, v) => {
-            if (v === label) {
-              p += roundFactor / l;
-            }
-            return p;
-          }),
-        ) / roundFactor;
-    }
-
-    return predictions;
-  }
-  */
 }

@@ -2,7 +2,6 @@ const RF = require('../random-forest.js');
 const fs = require('fs');
 
 function approx(val, expected, eps) {
-  eps = 5000;
   return val - eps < expected && expected < val + eps;
 }
 
@@ -40,19 +39,18 @@ let options = {
   seed: 3,
   maxFeatures: 1.0,
   replacement: true,
-  nEstimators: 100,
+  nEstimators: 50,
   treeOptions: undefined,
-  useSampleBagging: true,
+  useSampleBagging: false,
 };
+
+const allEqual = (arr) => arr.every((val) => val === arr[0]);
 
 // FULL DATASET
 const pathFull = 'scripts/tetuan_city_power_consumption.csv';
 
 // DATASET with 500 entries
 const path500 = 'scripts/tetuan_city_power_consumption_500_entries.csv';
-
-// DATASET with 750 entries
-const path750 = 'scripts/tetuan_city_power_consumption_750_entries.csv';
 
 // DATASET with 1000 entries
 const path1000 = 'scripts/tetuan_city_power_consumption_1000_entries.csv';
@@ -64,11 +62,9 @@ let regressor = new RF.RandomForestRegression(options);
 let xFull = [];
 let yFull = [];
 
-// UNCOMMENT ONE OF THESE FUNCTIONS
-// UNCOMMENTING ALL LEADS TO CERTAIN NULL PREDICTIONS
-// regression20Entries();
-// regression500Entries();
-regression1000Entries();
+regression20Entries();
+regression500Entries();
+// regression1000Entries(); // sometimes gives null values
 
 // Takes Too Long
 // regression5000Entries();
@@ -76,15 +72,18 @@ regression1000Entries();
 
 function regression20Entries() {
   regressor.train(X, Y);
+  // regressor.printTrees();
   let result = regressor.predict(X);
 
   const correct = result.reduce((prev, value, index) => {
-    return approx(value, Y[index], 10) ? prev + 1 : prev;
+    return approx(value, Y[index], 1000) ? prev + 1 : prev;
   }, 0);
 
   let score = correct / result.length;
-  console.log('Predictions for 20 entries: ', result);
-  console.log('Score for 20 entries: ', score);
+
+  console.log('Score for the dataset with ', 20, ' entries: ', score);
+  console.log('The predictions for ', 20, ' entries: ', result);
+  console.log('Are all values equal for ', 20, ' entries :', allEqual(result));
 }
 
 function regression500Entries() {
@@ -111,7 +110,13 @@ function callback(numberEntries, score, result) {
       ' entries: ',
       score,
     );
-    // console.log('Predictions for ', numberEntries, ' entries: ', result);
+    console.log('The predictions for ', numberEntries, ' entries: ', result);
+    console.log(
+      'Are all values equal for ',
+      numberEntries,
+      ' entries :',
+      allEqual(result),
+    );
   } catch (error) {
     console.log(error);
   }
@@ -137,17 +142,12 @@ function regression(path, numberEntries) {
     yFull.shift();
     yFull.pop();
 
-    let result;
-
-    try {
-      regressor.train(xFull, yFull);
-      result = regressor.predict(xFull);
-    } catch (error) {
-      console.log(error);
-    }
+    regressor.train(xFull, yFull);
+    // regressor.printTrees();
+    let result = regressor.predict(xFull);
 
     const correct = result.reduce((prev, value, index) => {
-      return approx(value, yFull[index], 10) ? prev + 1 : prev;
+      return approx(value, yFull[index], 1000) ? prev + 1 : prev;
     }, 0);
 
     let score = correct / result.length;

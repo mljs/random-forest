@@ -35,6 +35,8 @@ let options = {
   useSampleBagging: true,
 };
 
+const allEqual = (arr) => arr.every((val) => val === arr[0]);
+
 // FULL DATASET
 const pathFull = 'scripts/sepsis_survival_primary_cohort.csv';
 
@@ -54,21 +56,24 @@ let yFull = [];
 classification20Entries();
 classification500Entries();
 classification1000Entries();
-classification5000Entries();
 
 // Takes Too Long
+// classification5000Entries();
 // classificationAllEntries();
 
 function classification20Entries() {
   classifier.train(X, Y);
+  // classifier.printTrees();
   let result = classifier.predict(X);
   let correct = result.reduce((previous, result, index) => {
     return result === Y[index] ? previous + 1 : previous;
   }, 0);
 
   let score = correct / result.length;
-  //console.log('Predictions for 20 entries: ', result);
-  console.log('Score for 20 entries: ', score);
+
+  console.log('Score for the dataset with ', 20, ' entries: ', score);
+  console.log('The predictions for ', 20, ' entries: ', result);
+  console.log('Are all values equal for ', 20, ' entries :', allEqual(result));
 }
 
 function classification500Entries() {
@@ -95,7 +100,13 @@ function callback(numberEntries, score, result) {
       ' entries: ',
       score,
     );
-    console.log('Predictions for ', numberEntries, ' entries: ', result);
+    console.log('The predictions for ', numberEntries, ' entries: ', result);
+    console.log(
+      'Are all values equal for ',
+      numberEntries,
+      ' entries :',
+      allEqual(result),
+    );
   } catch (error) {
     console.log(error);
   }
@@ -122,7 +133,9 @@ function classification(path, numberEntries) {
     yFull.pop();
 
     classifier.train(xFull, yFull);
+    // classifier.printTrees();
     let result = classifier.predict(xFull);
+
     const correct = result.reduce((previous, result, index) => {
       return result === yFull[index] ? previous + 1 : previous;
     }, 0);

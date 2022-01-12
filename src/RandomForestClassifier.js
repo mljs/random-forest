@@ -1,20 +1,6 @@
 import arrayMode from 'ml-array-mode';
-// import arrayMean from 'ml-array-mean';
-// import arrayMedian from 'ml-array-median';
-
 import { RandomForestBase } from './RandomForestBase';
 
-// In the other file we have
-/*
-const selectionMethods = {
-  mean: arrayMean,
-  median: arrayMedian,
-};
-*/
-
-// In the below we also need
-// treeOptions: {},
-// selectionMethod: 'mean',
 const defaultOptions = {
   maxFeatures: 1.0,
   replacement: true,
@@ -29,8 +15,6 @@ const defaultOptions = {
  * @augments RandomForestBase
  */
 export class RandomForestClassifier extends RandomForestBase {
-  // In other file we also have
-  // @param {string} [options.selectionMethod="mean"] - the way to calculate the prediction from estimators, "mean" and "median" are supported.
   /**
    * Create a new base random forest for a classifier or regression model.
    * @constructor
@@ -48,26 +32,10 @@ export class RandomForestClassifier extends RandomForestBase {
   constructor(options, model) {
     if (options === true) {
       super(true, model.baseModel);
-      // this.selectionMethod = model.selectionMethod;
     } else {
       options = Object.assign({}, defaultOptions, options);
       options.isClassifier = true;
-      /*
-      options.isClassifier = false;
-
-      if (
-        !(
-          options.selectionMethod === 'mean' ||
-          options.selectionMethod === 'median'
-        )
-      ) {
-        throw new RangeError(
-          `Unsupported selection method ${options.selectionMethod}`,
-        );
-      }
-      */
       super(options);
-      // this.selectionMethod = options.selectionMethod;
     }
   }
 
@@ -78,7 +46,6 @@ export class RandomForestClassifier extends RandomForestBase {
    */
   selection(values) {
     return arrayMode(values);
-    // return selectionMethods[this.selectionMethod](values);
   }
 
   /**
@@ -87,8 +54,6 @@ export class RandomForestClassifier extends RandomForestBase {
    */
   toJSON() {
     let baseModel = super.toJSON();
-    // selectionMethod: this.selectionMethod,
-    // name: 'RFRegression',
     return {
       baseModel: baseModel,
       name: 'RFClassifier',

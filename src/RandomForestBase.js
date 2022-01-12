@@ -122,7 +122,6 @@ export class RandomForestBase {
       X = res.X;
       currentSeed = res.seed;
 
-      // presumably different trees
       this.indexes[i] = res.usedIndex;
       this.estimators[i] = new Estimator(this.treeOptions);
       this.estimators[i].train(X, y);
@@ -143,6 +142,15 @@ export class RandomForestBase {
       );
     }
   }
+
+  /*
+  printTrees() {
+    for (let i = 0; i < this.nEstimators; ++i) {
+      console.log('For Estimator : ', i);
+      this.estimators[i].printTree();
+    }
+  }
+  */
 
   /**
    * Method that returns the way the algorithm generates the predictions, for example, in classification
@@ -181,10 +189,9 @@ export class RandomForestBase {
     let predictionValues = new Array(this.nEstimators);
     toPredict = Matrix.checkMatrix(toPredict);
     for (let i = 0; i < this.nEstimators; ++i) {
-      let X = new MatrixColumnSelectionView(toPredict, this.indexes[i]); // get features for estimator
+      let X = new MatrixColumnSelectionView(toPredict, this.indexes[i]);
       predictionValues[i] = this.estimators[i].predict(X);
     }
-
     return (predictionValues = new MatrixTransposeView(
       new WrapperMatrix2D(predictionValues),
     ));

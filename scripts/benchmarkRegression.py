@@ -1,4 +1,6 @@
 # https://archive.ics.uci.edu/ml/datasets/Sepsis+survival+minimal+clinical+records#
+# les prédictions ont des valeurs différentes
+
 from sklearn.ensemble import RandomForestRegressor
 import csv
 import time
@@ -48,6 +50,7 @@ for i in range(0,len(Y)):
         correct = correct + 1
 
 t20End = time.time()
+# print("Prediction for 1000 entries using python : " + str(prediction))
 print("Score for 20 entries using python: " + str(correct/len(Y)))
 
 # 500 entries
@@ -71,7 +74,8 @@ for i in range(0,len(Y_full)):
     if Y_full[i] == prediction_full[i]:
         correct = correct + 1
 
-t500End = time.time()   
+t500End = time.time()
+# print("Prediction for 500 entries using python : " + str(prediction_full))
 print("Score for 500 entries using python: " + str(correct/len(Y_full)))
 
 # 1000 entries 
@@ -95,7 +99,8 @@ for i in range(0,len(Y_full)):
     if Y_full[i] == prediction_full[i]:
         correct = correct + 1
         
-t1000End = time.time()      
+t1000End = time.time()
+# print("Prediction for 1000 entries using python : " + str(prediction_full))
 print("Score for 1000 entries using python: " + str(correct/len(Y_full)))
 
 # 5000 entries 
@@ -119,9 +124,9 @@ for i in range(0,len(Y_full)):
     if Y_full[i] == prediction_full[i]:
         correct = correct + 1
         
-t5000End = time.time()      
+t5000End = time.time()
+# print("Prediction for 5000 entries using python : " + str(prediction_full))
 print("Score for 5000 entries using python: " + str(correct/len(Y_full)))
-
 
 print("Time for training 20 entries : " + str(t20End - t20Beginning) + " seconds")
 print("Time for training 500 entries : " + str(t500End - t500Beginning) + " seconds")
