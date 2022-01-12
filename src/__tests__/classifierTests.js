@@ -14,7 +14,7 @@ describe('Random Forest Classifier', () => {
     maxFeatures: 0.8,
     replacement: true,
     nEstimators: 25,
-    treeOptions: undefined, // default options for the decision tree
+    treeOptions: undefined,
     useSampleBagging: true,
   };
 
@@ -28,7 +28,7 @@ describe('Random Forest Classifier', () => {
     }, 0);
 
     let score = correct / result.length;
-    expect(score).toBeGreaterThanOrEqual(0.7); // above or equal
+    expect(score).toBeGreaterThanOrEqual(0.7);
   });
 
   it('Export and import for random forest classifier', () => {
@@ -63,7 +63,6 @@ describe('Random Forest Classifier', () => {
     ]);
     let Y = [1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0];
 
-    // the test set (Xtest, Ytest)
     let Xtest = new Matrix([
       [1, 1],
       [1, 0],
@@ -76,11 +75,9 @@ describe('Random Forest Classifier', () => {
     ]);
     let Ytest = [1, 1, 1, 0, 1, 1, 1, 0];
 
-    // we will train our model
     let rf = new RFClassifier({ nEstimators: 50 });
     rf.train(X, Y);
 
-    // we try to predict the test set
     let finalResults = rf.predict(Xtest);
     for (let i = 0; i < Ytest.rows; ++i) {
       expect(finalResults[i]).toBe(Ytest[i][0]);
@@ -114,7 +111,6 @@ describe('Random Forest Classifier', () => {
     ]);
     let Y = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2];
 
-    // the test set (Xtest, Ytest)
     let Xtest = new Matrix([
       [0, -2],
       [1, 0.5],
@@ -128,21 +124,20 @@ describe('Random Forest Classifier', () => {
     ]);
     let Ytest = [0, 0, 0, 1, 1, 1, 2, 2, 2];
 
-    // we will train our model
     let rf = new RFClassifier({ nEstimators: 50 });
     rf.train(X, Y);
 
-    // we try to predict the test set
     let finalResults = rf.predict(Xtest);
     for (let i = 0; i < Ytest.rows; ++i) {
       expect(finalResults[i]).toBe(Ytest[i][0]);
     }
   });
+
   it('Random Forest Classifier with iris dataset - probability', () => {
     let opts = {
       seed: 17,
       nEstimators: 100,
-      treeOptions: undefined, // default options for the decision tree
+      treeOptions: undefined,
       useSampleBagging: true,
     };
     let classifierProb = new RFClassifier(opts);
@@ -159,13 +154,13 @@ describe('Random Forest Classifier', () => {
       probabilities.reduce((p, v) => Math.min(p, v), 1),
     ).toBeGreaterThanOrEqual(0.7);
   });
-  //expect(score).toBeGreaterThanOrEqual(0.7); // above or equal
+
   it('Test Out-Of-Bag estimates', () => {
     let opts = {
       seed: 17,
       replacement: false,
       nEstimators: 100,
-      treeOptions: { minNumSamples: 1 }, // default options for the decision tree
+      treeOptions: { minNumSamples: 1 },
       useSampleBagging: true,
     };
 
