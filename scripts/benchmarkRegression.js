@@ -62,9 +62,9 @@ let regressor = new RF.RandomForestRegression(options);
 let xFull = [];
 let yFull = [];
 
-regression20Entries();
-regression500Entries();
-// regression1000Entries(); // sometimes gives null values
+// regression20Entries();
+// regression500Entries();
+regression1000Entries(); // sometimes gives null values
 
 // Takes Too Long
 // regression5000Entries();
