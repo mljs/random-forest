@@ -69,6 +69,7 @@ export class RandomForestBase {
     trainingSet = Matrix.checkMatrix(trainingSet);
 
     this.maxFeatures = this.maxFeatures || trainingSet.columns;
+    this.numberFeatures = trainingSet.columns;
 
     if (Utils.checkFloat(this.maxFeatures)) {
       this.n = Math.floor(trainingSet.columns * this.maxFeatures);
@@ -141,6 +142,67 @@ export class RandomForestBase {
         this.selection.bind(this),
       );
     }
+  }
+
+  /**
+   * Evaluate the feature importances for each tree in the ensemble
+   * @return {Array} feature importances
+   */
+  featureImportance() {
+    const trees = JSON.parse(JSON.stringify(this.estimators));
+    const indexes = JSON.parse(JSON.stringify(this.indexes));
+    let importance = [];
+
+    function computeFeatureImportances(i, node) {
+      // node.gain can be null or undefined
+      if (!node || !('splitColumn' in node) || !(node.gain > 0)) return;
+      let f = node.gain * node.numberSamples;
+      if ('left' in node)
+        f -= (node.left.gain || 0) * (node.left.numberSamples || 0);
+      if ('right' in node)
+        f -= (node.right.gain || 0) * (node.right.numberSamples || 0);
+      importance[i][node.splitColumn] += f;
+      if (!!node.left) computeFeatureImportances(i, node.left);
+      if (!!node.right) computeFeatureImportances(i, node.right);
+    }
+
+    function normalizeImportances(i) {
+      const s = importance[i].reduce((cum, v) => {
+        return (cum += v);
+      }, 0);
+      importance[i] = importance[i].map((v) => {
+        return v / s;
+      });
+    }
+
+    for (let i = 0; i < trees.length; i++) {
+      importance.push(new Array(this.numberFeatures).fill(0.0));
+      computeFeatureImportances(i, trees[i].root);
+      normalizeImportances(i);
+    }
+
+    // The following gives valid values but final values are NaN?
+    console.log('The importances are:' + importance);
+    console.log('The length of the importance vector is: ' + importance.length);
+    console.log('The indexes array is: ' + indexes);
+    console.log('The length of the indexes vector is: ' + indexes.length);
+    console.log('The number of features is: ' + this.numberFeatures);
+
+    let avgImportance = new Array(this.numberFeatures).fill(0.0);
+    for (let i = 0; i < importance.length; i++) {
+      for (let x = 0; x < this.numberFeatures; x++) {
+        avgImportance[indexes[i][x]] += importance[i][x];
+      }
+    }
+
+    console.log('The average importances are:' + avgImportance);
+
+    const s = avgImportance.reduce((cum, v) => {
+      return (cum += v);
+    }, 0);
+    return avgImportance.map((v) => {
+      return v / s;
+    });
   }
 
   /*
