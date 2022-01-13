@@ -114,11 +114,6 @@ export class RandomForestBase {
       }
     }
 
-    // find how to use this.numberSamples now on the trainingSet
-
-    console.log('Before cropping test set:' + trainingSet);
-    console.log('Before cropping test values:' + trainingValues);
-
     if (trainingSet.rows !== this.maxSamples) {
       let tmp = new Matrix(this.maxSamples, trainingSet.columns);
       for (let j = 0; j < this.maxSamples; j++) {
@@ -223,21 +218,12 @@ export class RandomForestBase {
       normalizeImportances(i);
     }
 
-    // The following gives valid values but final values are NaN?
-    // console.log('The importances are:' + importance);
-    // console.log('The length of the importance vector is: ' + importance.length);
-    // console.log('The indexes array is: ' + indexes);
-    // console.log('The length of the indexes vector is: ' + indexes.length);
-    // console.log('The number of features is: ' + this.numberFeatures);
-
     let avgImportance = new Array(this.numberFeatures).fill(0.0);
     for (let i = 0; i < importance.length; i++) {
       for (let x = 0; x < this.numberFeatures; x++) {
         avgImportance[indexes[i][x]] += importance[i][x];
       }
     }
-
-    console.log('The average importances are:' + avgImportance);
 
     const s = avgImportance.reduce((cum, v) => {
       return (cum += v);

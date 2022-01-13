@@ -36,6 +36,7 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+# Output file after compilation
 random-forest.js
 
 # CPU PROFILE
