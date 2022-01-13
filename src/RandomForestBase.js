@@ -43,6 +43,7 @@ export class RandomForestBase {
       this.indexes = model.indexes;
       this.useSampleBagging = model.useSampleBagging;
       this.noOOB = true;
+      this.maxSamples = model.maxSamples;
 
       let Estimator = this.isClassifier ? DTClassifier : DTRegression;
       this.estimators = model.estimators.map((est) => Estimator.load(est));
@@ -55,6 +56,7 @@ export class RandomForestBase {
       this.seed = options.seed;
       this.useSampleBagging = options.useSampleBagging;
       this.noOOB = options.noOOB;
+      this.maxSamples = options.maxSamples;
     }
   }
 
@@ -70,6 +72,7 @@ export class RandomForestBase {
 
     this.maxFeatures = this.maxFeatures || trainingSet.columns;
     this.numberFeatures = trainingSet.columns;
+    this.numberSamples = trainingSet.rows;
 
     if (Utils.checkFloat(this.maxFeatures)) {
       this.n = Math.floor(trainingSet.columns * this.maxFeatures);
@@ -87,15 +90,54 @@ export class RandomForestBase {
       );
     }
 
+    if (this.maxSamples) {
+      if (this.maxSamples < 0) {
+        throw new RangeError(`Please choose a positive value for maxSamples`);
+      } else {
+        if (Utils.checkFloat(this.maxSamples)) {
+          if (this.maxSamples > 1.0) {
+            throw new RangeError(
+              'Please choose either a float value between 0 and 1 or a positive integer for maxSamples',
+            );
+          } else {
+            this.numberSamples = Math.floor(trainingSet.rows * this.maxSamples);
+          }
+        } else if (Number.isInteger(this.maxSamples)) {
+          if (this.maxSamples > trainingSet.rows) {
+            throw new RangeError(
+              `The maxSamples parameter should be less than ${trainingSet.rows}`,
+            );
+          } else {
+            this.numberSamples = this.maxSamples;
+          }
+        }
+      }
+    }
+
+    // find how to use this.numberSamples now on the trainingSet
+
+    console.log('Before cropping test set:' + trainingSet);
+    console.log('Before cropping test values:' + trainingValues);
+
+    if (trainingSet.rows !== this.maxSamples) {
+      let tmp = new Matrix(this.maxSamples, trainingSet.columns);
+      for (let j = 0; j < this.maxSamples; j++) {
+        tmp.removeRow(0);
+      }
+      for (let i = 0; i < this.maxSamples; i++) {
+        tmp.addRow(trainingSet.getRow(i));
+      }
+      trainingSet = tmp;
+
+      trainingValues = trainingValues.slice(0, this.maxSamples);
+    }
+
     let Estimator;
     if (this.isClassifier) {
       Estimator = DTClassifier;
     } else {
       Estimator = DTRegression;
     }
-
-    this.estimators = new Array(this.nEstimators);
-    this.indexes = new Array(this.nEstimators);
 
     let oobResults = new Array(this.nEstimators);
 
@@ -179,48 +221,14 @@ export class RandomForestBase {
       importance.push(new Array(this.numberFeatures).fill(0.0));
       computeFeatureImportances(i, trees[i].root);
       normalizeImportances(i);
-<<<<<<< HEAD
     }
 
     // The following gives valid values but final values are NaN?
-    console.log('The importances are:' + importance);
-    console.log('The length of the importance vector is: ' + importance.length);
-    console.log('The indexes array is: ' + indexes);
-    console.log('The length of the indexes vector is: ' + indexes.length);
-    console.log('The number of features is: ' + this.numberFeatures);
-
-    let avgImportance = new Array(this.numberFeatures).fill(0.0);
-    for (let i = 0; i < importance.length; i++) {
-      for (let x = 0; x < this.numberFeatures; x++) {
-        avgImportance[indexes[i][x]] += importance[i][x];
-      }
-    }
-
-    console.log('The average importances are:' + avgImportance);
-
-    const s = avgImportance.reduce((cum, v) => {
-      return (cum += v);
-    }, 0);
-    return avgImportance.map((v) => {
-      return v / s;
-    });
-  }
-
-  /*
-  printTrees() {
-    for (let i = 0; i < this.nEstimators; ++i) {
-      console.log('For Estimator : ', i);
-      this.estimators[i].printTree();
-=======
->>>>>>> tmp
-    }
-
-    // The following gives valid values but final values are NaN?
-    console.log('The importances are:' + importance);
-    console.log('The length of the importance vector is: ' + importance.length);
-    console.log('The indexes array is: ' + indexes);
-    console.log('The length of the indexes vector is: ' + indexes.length);
-    console.log('The number of features is: ' + this.numberFeatures);
+    // console.log('The importances are:' + importance);
+    // console.log('The length of the importance vector is: ' + importance.length);
+    // console.log('The indexes array is: ' + indexes);
+    // console.log('The length of the indexes vector is: ' + indexes.length);
+    // console.log('The number of features is: ' + this.numberFeatures);
 
     let avgImportance = new Array(this.numberFeatures).fill(0.0);
     for (let i = 0; i < importance.length; i++) {
