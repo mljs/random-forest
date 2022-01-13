@@ -46,13 +46,6 @@ function getAccuracy(predictions, target) {
   let featureImportances = classifier.featureImportance();
   const result = classifier.predict(trainingSet);
 
-<<<<<<< HEAD
-  console.log('Feature importances: ' + featureImportances);
-  console.log('Accuracy: ' + getAccuracy(result, predictions)); // Accuracy: 0.74
-
-  /*
-=======
->>>>>>> tmp
   var trees = JSON.parse(JSON.stringify(classifier.estimators));
 
   function print_node(node, depth = 0, label = 'root') {
@@ -79,11 +72,7 @@ function getAccuracy(predictions, target) {
     console.log('--------------------');
     console.log('--------------------');
   }
-<<<<<<< HEAD
-  */
-=======
 
   console.log('Feature importances: ' + featureImportances);
   console.log('Accuracy: ' + getAccuracy(result, predictions));
->>>>>>> tmp
 })();
