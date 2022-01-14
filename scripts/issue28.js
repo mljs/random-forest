@@ -239,4 +239,7 @@ let regressor = new RF.RandomForestRegression(options);
 
 regressor.train(trainingSet, trainingValues);
 let result = regressor.predict(trainingSet);
-console.log('Result for original set with 10 attributes is:', result);
+console.log(
+  'Result for original set with 10 attributes and 30 as the number of maximum samples:',
+  result,
+);
