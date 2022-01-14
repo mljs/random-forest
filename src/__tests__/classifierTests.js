@@ -1,5 +1,5 @@
 import { getClasses, getDistinctClasses, getNumbers } from 'ml-dataset-iris';
-import Matrix from 'ml-matrix';
+import { Matrix } from 'ml-matrix';
 
 import { RandomForestClassifier as RFClassifier } from '..';
 

@@ -1,4 +1,5 @@
 import arrayMode from 'ml-array-mode';
+
 import { RandomForestBase } from './RandomForestBase';
 
 const defaultOptions = {

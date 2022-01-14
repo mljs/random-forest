@@ -114,17 +114,19 @@ export class RandomForestBase {
       }
     }
 
-    if (trainingSet.rows !== this.maxSamples) {
-      let tmp = new Matrix(this.maxSamples, trainingSet.columns);
-      for (let j = 0; j < this.maxSamples; j++) {
-        tmp.removeRow(0);
-      }
-      for (let i = 0; i < this.maxSamples; i++) {
-        tmp.addRow(trainingSet.getRow(i));
-      }
-      trainingSet = tmp;
+    if (this.maxSamples) {
+      if (trainingSet.rows !== this.maxSamples) {
+        let tmp = new Matrix(this.maxSamples, trainingSet.columns);
+        for (let j = 0; j < this.maxSamples; j++) {
+          tmp.removeRow(0);
+        }
+        for (let i = 0; i < this.maxSamples; i++) {
+          tmp.addRow(trainingSet.getRow(i));
+        }
+        trainingSet = tmp;
 
-      trainingValues = trainingValues.slice(0, this.maxSamples);
+        trainingValues = trainingValues.slice(0, this.maxSamples);
+      }
     }
 
     let Estimator;
@@ -133,6 +135,9 @@ export class RandomForestBase {
     } else {
       Estimator = DTRegression;
     }
+
+    this.estimators = new Array(this.nEstimators);
+    this.indexes = new Array(this.nEstimators);
 
     let oobResults = new Array(this.nEstimators);
 
@@ -194,13 +199,19 @@ export class RandomForestBase {
       // node.gain can be null or undefined
       if (!node || !('splitColumn' in node) || !(node.gain > 0)) return;
       let f = node.gain * node.numberSamples;
-      if ('left' in node)
+      if ('left' in node) {
         f -= (node.left.gain || 0) * (node.left.numberSamples || 0);
-      if ('right' in node)
+      }
+      if ('right' in node) {
         f -= (node.right.gain || 0) * (node.right.numberSamples || 0);
+      }
       importance[i][node.splitColumn] += f;
-      if (!!node.left) computeFeatureImportances(i, node.left);
-      if (!!node.right) computeFeatureImportances(i, node.right);
+      if (node.left) {
+        computeFeatureImportances(i, node.left);
+      }
+      if (node.right) {
+        computeFeatureImportances(i, node.right);
+      }
     }
 
     function normalizeImportances(i) {

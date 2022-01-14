@@ -1,5 +1,6 @@
 import arrayMean from 'ml-array-mean';
 import arrayMedian from 'ml-array-median';
+
 import { RandomForestBase } from './RandomForestBase';
 
 const selectionMethods = {
