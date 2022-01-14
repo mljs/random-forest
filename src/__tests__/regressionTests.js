@@ -54,7 +54,6 @@ regression.train(trainingSet, predictions);
 let result = regression.predict(trainingSet);
 
 /**
- * test dataset found here:
  * link: http://college.cengage.com/mathematics/brase/understandable_statistics/7e/students/datasets/mlr/frames/frame.html
  * Name: Test Scores for General Psychology
  */
