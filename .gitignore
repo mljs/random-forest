@@ -41,6 +41,3 @@ random-forest.js
 
 # CPU PROFILE
 *.cpuprofile
-
-# scripts
-scripts
