@@ -161,6 +161,9 @@ export class RandomForestBase {
       currentSeed = res.seed;
       let { Xoob, ioob } = res;
 
+      // Other implementations of random forests apply feature bagging at every split during tree generation.
+      // So I think it would be better to implement it at the CART level, not here.
+
       res = Utils.featureBagging(X, this.n, this.replacement, currentSeed);
       X = res.X;
       currentSeed = res.seed;
