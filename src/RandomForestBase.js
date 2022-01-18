@@ -43,6 +43,7 @@ export class RandomForestBase {
       this.indexes = model.indexes;
       this.useSampleBagging = model.useSampleBagging;
       this.noOOB = true;
+      this.maxSamples = model.maxSamples;
 
       let Estimator = this.isClassifier ? DTClassifier : DTRegression;
       this.estimators = model.estimators.map((est) => Estimator.load(est));
@@ -55,6 +56,7 @@ export class RandomForestBase {
       this.seed = options.seed;
       this.useSampleBagging = options.useSampleBagging;
       this.noOOB = options.noOOB;
+      this.maxSamples = options.maxSamples;
     }
   }
 
@@ -69,6 +71,8 @@ export class RandomForestBase {
     trainingSet = Matrix.checkMatrix(trainingSet);
 
     this.maxFeatures = this.maxFeatures || trainingSet.columns;
+    this.numberFeatures = trainingSet.columns;
+    this.numberSamples = trainingSet.rows;
 
     if (Utils.checkFloat(this.maxFeatures)) {
       this.n = Math.floor(trainingSet.columns * this.maxFeatures);
@@ -84,6 +88,45 @@ export class RandomForestBase {
       throw new RangeError(
         `Cannot process the maxFeatures parameter ${this.maxFeatures}`,
       );
+    }
+
+    if (this.maxSamples) {
+      if (this.maxSamples < 0) {
+        throw new RangeError(`Please choose a positive value for maxSamples`);
+      } else {
+        if (Utils.isFloat(this.maxSamples)) {
+          if (this.maxSamples > 1.0) {
+            throw new RangeError(
+              'Please choose either a float value between 0 and 1 or a positive integer for maxSamples',
+            );
+          } else {
+            this.numberSamples = Math.floor(trainingSet.rows * this.maxSamples);
+          }
+        } else if (Number.isInteger(this.maxSamples)) {
+          if (this.maxSamples > trainingSet.rows) {
+            throw new RangeError(
+              `The maxSamples parameter should be less than ${trainingSet.rows}`,
+            );
+          } else {
+            this.numberSamples = this.maxSamples;
+          }
+        }
+      }
+    }
+
+    if (this.maxSamples) {
+      if (trainingSet.rows !== this.numberSamples) {
+        let tmp = new Matrix(this.numberSamples, trainingSet.columns);
+        for (let j = 0; j < this.numberSamples; j++) {
+          tmp.removeRow(0);
+        }
+        for (let i = 0; i < this.numberSamples; i++) {
+          tmp.addRow(trainingSet.getRow(i));
+        }
+        trainingSet = tmp;
+
+        trainingValues = trainingValues.slice(0, this.numberSamples);
+      }
     }
 
     let Estimator;
@@ -118,6 +161,9 @@ export class RandomForestBase {
       currentSeed = res.seed;
       let { Xoob, ioob } = res;
 
+      // Other implementations of random forests apply feature bagging at every split during tree generation.
+      // So I think it would be better to implement it at the CART level, not here.
+
       res = Utils.featureBagging(X, this.n, this.replacement, currentSeed);
       X = res.X;
       currentSeed = res.seed;
@@ -141,6 +187,64 @@ export class RandomForestBase {
         this.selection.bind(this),
       );
     }
+  }
+
+  /**
+   * Evaluate the feature importances for each tree in the ensemble
+   * @return {Array} feature importances
+   */
+  featureImportance() {
+    const trees = JSON.parse(JSON.stringify(this.estimators));
+    const indexes = JSON.parse(JSON.stringify(this.indexes));
+    let importance = [];
+
+    function computeFeatureImportances(i, node) {
+      // node.gain can be null or undefined
+      if (!node || !('splitColumn' in node) || !(node.gain > 0)) return;
+      let f = node.gain * node.numberSamples;
+      if ('left' in node) {
+        f -= (node.left.gain || 0) * (node.left.numberSamples || 0);
+      }
+      if ('right' in node) {
+        f -= (node.right.gain || 0) * (node.right.numberSamples || 0);
+      }
+      importance[i][node.splitColumn] += f;
+      if (node.left) {
+        computeFeatureImportances(i, node.left);
+      }
+      if (node.right) {
+        computeFeatureImportances(i, node.right);
+      }
+    }
+
+    function normalizeImportances(i) {
+      const s = importance[i].reduce((cum, v) => {
+        return (cum += v);
+      }, 0);
+      importance[i] = importance[i].map((v) => {
+        return v / s;
+      });
+    }
+
+    for (let i = 0; i < trees.length; i++) {
+      importance.push(new Array(this.numberFeatures).fill(0.0));
+      computeFeatureImportances(i, trees[i].root);
+      normalizeImportances(i);
+    }
+
+    let avgImportance = new Array(this.numberFeatures).fill(0.0);
+    for (let i = 0; i < importance.length; i++) {
+      for (let x = 0; x < this.numberFeatures; x++) {
+        avgImportance[indexes[i][x]] += importance[i][x];
+      }
+    }
+
+    const s = avgImportance.reduce((cum, v) => {
+      return (cum += v);
+    }, 0);
+    return avgImportance.map((v) => {
+      return v / s;
+    });
   }
 
   /**
@@ -180,10 +284,9 @@ export class RandomForestBase {
     let predictionValues = new Array(this.nEstimators);
     toPredict = Matrix.checkMatrix(toPredict);
     for (let i = 0; i < this.nEstimators; ++i) {
-      let X = new MatrixColumnSelectionView(toPredict, this.indexes[i]); // get features for estimator
+      let X = new MatrixColumnSelectionView(toPredict, this.indexes[i]);
       predictionValues[i] = this.estimators[i].predict(X);
     }
-
     return (predictionValues = new MatrixTransposeView(
       new WrapperMatrix2D(predictionValues),
     ));

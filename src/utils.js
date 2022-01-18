@@ -1,8 +1,12 @@
-import Matrix from 'ml-matrix';
+import { Matrix } from 'ml-matrix';
 import * as Random from 'random-js';
 
 export function checkFloat(n) {
   return n > 0.0 && n <= 1.0;
+}
+
+export function isFloat(n) {
+  return Number(n) === n && n % 1 !== 0;
 }
 
 /**

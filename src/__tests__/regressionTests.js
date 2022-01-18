@@ -45,7 +45,7 @@ let options = {
   maxFeatures: 2,
   replacement: false,
   nEstimators: 200,
-  treeOptions: undefined, // default options for the decision tree
+  treeOptions: undefined,
   useSampleBagging: true,
 };
 
@@ -54,7 +54,6 @@ regression.train(trainingSet, predictions);
 let result = regression.predict(trainingSet);
 
 /**
- * test dataset found here:
  * link: http://college.cengage.com/mathematics/brase/understandable_statistics/7e/students/datasets/mlr/frames/frame.html
  * Name: Test Scores for General Psychology
  */
@@ -65,6 +64,7 @@ describe('Random Forest Regression', () => {
     }, 0);
 
     let score = correct / result.length;
+
     expect(score).toBeGreaterThanOrEqual(0.7);
   });
 

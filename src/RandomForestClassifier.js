@@ -28,6 +28,7 @@ export class RandomForestClassifier extends RandomForestBase {
    * @param {number} [options.nEstimators=50] - number of estimator to use.
    * @param {object} [options.treeOptions={}] - options for the tree classifier, see [ml-cart]{@link https://mljs.github.io/decision-tree-cart/}
    * @param {boolean} [options.useSampleBagging=true] - use bagging over training samples.
+   * @param {number} [options.maxSamples=null] - if null, then draw X.shape[0] samples. If int, then draw maxSamples samples. If float, then draw maxSamples * X.shape[0] samples. Thus, maxSamples should be in the interval (0.0, 1.0].
    * @param {object} model - for load purposes.
    */
   constructor(options, model) {

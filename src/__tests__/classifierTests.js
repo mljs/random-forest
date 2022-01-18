@@ -1,48 +1,174 @@
-import IrisDataset from 'ml-dataset-iris';
-import Matrix from 'ml-matrix';
+import { getClasses, getDistinctClasses, getNumbers } from 'ml-dataset-iris';
+import { Matrix } from 'ml-matrix';
 
 import { RandomForestClassifier as RFClassifier } from '..';
 
-describe('Random Forest Classifier', function () {
-  let trainingSet = IrisDataset.getNumbers();
-  let predictions = IrisDataset.getClasses().map((elem) =>
-    IrisDataset.getDistinctClasses().indexOf(elem),
+describe('Random Forest Classifier', () => {
+  let trainingSet = getNumbers();
+  let predictions = getClasses().map((elem) =>
+    getDistinctClasses().indexOf(elem),
   );
 
-  let options = {
+  let options130Max = {
     seed: 3,
     maxFeatures: 0.8,
     replacement: true,
     nEstimators: 25,
-    treeOptions: undefined, // default options for the decision tree
+    treeOptions: undefined,
     useSampleBagging: true,
+    maxSamples: 130,
   };
 
-  let classifier = new RFClassifier(options);
-  classifier.train(trainingSet, predictions);
-  let result = classifier.predict(trainingSet);
+  let classifier130Max = new RFClassifier(options130Max);
+  classifier130Max.train(trainingSet, predictions);
+  let result130Max = classifier130Max.predict(trainingSet);
 
-  it('Random Forest Classifier with iris dataset', function () {
-    const correct = result.reduce((previous, result, index) => {
+  it('Random Forest Classifier with iris dataset and 130 maximum samples', () => {
+    const correct = result130Max.reduce((previous, result, index) => {
       return result === predictions[index] ? previous + 1 : previous;
     }, 0);
 
-    let score = correct / result.length;
-    expect(score).toBeGreaterThanOrEqual(0.7); // above or equal
+    let score = correct / result130Max.length;
+    expect(score).toBeGreaterThanOrEqual(0.7);
+  });
+
+  let options200Max = {
+    seed: 3,
+    maxFeatures: 0.8,
+    replacement: true,
+    nEstimators: 25,
+    treeOptions: undefined,
+    useSampleBagging: true,
+    maxSamples: 200,
+  };
+
+  it('Should throw error: maxSamples bigger than 150', () => {
+    const t = () => {
+      let classifier200Max = new RFClassifier(options200Max);
+      classifier200Max.train(trainingSet, predictions);
+    };
+    expect(t).toThrow(RangeError);
+  });
+
+  let optionsMaxFraction = {
+    seed: 3,
+    maxFeatures: 0.8,
+    replacement: true,
+    nEstimators: 25,
+    treeOptions: undefined,
+    useSampleBagging: true,
+    maxSamples: 0.9,
+  };
+
+  let classifierMaxFraction = new RFClassifier(optionsMaxFraction);
+  classifierMaxFraction.train(trainingSet, predictions);
+  let resultMaxFraction = classifierMaxFraction.predict(trainingSet);
+
+  it('Random Forest Classifier with iris dataset and 0.9 fraction of total dataset for maximum samples', () => {
+    const correct = resultMaxFraction.reduce((previous, result, index) => {
+      return result === predictions[index] ? previous + 1 : previous;
+    }, 0);
+
+    let score = correct / resultMaxFraction.length;
+    expect(score).toBeGreaterThanOrEqual(0.7);
+  });
+
+  let optionsMaxFractionError = {
+    seed: 3,
+    maxFeatures: 0.8,
+    replacement: true,
+    nEstimators: 25,
+    treeOptions: undefined,
+    useSampleBagging: true,
+    maxSamples: 1.8,
+  };
+
+  it('Should throw error: if maxSamples is a float, it should be between 0 and 1.0', () => {
+    const t = () => {
+      let classifierMaxFractionError = new RFClassifier(
+        optionsMaxFractionError,
+      );
+      classifierMaxFractionError.train(trainingSet, predictions);
+    };
+    expect(t).toThrow(RangeError);
+  });
+
+  let optionsMaxNegativeError = {
+    seed: 3,
+    maxFeatures: 0.8,
+    replacement: true,
+    nEstimators: 25,
+    treeOptions: undefined,
+    useSampleBagging: true,
+    maxSamples: -2,
+  };
+
+  it('Should throw error: maxSamples should be positive', () => {
+    const t = () => {
+      let classifierMaxNegativeError = new RFClassifier(
+        optionsMaxNegativeError,
+      );
+      classifierMaxNegativeError.train(trainingSet, predictions);
+    };
+    expect(t).toThrow(RangeError);
+  });
+
+  let optionsMaxFeatureError = {
+    seed: 3,
+    maxFeatures: 1.5,
+    replacement: true,
+    nEstimators: 25,
+    treeOptions: undefined,
+    useSampleBagging: true,
+  };
+
+  it('Should throw error: maxFeatures should be an integer or a float between 0 and 1.0', () => {
+    const t = () => {
+      let classifierMaxFeatureError = new RFClassifier(optionsMaxFeatureError);
+      classifierMaxFeatureError.train(trainingSet, predictions);
+    };
+    expect(t).toThrow(RangeError);
+  });
+
+  let optionsMaxFeatureColumnError = {
+    seed: 3,
+    maxFeatures: 200,
+    replacement: true,
+    nEstimators: 25,
+    treeOptions: undefined,
+    useSampleBagging: true,
+  };
+
+  it('Should throw error: maxFeatures should be smaller than the number of columns of the training set', () => {
+    const t = () => {
+      let classifierMaxFeatureColumnError = new RFClassifier(
+        optionsMaxFeatureColumnError,
+      );
+      classifierMaxFeatureColumnError.train(trainingSet, predictions);
+    };
+    expect(t).toThrow(RangeError);
+  });
+
+  it('Feature importances should sum to 1', () => {
+    let featureImportances = classifierMaxFraction.featureImportance();
+    let sum = featureImportances.reduce((a, b) => {
+      return a + b;
+    }, 0);
+    expect(sum).toBeGreaterThanOrEqual(1);
   });
 
   it('Export and import for random forest classifier', () => {
-    let model = JSON.parse(JSON.stringify(classifier));
+    let model = JSON.parse(JSON.stringify(classifier130Max));
 
     let newClassifier = RFClassifier.load(model);
     let newResult = newClassifier.predict(trainingSet);
 
-    for (let i = 0; i < result.length; ++i) {
-      expect(newResult[i]).toBe(result[i]);
+    for (let i = 0; i < result130Max.length; ++i) {
+      expect(newResult[i]).toBe(result130Max[i]);
     }
   });
 
-  it('Test with a 2 features dataset', function () {
+  it('Test with a 2 features dataset', () => {
     let X = new Matrix([
       [1, 1],
       [1, 0],
@@ -63,7 +189,6 @@ describe('Random Forest Classifier', function () {
     ]);
     let Y = [1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0];
 
-    // the test set (Xtest, Ytest)
     let Xtest = new Matrix([
       [1, 1],
       [1, 0],
@@ -76,18 +201,16 @@ describe('Random Forest Classifier', function () {
     ]);
     let Ytest = [1, 1, 1, 0, 1, 1, 1, 0];
 
-    // we will train our model
     let rf = new RFClassifier({ nEstimators: 50 });
     rf.train(X, Y);
 
-    // we try to predict the test set
     let finalResults = rf.predict(Xtest);
     for (let i = 0; i < Ytest.rows; ++i) {
       expect(finalResults[i]).toBe(Ytest[i][0]);
     }
   });
 
-  it('Test with full features dataset', function () {
+  it('Test with full features dataset', () => {
     let X = new Matrix([
       [0, -1],
       [1, 0],
@@ -114,7 +237,6 @@ describe('Random Forest Classifier', function () {
     ]);
     let Y = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2];
 
-    // the test set (Xtest, Ytest)
     let Xtest = new Matrix([
       [0, -2],
       [1, 0.5],
@@ -128,21 +250,20 @@ describe('Random Forest Classifier', function () {
     ]);
     let Ytest = [0, 0, 0, 1, 1, 1, 2, 2, 2];
 
-    // we will train our model
     let rf = new RFClassifier({ nEstimators: 50 });
     rf.train(X, Y);
 
-    // we try to predict the test set
     let finalResults = rf.predict(Xtest);
     for (let i = 0; i < Ytest.rows; ++i) {
       expect(finalResults[i]).toBe(Ytest[i][0]);
     }
   });
-  it('Random Forest Classifier with iris dataset - probability', function () {
+
+  it('Random Forest Classifier with iris dataset - probability', () => {
     let opts = {
       seed: 17,
       nEstimators: 100,
-      treeOptions: undefined, // default options for the decision tree
+      treeOptions: undefined,
       useSampleBagging: true,
     };
     let classifierProb = new RFClassifier(opts);
@@ -159,13 +280,13 @@ describe('Random Forest Classifier', function () {
       probabilities.reduce((p, v) => Math.min(p, v), 1),
     ).toBeGreaterThanOrEqual(0.7);
   });
-  //expect(score).toBeGreaterThanOrEqual(0.7); // above or equal
+
   it('Test Out-Of-Bag estimates', () => {
     let opts = {
       seed: 17,
       replacement: false,
       nEstimators: 100,
-      treeOptions: { minNumSamples: 1 }, // default options for the decision tree
+      treeOptions: { minNumSamples: 1 },
       useSampleBagging: true,
     };
 
