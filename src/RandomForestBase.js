@@ -94,7 +94,7 @@ export class RandomForestBase {
       if (this.maxSamples < 0) {
         throw new RangeError(`Please choose a positive value for maxSamples`);
       } else {
-        if (Utils.checkFloat(this.maxSamples)) {
+        if (Utils.isFloat(this.maxSamples)) {
           if (this.maxSamples > 1.0) {
             throw new RangeError(
               'Please choose either a float value between 0 and 1 or a positive integer for maxSamples',
@@ -115,17 +115,17 @@ export class RandomForestBase {
     }
 
     if (this.maxSamples) {
-      if (trainingSet.rows !== this.maxSamples) {
-        let tmp = new Matrix(this.maxSamples, trainingSet.columns);
-        for (let j = 0; j < this.maxSamples; j++) {
+      if (trainingSet.rows !== this.numberSamples) {
+        let tmp = new Matrix(this.numberSamples, trainingSet.columns);
+        for (let j = 0; j < this.numberSamples; j++) {
           tmp.removeRow(0);
         }
-        for (let i = 0; i < this.maxSamples; i++) {
+        for (let i = 0; i < this.numberSamples; i++) {
           tmp.addRow(trainingSet.getRow(i));
         }
         trainingSet = tmp;
 
-        trainingValues = trainingValues.slice(0, this.maxSamples);
+        trainingValues = trainingValues.slice(0, this.numberSamples);
       }
     }
 

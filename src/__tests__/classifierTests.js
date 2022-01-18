@@ -9,36 +9,162 @@ describe('Random Forest Classifier', () => {
     getDistinctClasses().indexOf(elem),
   );
 
-  let options = {
+  let options130Max = {
     seed: 3,
     maxFeatures: 0.8,
     replacement: true,
     nEstimators: 25,
     treeOptions: undefined,
     useSampleBagging: true,
+    maxSamples: 130,
   };
 
-  let classifier = new RFClassifier(options);
-  classifier.train(trainingSet, predictions);
-  let result = classifier.predict(trainingSet);
+  let classifier130Max = new RFClassifier(options130Max);
+  classifier130Max.train(trainingSet, predictions);
+  let result130Max = classifier130Max.predict(trainingSet);
 
-  it('Random Forest Classifier with iris dataset', () => {
-    const correct = result.reduce((previous, result, index) => {
+  it('Random Forest Classifier with iris dataset and 130 maximum samples', () => {
+    const correct = result130Max.reduce((previous, result, index) => {
       return result === predictions[index] ? previous + 1 : previous;
     }, 0);
 
-    let score = correct / result.length;
+    let score = correct / result130Max.length;
     expect(score).toBeGreaterThanOrEqual(0.7);
   });
 
+  let options200Max = {
+    seed: 3,
+    maxFeatures: 0.8,
+    replacement: true,
+    nEstimators: 25,
+    treeOptions: undefined,
+    useSampleBagging: true,
+    maxSamples: 200,
+  };
+
+  it('Should throw error: maxSamples bigger than 150', () => {
+    const t = () => {
+      let classifier200Max = new RFClassifier(options200Max);
+      classifier200Max.train(trainingSet, predictions);
+    };
+    expect(t).toThrow(RangeError);
+  });
+
+  let optionsMaxFraction = {
+    seed: 3,
+    maxFeatures: 0.8,
+    replacement: true,
+    nEstimators: 25,
+    treeOptions: undefined,
+    useSampleBagging: true,
+    maxSamples: 0.9,
+  };
+
+  let classifierMaxFraction = new RFClassifier(optionsMaxFraction);
+  classifierMaxFraction.train(trainingSet, predictions);
+  let resultMaxFraction = classifierMaxFraction.predict(trainingSet);
+
+  it('Random Forest Classifier with iris dataset and 0.9 fraction of total dataset for maximum samples', () => {
+    const correct = resultMaxFraction.reduce((previous, result, index) => {
+      return result === predictions[index] ? previous + 1 : previous;
+    }, 0);
+
+    let score = correct / resultMaxFraction.length;
+    expect(score).toBeGreaterThanOrEqual(0.7);
+  });
+
+  let optionsMaxFractionError = {
+    seed: 3,
+    maxFeatures: 0.8,
+    replacement: true,
+    nEstimators: 25,
+    treeOptions: undefined,
+    useSampleBagging: true,
+    maxSamples: 1.8,
+  };
+
+  it('Should throw error: if maxSamples is a float, it should be between 0 and 1.0', () => {
+    const t = () => {
+      let classifierMaxFractionError = new RFClassifier(
+        optionsMaxFractionError,
+      );
+      classifierMaxFractionError.train(trainingSet, predictions);
+    };
+    expect(t).toThrow(RangeError);
+  });
+
+  let optionsMaxNegativeError = {
+    seed: 3,
+    maxFeatures: 0.8,
+    replacement: true,
+    nEstimators: 25,
+    treeOptions: undefined,
+    useSampleBagging: true,
+    maxSamples: -2,
+  };
+
+  it('Should throw error: maxSamples should be positive', () => {
+    const t = () => {
+      let classifierMaxNegativeError = new RFClassifier(
+        optionsMaxNegativeError,
+      );
+      classifierMaxNegativeError.train(trainingSet, predictions);
+    };
+    expect(t).toThrow(RangeError);
+  });
+
+  let optionsMaxFeatureError = {
+    seed: 3,
+    maxFeatures: 1.5,
+    replacement: true,
+    nEstimators: 25,
+    treeOptions: undefined,
+    useSampleBagging: true,
+  };
+
+  it('Should throw error: maxFeatures should be an integer or a float between 0 and 1.0', () => {
+    const t = () => {
+      let classifierMaxFeatureError = new RFClassifier(optionsMaxFeatureError);
+      classifierMaxFeatureError.train(trainingSet, predictions);
+    };
+    expect(t).toThrow(RangeError);
+  });
+
+  let optionsMaxFeatureColumnError = {
+    seed: 3,
+    maxFeatures: 200,
+    replacement: true,
+    nEstimators: 25,
+    treeOptions: undefined,
+    useSampleBagging: true,
+  };
+
+  it('Should throw error: maxFeatures should be smaller than the number of columns of the training set', () => {
+    const t = () => {
+      let classifierMaxFeatureColumnError = new RFClassifier(
+        optionsMaxFeatureColumnError,
+      );
+      classifierMaxFeatureColumnError.train(trainingSet, predictions);
+    };
+    expect(t).toThrow(RangeError);
+  });
+
+  it('Feature importances should sum to 1', () => {
+    let featureImportances = classifierMaxFraction.featureImportance();
+    let sum = featureImportances.reduce((a, b) => {
+      return a + b;
+    }, 0);
+    expect(sum).toBeGreaterThanOrEqual(1);
+  });
+
   it('Export and import for random forest classifier', () => {
-    let model = JSON.parse(JSON.stringify(classifier));
+    let model = JSON.parse(JSON.stringify(classifier130Max));
 
     let newClassifier = RFClassifier.load(model);
     let newResult = newClassifier.predict(trainingSet);
 
-    for (let i = 0; i < result.length; ++i) {
-      expect(newResult[i]).toBe(result[i]);
+    for (let i = 0; i < result130Max.length; ++i) {
+      expect(newResult[i]).toBe(result130Max[i]);
     }
   });
 

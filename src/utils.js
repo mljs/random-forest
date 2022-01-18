@@ -5,6 +5,10 @@ export function checkFloat(n) {
   return n > 0.0 && n <= 1.0;
 }
 
+export function isFloat(n) {
+  return Number(n) === n && n % 1 !== 0;
+}
+
 /**
  * Select n with replacement elements on the training set and values, where n is the size of the training set.
  * @ignore
