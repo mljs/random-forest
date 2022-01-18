@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.0.3](https://www.github.com/mljs/random-forest/compare/v2.0.2...v2.0.3) (2022-01-18)
+
+
+### Bug Fixes
+
+* issues 9, 15, 17, 28, 32\ncloeses [#9](https://www.github.com/mljs/random-forest/issues/9) [#15](https://www.github.com/mljs/random-forest/issues/15) [#17](https://www.github.com/mljs/random-forest/issues/17) [#28](https://www.github.com/mljs/random-forest/issues/28) [#32](https://www.github.com/mljs/random-forest/issues/32) ([7fe6925](https://www.github.com/mljs/random-forest/commit/7fe69253deefc77f9f6030bcf376a0ca70a56206))
+
 ### [2.0.2](https://github.com/mljs/random-forest/compare/v2.0.1...v2.0.2) (2020-10-18)
 
 
@@ -64,6 +71,3 @@
 * use columnSelectionView for retrieving features (40 times faster) ([6a3d5f4](https://github.com/mljs/random forest/commit/6a3d5f4))
 * use MatrixTransposeView for Utils.retrieveFeatures (2 times faster) ([d0aaeab](https://github.com/mljs/random forest/commit/d0aaeab))
 * using transpose view for predictions (500 times faster) ([5401c3a](https://github.com/mljs/random forest/commit/5401c3a))
-
-
-
