@@ -172,6 +172,6 @@ declare module 'ml-random-forest' {
          */
         selection(values: number[]): number;
     }
-    export { RandomForestClassifier, RandomForestRegression }
+    export { RandomForestClassifier, RandomForestRegression, RandomForestBaseOptions }
 }
 
