@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://www.github.com/mljs/random-forest/compare/v2.0.3...v2.1.0) (2022-01-27)
+
+
+### Features
+
+* export RandomForestBaseOptions type ([#41](https://www.github.com/mljs/random-forest/issues/41)) ([c7c1f55](https://www.github.com/mljs/random-forest/commit/c7c1f55bced9bb6a62941fdff1dd0a605cc2f4dd))
+
 ### [2.0.3](https://www.github.com/mljs/random-forest/compare/v2.0.2...v2.0.3) (2022-01-18)
 
 
